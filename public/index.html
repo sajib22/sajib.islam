@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SEO & SOCIAL. Edit the title and description if your positioning changes.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<title>Sajib Islam — RF Engineer, Toronto</title>
+<meta name="description" content="Sajib Islam is an RF engineer in Toronto who designs, commissions and optimizes in-building 5G and LTE systems — DAS, IBS and Private 5G — with fifteen years of RAN planning and optimization across Nokia, Ericsson and Huawei networks.">
+<link rel="canonical" href="https://sajibislam.com/">
+
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Sajib Islam">
+<meta property="og:title" content="Sajib Islam — RF Engineer, Toronto">
+<meta property="og:description" content="In-building 5G and LTE: DAS, IBS and Private 5G design, commissioning and optimization. Fifteen years of RAN planning across Nokia, Ericsson and Huawei.">
+<meta property="og:url" content="https://sajibislam.com/">
+<!-- Social cards must be PNG or JPEG. X and Facebook will not render an SVG. -->
+<meta property="og:image" content="https://sajibislam.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sajib Islam — RF and DAS engineer, Toronto.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sajib Islam — RF Engineer, Toronto">
+<meta name="twitter:description" content="In-building 5G and LTE: DAS, IBS and Private 5G design, commissioning and optimization. Fifteen years of RAN planning across Nokia, Ericsson and Huawei.">
+<meta name="twitter:image" content="https://sajibislam.com/og.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F1F4F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1315" media="(prefers-color-scheme: dark)">
+
+<link rel="stylesheet" href="/styles.css">
+
+<!-- Applies the saved theme before the page paints, so there is no flash of
+     the wrong colours. Must stay inline and must stay in the <head>. -->
+<script>
+  try {
+    var t = localStorage.getItem("theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+
+<!-- Structured data. Google reads this to build the knowledge panel.
+     Keep it in sync with the visible page. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Sajib Islam",
+  "honorificSuffix": "EIT",
+  "url": "https://sajibislam.com/",
+  "jobTitle": "RF Engineer",
+  "worksFor": { "@type": "Organization", "name": "Genwave Technologies" },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Toronto",
+    "addressRegion": "ON",
+    "addressCountry": "CA"
+  },
+  "email": "mailto:contact@sajibislam.com",
+  "knowsAbout": [
+    "Distributed Antenna Systems",
+    "In-Building Solutions",
+    "Private 5G",
+    "RF planning and design",
+    "5G NR and LTE RAN optimization",
+    "Link budget analysis",
+    "Machine learning"
+  ],
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "Toronto Metropolitan University" },
+    { "@type": "CollegeOrUniversity", "name": "Bangladesh University of Engineering and Technology" }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/sajibislam/",
+    "https://www.linkedin.com/in/md-sajibull-islam/"
+  ]
+}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#about">Skip to content</a>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     TITLE BLOCK. Sticky rail on wide screens, plain header on phones.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<header class="rail">
+  <p class="rail__name"><a href="#top">Sajib Islam</a></p>
+  <p class="rail__disc">RF Engineer &middot; EIT</p>
+  <p class="rail__loc">Toronto, ON</p>
+
+  <nav class="rail__nav" aria-label="Sections">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <button class="toggle" type="button" id="theme-toggle" aria-label="Switch to dark theme">
+    <span class="toggle__dot" aria-hidden="true"></span>
+    <span class="toggle__label">Dark</span>
+  </button>
+</header>
+
+<main class="sheet" id="top">
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       HERO — edit this copy directly.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section class="hero" aria-labelledby="hero-h">
+    <p class="eyebrow">Toronto, ON &middot; Genwave Technologies</p>
+    <h1 id="hero-h">Sajib Islam</h1>
+    <p class="hero__lede">I design, commission and optimize in-building 5G and LTE systems for large venues across Canada, backed by fifteen years of RAN planning and optimization across Nokia, Ericsson and Huawei networks.</p>
+    <p class="hero__contact">
+      <a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a>
+    </p>
+
+    <!-- ── Signature graphic: a downlink power budget for one DAS antenna. ──
+         The SVG is hidden on narrow screens; the table below it carries the
+         same numbers and is what screen readers read. -->
+    <figure class="budget">
+      <svg class="budget__chart" viewBox="0 0 640 190" aria-hidden="true" focusable="false">
+        <g class="budget__grid">
+          <line x1="30" y1="20"  x2="610" y2="20"></line>
+          <line x1="30" y1="70"  x2="610" y2="70"></line>
+          <line x1="30" y1="120" x2="610" y2="120"></line>
+        </g>
+        <polyline class="budget__trace"
+                  points="30,20 172,56 315,84 457,120 600,93"></polyline>
+        <g class="budget__node">
+          <circle cx="30"  cy="20"  r="4"></circle>
+          <circle cx="172" cy="56"  r="4"></circle>
+          <circle cx="315" cy="84"  r="4"></circle>
+          <circle cx="457" cy="120" r="4"></circle>
+          <circle cx="600" cy="93"  r="4"></circle>
+        </g>
+        <g class="budget__level">
+          <text x="30"  y="10">+27</text>
+          <text x="172" y="46">+23</text>
+          <text x="315" y="74">+20</text>
+          <text x="457" y="110">+16</text>
+          <text x="600" y="83">+19</text>
+        </g>
+        <g class="budget__delta">
+          <text x="101" y="150">&minus;4 dB</text>
+          <text x="243" y="150">&minus;3 dB</text>
+          <text x="386" y="150">&minus;4 dB</text>
+          <text x="528" y="150">+3 dBi</text>
+        </g>
+        <g class="budget__part">
+          <text x="30"  y="176">BDA</text>
+          <text x="172" y="176">COAX</text>
+          <text x="315" y="176">SPLITTER</text>
+          <text x="457" y="176">TAP</text>
+          <text x="600" y="176">ANTENNA</text>
+        </g>
+      </svg>
+
+      <figcaption class="budget__cap">Downlink power budget, one DAS antenna &mdash; dBm at each stage</figcaption>
+
+      <table class="budget__table">
+        <caption>Downlink power budget for a single DAS antenna</caption>
+        <thead>
+          <tr><th scope="col">Stage</th><th scope="col">Change</th><th scope="col">Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">BDA output</th><td>&mdash;</td><td>+27 dBm</td></tr>
+          <tr><th scope="row">Coax run</th><td>&minus;4 dB</td><td>+23 dBm</td></tr>
+          <tr><th scope="row">Splitter</th><td>&minus;3 dB</td><td>+20 dBm</td></tr>
+          <tr><th scope="row">Tap and coax</th><td>&minus;4 dB</td><td>+16 dBm</td></tr>
+          <tr><th scope="row">Antenna</th><td>+3 dBi</td><td>+19 dBm EIRP</td></tr>
+        </tbody>
+      </table>
+    </figure>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ABOUT — edit these paragraphs directly. First person, plain language.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="about" aria-labelledby="about-h">
+    <h2 id="about-h"><span class="mark">About</span></h2>
+    <div class="prose">
+      <p>I&rsquo;m an RF engineer at Genwave Technologies in Toronto, and my work is almost entirely
+      in-building: distributed antenna systems, Private 5G and Cisco URWB networks for large venues.
+      That means the design package and link budget up front, then commissioning, CW and PIM testing,
+      walk testing, and the optimization that moves a system from installed to actually meeting its
+      engineered targets.</p>
+
+      <p>Before Canada I spent fifteen years on the macro side. Five of them were at Nokia, leading
+      LTE and 5G optimization and doing the multi-vendor KPI and counter mapping that proves a network
+      still behaves the same after a swap. Before that I planned and optimized 4G and 3G for MTN
+      Irancell in Tehran, and started out at Grameenphone, Ericsson and Huawei in Dhaka, where I
+      designed more than a hundred in-building systems and ran a 250-site IBS vendor swap. That
+      background is why I tend to read an in-building problem as a network problem first and a
+      cabling problem second.</p>
+
+      <p>The other half of my work is making the analysis faster. I write Python that turns raw
+      measurement data into finished reports, and Power BI models that turn counter dumps into a
+      ranked list of things to fix. I&rsquo;m currently doing a Master of Engineering at Toronto
+      Metropolitan University with a field of study in artificial intelligence, mostly to push that
+      further.</p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       The sections below are built from content/content.js. Edit that file,
+       not this one.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="experience" aria-labelledby="experience-h">
+    <h2 id="experience-h"><span class="mark">Experience</span></h2>
+    <div data-render="experience"></div>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-h">
+    <h2 id="skills-h"><span class="mark">Technical skills</span></h2>
+    <div data-render="skills"></div>
+  </section>
+
+  <section id="projects" aria-labelledby="projects-h">
+    <h2 id="projects-h"><span class="mark">Projects</span></h2>
+    <div data-render="projects"></div>
+  </section>
+
+  <section id="education" aria-labelledby="education-h">
+    <h2 id="education-h"><span class="mark">Education &amp; certifications</span></h2>
+    <div data-render="education"></div>
+    <div data-render="certifications"></div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       CONTACT — edit these links directly. The GitHub row below is switched
+       off until you supply a username; the comment above it says how.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h"><span class="mark">Contact</span></h2>
+    <ul class="contact">
+      <li>
+        <span class="contact__k">Email</span>
+        <a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a>
+      </li>
+      <li>
+        <span class="contact__k">LinkedIn</span>
+        <a class="link" href="https://www.linkedin.com/in/sajibislam/" rel="me noopener">linkedin.com/in/sajibislam</a>
+      </li>
+      <li>
+        <span class="contact__k">Analytics</span>
+        <a class="link" href="https://www.linkedin.com/in/md-sajibull-islam/" rel="me noopener">linkedin.com/in/md-sajibull-islam</a>
+      </li>
+
+      <!-- GITHUB ROW IS SWITCHED OFF because I don't have your username yet.
+           To switch it on: delete this comment line, delete the closing comment
+           line below the GitHub block, then replace both YOURNAME with your
+           GitHub username.
+      <li>
+        <span class="contact__k">GitHub</span>
+        <a class="link" href="https://github.com/YOURNAME" rel="me noopener">github.com/YOURNAME</a>
+      </li>
+      -->
+    </ul>
+  </section>
+
+  <noscript>
+    <p class="noscript">Some sections of this page are built with JavaScript and are not
+    showing. You can still reach me at
+    <a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a>.</p>
+  </noscript>
+
+  <footer class="foot">
+    <p>Sajib Islam &mdash; Toronto, ON</p>
+    <p><a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a></p>
+  </footer>
+
+</main>
+
+<script src="/content/content.js"></script>
+<script src="/main.js"></script>
+</body>
+</html>

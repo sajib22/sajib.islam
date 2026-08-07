@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Sajib Islam">
+  <title>Sajib Islam</title>
+  <rect width="32" height="32" rx="6" fill="#0E1315"/>
+  <path d="M7 10 H13 V16 H19 V22 H25"
+        fill="none" stroke="#5CC7D8" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
