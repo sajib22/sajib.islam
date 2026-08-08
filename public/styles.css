@@ -438,6 +438,14 @@ h1 {
   height: 100%;
   object-fit: contain;
 }
+
+/* Logo tiles keep a white ground in both themes. Brand marks are drawn for
+   light backgrounds — Huawei's wordmark is black, Nokia's is blue — so
+   letting the dark theme show through would make several of them vanish. */
+.has-logo {
+  background: #FFFFFF;
+  padding: 3px 4px;
+}
 .logo-text {
   font-family: var(--font-mono);
   font-size: 0.5625rem;

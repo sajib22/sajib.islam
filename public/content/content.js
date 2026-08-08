@@ -88,7 +88,7 @@ window.SITE = {
       dates: "Sep 2007 — Oct 2011",
       from: "2007-09",
       to: "2011-10",
-      // logo: "/img/logos/grameenphone.svg",
+      logo: "/img/logos/grameenphone.webp",
     },
     // ── TO HERE ──
 
@@ -99,7 +99,7 @@ window.SITE = {
       dates: "Oct 2011 — Nov 2013",
       from: "2011-10",
       to: "2013-11",
-      // logo: "/img/logos/ericsson.svg",
+      logo: "/img/logos/ericsson.webp",
     },
 
     {
@@ -109,7 +109,7 @@ window.SITE = {
       dates: "Nov 2013 — Dec 2014",
       from: "2013-11",
       to: "2014-12",
-      // logo: "/img/logos/huawei.svg",
+      logo: "/img/logos/huawei.webp",
     },
 
     {
@@ -119,7 +119,7 @@ window.SITE = {
       dates: "Dec 2014 — Jun 2018",
       from: "2014-12",
       to: "2018-06",
-      // logo: "/img/logos/flipnet.svg",
+      logo: "/img/logos/flipnet.webp",
     },
 
     {
@@ -129,7 +129,7 @@ window.SITE = {
       dates: "Feb 2019 — Jan 2024",
       from: "2019-02",
       to: "2024-01",
-      // logo: "/img/logos/nokia.svg",
+      logo: "/img/logos/nokia.webp",
     },
 
     {
@@ -140,7 +140,7 @@ window.SITE = {
       from: "2025-05",
       to: "present",
       current: true,
-      // logo: "/img/logos/genwave.svg",
+      logo: "/img/logos/genwave.webp",
     },
 
   ],
