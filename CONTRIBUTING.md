@@ -15,9 +15,11 @@ browser) and the Claude app. You never need a laptop or a terminal for anything 
 | `/projects/` | `public/projects/index.html` | Every project with the long write-up |
 | `/about/` | `public/about/index.html` | The long story, education, certifications, recognition |
 
-**⚠ The navigation and footer are copied into all four files.** There is no build step, so
+Plus `public/404.html`, which shows the same header and footer so a wrong URL isn't a dead end.
+
+**⚠ The navigation and footer are copied into all five files.** There is no build step, so
 nothing can share them automatically. If you add a page or rename a nav link, you must make
-the same edit in all four. Search each file for `TITLE BLOCK` — the comment there says the
+the same edit in all five. Search each file for `TITLE BLOCK` — the comment there says the
 same thing.
 
 ---

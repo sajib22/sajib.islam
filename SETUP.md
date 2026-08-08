@@ -232,8 +232,10 @@ If you want it:
 1. In Cloudflare, go to **Analytics & Logs** → **Web Analytics**.
 2. Click **Add a site**, enter `sajibislam.com`, and choose **Manual setup**.
 3. Copy the `<script>` snippet it gives you.
-4. Ask Claude to add it to `public/index.html` immediately before the closing `</body>` tag.
-   Do not paste it anywhere else — putting it in `<head>` will slow the first paint.
+4. Ask Claude to add it immediately before the closing `</body>` tag **of every page file** —
+   `index.html`, `experience/index.html`, `projects/index.html`, `about/index.html`. Put it in
+   only one and you will only ever see traffic for that one page. Do not paste it into
+   `<head>` — that slows the first paint.
 
 To remove it later, delete that one `<script>` line. Nothing else depends on it.
 

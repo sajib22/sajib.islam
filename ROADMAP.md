@@ -58,7 +58,9 @@ plus about forty lines of vanilla JS.
 
 **Notes for whoever builds it:**
 - Reuse `public/styles.css` — the design tokens are already there. Don't start a new stylesheet.
-- Add a nav entry in the `.rail__nav` list in `index.html`.
+- Add a nav entry to the `.rail__nav` list. **That list is duplicated in every page file** —
+  `index.html`, `experience/index.html`, `projects/index.html`, `about/index.html` and
+  `404.html`. Miss one and the site gets a page you can't navigate back from.
 - Add each new page to `public/sitemap.xml`.
 - These are genuinely useful to other RF engineers and are the most likely thing on this list
   to bring traffic. Worth doing before the contact form.
