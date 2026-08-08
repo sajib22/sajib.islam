@@ -10,8 +10,8 @@ browser) and the Claude app. You never need a laptop or a terminal for anything 
 
 | Page | File | What's on it |
 |---|---|---|
-| `/` | `public/index.html` | Hero, what I do, career chart, three featured projects, contact |
-| `/experience/` | `public/experience/index.html` | Career chart, DAS diagram, all roles, delivery process, skills |
+| `/` | `public/index.html` | Hero, career timeline, what I do, three featured projects, contact |
+| `/experience/` | `public/experience/index.html` | Column chart, DAS diagram, all roles, delivery process, skills |
 | `/projects/` | `public/projects/index.html` | Every project with the long write-up |
 | `/about/` | `public/about/index.html` | The long story, education, certifications, recognition |
 
@@ -47,23 +47,37 @@ File: **`public/content/content.js`**, the `experience:` section.
    "Current" marker.
 5. Newest job goes at the top. The page shows them in the order they appear in the file.
 
-## Add a company to the career chart
+## Add a company to the career charts
 
-Same file, the `timeline:` section at the very top. **Oldest first, left to right.**
+Same file, the `timeline:` section at the very top. **Oldest first, top to bottom.**
 
-Three things matter:
+One list feeds both charts: the timeline on the home page (when things happened) and the
+column chart on the Experience page (how long each job lasted).
 
-- `mark:` is the short name in the tile under the bar — the stand-in for a logo. Keep it to
-  **8 characters or fewer** or it gets cut off on a phone.
-- `years:` is a plain number with one decimal (`4.1`), not text. It sets the bar height.
-- `current: true` colours the bar amber. One job only — delete the line from the old one.
+- `from:` and `to:` are `"YYYY-MM"`. **Two-digit month** — `"2007-09"`, not `"2007-9"`.
+  Use `"present"` for the job you are in now.
+- `mark:` is the short name in the tile until you add a logo file. **8 characters or fewer.**
+- `kind: "study"` draws a hollow bar and keeps it out of the column chart. Jobs don't need it.
+- `current: true` colours it amber. One job only — delete the line from the old one.
 
-**The chart does not know what today's date is.** The `years:` number on your current job
-sits there until you change it. Nudge it up by 0.3 every few months, or just once a year.
+**Bar lengths are worked out from the dates**, so nothing goes stale — your current job's bar
+grows on its own. There is no number to keep updating.
 
-If you add a job, add it in **two** places: `timeline:` for the chart and `experience:` for
-the written entry. They are separate lists on purpose — the chart wants six short bars, the
-experience list wants four grouped roles.
+If you add a job, add it in **two** places: `timeline:` for the charts and `experience:` for
+the written entry. They are separate lists on purpose — the charts want one row per company,
+the experience list groups the early Dhaka roles into one entry.
+
+## Add company logos
+
+Both charts show a lettered tile until you give them a logo file. To switch one on:
+
+1. Save the file as `public/img/logos/nokia.svg` (svg, png or webp).
+2. In `content.js`, find that company and delete the `//` in front of its `logo:` line.
+3. Commit the image and the content change together.
+
+Full instructions, including where to get logo files and what size works, are in
+`public/img/logos/README.md`. Only paths inside that folder are accepted — the site can never
+be made to load an image from another server.
 
 ## Add a project
 
@@ -79,15 +93,6 @@ Same file, the `projects:` section. Copy the fenced block, paste, edit.
 If the project has nothing to link to, **delete the `link:` and `linkLabel:` lines
 entirely** — the card will simply render without a link. Do not leave `link: ""`.
 
-## Add a company logo to the chart
-
-Right now each company shows a typographic tile, not a real logo, because logo files are
-trademarked and I would not put them in a public repo without you deciding to.
-
-If you want real logos: download each one from that company's own brand or press page,
-save them as `public/img/logos/nokia.svg` and so on, and ask Claude to switch the chart
-over. It is a one-line change per company in `main.js`. Check each company's brand
-guidelines first — some prohibit use without permission.
 
 ## Add a skill
 

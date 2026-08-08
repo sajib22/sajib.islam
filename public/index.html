@@ -120,63 +120,10 @@
       <a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a>
     </p>
 
-    <!-- ── Signature graphic: a downlink power budget for one DAS antenna. ──
-         The SVG is hidden on narrow screens; the table below it carries the
-         same numbers and is what screen readers read. -->
-    <figure class="budget">
-      <svg class="budget__chart" viewBox="0 0 640 190" aria-hidden="true" focusable="false">
-        <g class="budget__grid">
-          <line x1="30" y1="20"  x2="610" y2="20"></line>
-          <line x1="30" y1="70"  x2="610" y2="70"></line>
-          <line x1="30" y1="120" x2="610" y2="120"></line>
-        </g>
-        <polyline class="budget__trace"
-                  points="30,20 172,56 315,84 457,120 600,93"></polyline>
-        <g class="budget__node">
-          <circle cx="30"  cy="20"  r="4"></circle>
-          <circle cx="172" cy="56"  r="4"></circle>
-          <circle cx="315" cy="84"  r="4"></circle>
-          <circle cx="457" cy="120" r="4"></circle>
-          <circle cx="600" cy="93"  r="4"></circle>
-        </g>
-        <g class="budget__level">
-          <text x="30"  y="10">+27</text>
-          <text x="172" y="46">+23</text>
-          <text x="315" y="74">+20</text>
-          <text x="457" y="110">+16</text>
-          <text x="600" y="83">+19</text>
-        </g>
-        <g class="budget__delta">
-          <text x="101" y="150">&minus;4 dB</text>
-          <text x="243" y="150">&minus;3 dB</text>
-          <text x="386" y="150">&minus;4 dB</text>
-          <text x="528" y="150">+3 dBi</text>
-        </g>
-        <g class="budget__part">
-          <text x="30"  y="176">BDA</text>
-          <text x="172" y="176">COAX</text>
-          <text x="315" y="176">SPLITTER</text>
-          <text x="457" y="176">TAP</text>
-          <text x="600" y="176">ANTENNA</text>
-        </g>
-      </svg>
-
-      <figcaption class="budget__cap">Downlink power budget, one DAS antenna &mdash; dBm at each stage</figcaption>
-
-      <table class="budget__table">
-        <caption>Downlink power budget for a single DAS antenna</caption>
-        <thead>
-          <tr><th scope="col">Stage</th><th scope="col">Change</th><th scope="col">Level</th></tr>
-        </thead>
-        <tbody>
-          <tr><th scope="row">BDA output</th><td>&mdash;</td><td>+27 dBm</td></tr>
-          <tr><th scope="row">Coax run</th><td>&minus;4 dB</td><td>+23 dBm</td></tr>
-          <tr><th scope="row">Splitter</th><td>&minus;3 dB</td><td>+20 dBm</td></tr>
-          <tr><th scope="row">Tap and coax</th><td>&minus;4 dB</td><td>+16 dBm</td></tr>
-          <tr><th scope="row">Antenna</th><td>+3 dBi</td><td>+19 dBm EIRP</td></tr>
-        </tbody>
-      </table>
-    </figure>
+    <!-- ── Signature graphic: the career on one time axis. Studies first,
+         then every job. Built from the "timeline" list in content.js. ── -->
+    <div data-render="career-timeline"></div>
+    <p class="onward"><a href="/experience/">The full experience &rarr;</a></p>
   </section>
 
 
@@ -207,16 +154,6 @@
         that turn counter dumps into a ranked list of what to fix.</p>
       </div>
     </div>
-  </section>
-
-
-  <!-- ════════════════════════════════════════════════════════════════════════
-       CAREER CHART — built from the "timeline" list in content/content.js.
-       ════════════════════════════════════════════════════════════════════════ -->
-  <section id="career" aria-labelledby="career-h">
-    <h2 id="career-h"><span class="mark">Seventeen years, six companies</span></h2>
-    <div data-render="timeline"></div>
-    <p class="onward"><a href="/experience/">Read the full experience &rarr;</a></p>
   </section>
 
 

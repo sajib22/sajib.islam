@@ -77,7 +77,8 @@ body {
 .eyebrow,
 .rail__disc, .rail__loc, .rail__nav, .toggle,
 .role__dates, .role__flag, .skill__group, .proj__tech,
-.edu__dates, .cert__meta, .contact__k, .foot, .budget__cap {
+.edu__dates, .cert__meta, .contact__k, .foot,
+.chart__cap, .tl__cap, .tl__dates, .diagram__cap {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
@@ -244,80 +245,6 @@ h1 {
 }
 
 .hero__contact { margin: var(--s5) 0 0; font-size: 0.9375rem; }
-
-/* ─── Signature: the link budget ────────────────────────────────────────── */
-
-.budget { margin: var(--s7) 0 0; }
-
-.budget__chart {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-.budget__grid line { stroke: var(--rule); stroke-width: 1; }
-.budget__trace {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2;
-  stroke-linejoin: round;
-}
-.budget__node circle { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
-
-.budget__chart text {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-.budget__level text { font-size: 13px; fill: var(--ink); }
-.budget__delta text { font-size: 12px; fill: var(--steel); text-anchor: middle; }
-.budget__part  text { font-size: 11px; fill: var(--steel); letter-spacing: 0.1em; }
-
-.budget__level text:first-child,
-.budget__part  text:first-child { text-anchor: start; }
-.budget__level text:last-child,
-.budget__part  text:last-child  { text-anchor: end; }
-.budget__level text:not(:first-child):not(:last-child),
-.budget__part  text:not(:first-child):not(:last-child) { text-anchor: middle; }
-
-.budget__cap {
-  margin-top: var(--s3);
-  font-size: 0.6875rem;
-  color: var(--steel);
-}
-
-.budget__table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.8125rem;
-}
-.budget__table caption {
-  text-align: left;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--steel);
-  padding-bottom: var(--s3);
-}
-.budget__table th, .budget__table td {
-  text-align: left;
-  padding: var(--s2) var(--s3) var(--s2) 0;
-  border-bottom: 1px solid var(--rule);
-  font-weight: 400;
-}
-.budget__table thead th {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--steel);
-}
-.budget__table tbody th { color: var(--ink); }
-.budget__table td {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  color: var(--steel);
-}
 
 /* ─── Prose ─────────────────────────────────────────────────────────────── */
 
@@ -500,9 +427,124 @@ h1 {
 }
 .render-error code { font-family: var(--font-mono); font-size: 0.8125rem; }
 
-/* ─── Career chart ──────────────────────────────────────────────────────────
-   Built from divs, not an SVG, because it has to turn from vertical bars into
-   horizontal ones on a phone — CSS can do that to a grid, not to a viewBox. */
+/* ─── Company badge, shared by both charts ──────────────────────────────────
+   Shows a real logo when one has been dropped into /img/logos/, and a
+   lettered tile until then. Both are the same size so the layout doesn't
+   move when you add logo files one at a time. */
+
+.logo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.logo-text {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* ─── Career timeline (home) ────────────────────────────────────────────────
+   One row per phase on a shared year axis: studies first, then every job.
+   Gaps between bars are real gaps in the record and are meant to show. */
+
+.tl { margin: var(--s7) 0 0; }
+
+.tl__rows { margin: 0; padding: 0; list-style: none; }
+
+.tl__row,
+.tl__axis {
+  display: grid;
+  /* Wide enough for an eight-character wordmark like ERICSSON until real
+     logo files replace it. */
+  grid-template-columns: 4.75rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s3);
+}
+.tl__row + .tl__row { margin-top: var(--s3); }
+
+.tl__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: var(--s1);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink);
+  text-align: center;
+}
+.tl__badge--blank { border-color: transparent; background: none; }
+.tl__row.is-current .tl__badge { border-color: var(--amber); color: var(--amber); }
+
+.tl__main { min-width: 0; }
+
+.tl__label {
+  margin: 0 0 3px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s3);
+  align-items: baseline;
+  line-height: 1.3;
+}
+.tl__co { font-size: 0.8125rem; }
+.tl__dates {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.6875rem;
+  color: var(--steel);
+}
+
+.tl__track {
+  position: relative;
+  height: 0.75rem;
+  background: var(--rule);
+  border-radius: 1px;
+}
+.tl__bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--accent);
+  border-radius: 1px;
+}
+.tl__row.is-current .tl__bar { background: var(--amber); }
+
+/* Studies read as a different kind of thing: outlined, not filled. */
+.tl__row.is-study .tl__bar {
+  background: none;
+  border: 1.5px solid var(--steel);
+}
+
+.tl__axis { margin-top: var(--s2); }
+.tl__ticks { position: relative; height: 1rem; }
+.tl__tick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.625rem;
+  color: var(--steel);
+}
+
+.tl__cap {
+  margin-top: var(--s4);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--steel);
+}
+
+/* ─── Career column chart ───────────────────────────────────────────────────
+   Vertical columns at every width. Built from divs, not an SVG, so a real
+   logo <img> can sit under each column and the labels never shrink. */
 
 .chart { margin: var(--s6) 0 0; }
 
@@ -515,13 +557,17 @@ h1 {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
-  gap: var(--s3);
-  align-items: end;
+  gap: var(--s2);
+  /* Stretch, not end: columns have different label heights, and bottom-
+     aligning them would leave the tracks — and so the logos — at different
+     heights across the chart. */
+  align-items: stretch;
 }
 
 .chart__col {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: var(--s2);
   min-width: 0;
 }
@@ -562,23 +608,17 @@ h1 {
   color: var(--ink);
 }
 
-/* The stand-in for a company logo: a wordmark tile set in the site's own
-   type. Replace with an <img> if you ever add real logo files. */
 .chart__mark {
-  display: block;
-  padding: var(--s2) var(--s1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: var(--s1);
   border: 1px solid var(--rule);
   border-radius: 2px;
   background: var(--surface);
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-align: center;
   color: var(--ink);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  text-align: center;
 }
 .chart__col.is-current .chart__mark { border-color: var(--amber); color: var(--amber); }
 
@@ -800,76 +840,36 @@ h1 {
   .hero, .sheet > section:first-child { padding-top: var(--s8); }
 }
 
-/* ═══ Narrow screens: the chart is unreadable, so show the table ═══════════ */
+/* ═══ Narrow screens: columns stay columns ═════════════════════════════════
+   Six columns still fit at 360px — about 45px each, which is enough for a
+   logo. What doesn't fit is a horizontal company name, so it turns and
+   reads bottom-to-top, the way axis labels do on any crowded chart. */
 
 @media (max-width: 44.9375rem) {
-  .budget__chart, .budget__cap { display: none; }
-}
+  .chart__bars { gap: var(--s1); }
+  .chart__plot { padding-top: var(--s4); }
 
-/* ═══ Narrow screens: the career chart lies down ═══════════════════════════
-   Six vertical bars at 360px would be four characters wide, so below 720px
-   the same markup becomes horizontal rows with the wordmark on the left. */
+  .chart__track { height: 8rem; }
+  .chart__val { font-size: 0.625rem; }
 
-@media (max-width: 44.9375rem) {
-  .chart__plot { padding-top: 0; }
+  .chart__mark { height: 2rem; padding: 2px; }
+  .chart__mark .logo-text { font-size: 0.5rem; letter-spacing: 0; }
 
-  .chart__bars { grid-auto-flow: row; gap: var(--s5); }
-
-  .chart__col {
-    display: grid;
-    grid-template-columns: 5.25rem minmax(0, 1fr);
-    grid-template-areas:
-      "mark  track"
-      "co    track";
-    align-items: center;
-    column-gap: var(--s3);
-    row-gap: 2px;
-  }
-
-  .chart__mark  { grid-area: mark; align-self: end; }
-  .chart__co    { grid-area: co; align-self: start; text-align: left; }
-
-  .chart__track {
-    grid-area: track;
-    position: static;
-    height: auto;
-    border-bottom: 0;
-    background-image: none;
-    display: flex;
-    align-items: center;
-    gap: var(--s2);
-  }
-
-  .chart__bar {
-    position: static;
-    flex: 0 0 auto;
-    height: 1.375rem;
-    width: calc(var(--yrs) / var(--max) * 100%);
-    /* Keeps the number beside the bar from being pushed off the edge. */
-    max-width: calc(100% - 2.75rem);
-    border-radius: 0 1px 1px 0;
-  }
-
-  .chart__val {
-    position: static;
-    order: 2;
-    flex: 0 0 auto;
-    margin: 0;
-    text-align: left;
-  }
-}
-
-@media (min-width: 45rem) {
-  /* Table stays in the DOM as the chart's text equivalent for screen readers.
-     table-layout: fixed is load-bearing — see the note on .chart__table. */
-  .budget__table {
-    position: absolute;
-    table-layout: fixed;
-    width: 1px; height: 1px;
-    margin: -1px; padding: 0;
+  .chart__co {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    align-self: center;
+    /* Fixed, not max-height, so every column ends at the same place and the
+       caption doesn't sit under a ragged edge. */
+    height: 7.5rem;
     overflow: hidden;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    border: 0;
+    text-align: right;
   }
+
+  /* The timeline's badge column can afford to be a little tighter too. */
+  .tl__row,
+  .tl__axis { grid-template-columns: 3.5rem minmax(0, 1fr); gap: var(--s2); }
+  .tl__badge { height: 2rem; }
+  .tl__badge .logo-text { font-size: 0.5rem; letter-spacing: 0; }
 }
+

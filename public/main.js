@@ -83,25 +83,174 @@
     }
   }
 
-  /* ─── Career chart ───────────────────────────────────────────────────────
+  /* ─── Career: shared helpers for both charts ─────────────────────────────
 
-     Built from divs rather than an SVG on purpose: it has to turn from
-     vertical bars into horizontal ones on a narrow screen, and CSS can do
-     that to a grid but not to a fixed SVG viewBox.
+     Dates are written "YYYY-MM" in content.js and turned into a decimal year
+     here, so the length of every bar is derived rather than typed. That means
+     the current job's bar grows on its own and can never go stale. */
 
-     The bars are decorative — the table underneath carries the same numbers
-     and is what a screen reader reads. */
+  function decimalYear(value, field) {
+    var text = String(value == null ? "" : value).trim();
 
-  section("timeline", "timeline", "Career chart", function (jobs) {
+    if (/^present$/i.test(text)) {
+      var now = new Date();
+      return now.getFullYear() + now.getMonth() / 12;
+    }
+
+    var m = /^(\d{4})-(\d{2})$/.exec(text);
+    if (!m) {
+      throw new Error(
+        '"' + field + '" must be written as "YYYY-MM" with a two-digit month ' +
+        '(or "present"). Got: ' + (text || "nothing"));
+    }
+
+    var month = Number(m[2]);
+    if (month < 1 || month > 12) throw new Error('"' + field + '" has month ' + month + ".");
+
+    return Number(m[1]) + (month - 1) / 12;
+  }
+
+  /* A company logo, when one has been supplied. Only paths inside
+     /img/logos/ are accepted, so the site can never be made to request an
+     image from a third-party host. Anything else falls back to the tile. */
+  var LOGO_PATH = /^\/img\/logos\/[A-Za-z0-9._-]+\.(svg|png|webp)$/i;
+
+  function badge(entry, className) {
+    var box = el("span", className);
+
+    if (entry.logo && LOGO_PATH.test(String(entry.logo))) {
+      var img = document.createElement("img");
+      img.src = entry.logo;
+      img.alt = (entry.company || "") + " logo";
+      img.className = "logo-img";
+      img.loading = "lazy";
+      img.decoding = "async";
+      box.appendChild(img);
+      box.classList.add("has-logo");
+    } else {
+      box.appendChild(el("span", "logo-text", entry.mark || entry.company || ""));
+    }
+
+    return box;
+  }
+
+  function spanYears(entry) {
+    return decimalYear(entry.to, "to") - decimalYear(entry.from, "from");
+  }
+
+  function careerTable(entries, caption, includeYears) {
+    var table = el("table", "chart__table");
+    table.appendChild(el("caption", null, caption));
+
+    var head = ["Organisation", "Role", "Period"];
+    if (includeYears) head.push("Years");
+
+    var thead = el("thead");
+    var hrow = el("tr");
+    head.forEach(function (h) {
+      var th = el("th", null, h);
+      th.scope = "col";
+      hrow.appendChild(th);
+    });
+    thead.appendChild(hrow);
+    table.appendChild(thead);
+
+    var tbody = el("tbody");
+    entries.forEach(function (entry) {
+      var tr = el("tr");
+      tr.appendChild(cell("th", entry.company || ""));
+      tr.appendChild(cell("td", entry.role || ""));
+      tr.appendChild(cell("td", entry.dates || ""));
+      if (includeYears) tr.appendChild(cell("td", spanYears(entry).toFixed(1)));
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+
+    return table;
+  }
+
+  /* ─── Career timeline: study first, then every job, on one time axis ──── */
+
+  section("career-timeline", "timeline", "Career timeline", function (entries) {
+    if (!entries.length) return null;
+
+    var starts = entries.map(function (e) { return decimalYear(e.from, "from"); });
+    var ends = entries.map(function (e) { return decimalYear(e.to, "to"); });
+
+    var min = Math.floor(Math.min.apply(null, starts));
+    var max = Math.ceil(Math.max.apply(null, ends));
+    var span = max - min;
+    if (span <= 0) throw new Error("the timeline needs a start earlier than its end.");
+
+    var pct = function (year) { return ((year - min) / span) * 100; };
+
+    var figure = el("figure", "tl");
+    var plot = el("div", "tl__plot");
+    plot.setAttribute("aria-hidden", "true");
+
+    var rows = el("ol", "tl__rows");
+
+    entries.forEach(function (entry, i) {
+      var from = starts[i];
+      var to = ends[i];
+
+      var row = el("li", "tl__row"
+        + (entry.current ? " is-current" : "")
+        + (entry.kind === "study" ? " is-study" : ""));
+
+      row.appendChild(badge(entry, "tl__badge"));
+
+      var main = el("div", "tl__main");
+
+      var label = el("p", "tl__label");
+      label.appendChild(el("span", "tl__co", entry.company || ""));
+      if (entry.dates) label.appendChild(el("span", "tl__dates", entry.dates));
+      main.appendChild(label);
+
+      var track = el("div", "tl__track");
+      var bar = el("span", "tl__bar");
+      bar.style.left = pct(from).toFixed(2) + "%";
+      bar.style.width = Math.max(pct(to) - pct(from), 0.8).toFixed(2) + "%";
+      track.appendChild(bar);
+      main.appendChild(track);
+
+      row.appendChild(main);
+      rows.appendChild(row);
+    });
+
+    plot.appendChild(rows);
+
+    // Year axis, aligned under the tracks by reusing the row grid.
+    var axis = el("div", "tl__axis");
+    axis.appendChild(el("span", "tl__badge tl__badge--blank"));
+    var ticks = el("div", "tl__ticks");
+    for (var y = Math.ceil(min / 5) * 5; y <= max; y += 5) {
+      var tick = el("span", "tl__tick", String(y));
+      tick.style.left = pct(y).toFixed(2) + "%";
+      ticks.appendChild(tick);
+    }
+    axis.appendChild(ticks);
+    plot.appendChild(axis);
+
+    figure.appendChild(plot);
+    figure.appendChild(el("figcaption", "tl__cap", "Studies and roles, " + min + " to today"));
+    figure.appendChild(careerTable(entries, "Career timeline", false));
+
+    return figure;
+  });
+
+  /* ─── Column chart: how long each job lasted ─────────────────────────────
+
+     Vertical columns at every width. Built from divs rather than an SVG so
+     the company logo under each column is a real <img> that stays crisp,
+     and so the labels never shrink with a viewBox. */
+
+  section("timeline", "timeline", "Career chart", function (entries) {
+    var jobs = entries.filter(function (e) { return e.kind !== "study"; });
     if (!jobs.length) return null;
 
-    var max = 0;
-    jobs.forEach(function (j) {
-      var y = Number(j.years);
-      if (isFinite(y) && y > max) max = y;
-    });
-    if (max <= 0) throw new Error('every entry in "timeline" needs a "years" number.');
-    max = Math.ceil(max);
+    var years = jobs.map(spanYears);
+    var max = Math.ceil(Math.max.apply(null, years)) || 1;
 
     var figure = el("figure", "chart");
 
@@ -111,20 +260,16 @@
 
     var bars = el("ol", "chart__bars");
 
-    jobs.forEach(function (job) {
-      var years = Number(job.years) || 0;
-
+    jobs.forEach(function (job, i) {
       var col = el("li", "chart__col" + (job.current ? " is-current" : ""));
-      col.style.setProperty("--yrs", String(years));
+      col.style.setProperty("--yrs", years[i].toFixed(2));
 
       var track = el("div", "chart__track");
-      track.appendChild(el("span", "chart__val", years.toFixed(1)));
+      track.appendChild(el("span", "chart__val", years[i].toFixed(1)));
       track.appendChild(el("span", "chart__bar"));
       col.appendChild(track);
 
-      // The company "logo": a wordmark tile set in the site's own type.
-      // Swap in a real logo later by replacing this span with an <img>.
-      col.appendChild(el("span", "chart__mark", job.mark || job.company || ""));
+      col.appendChild(badge(job, "chart__mark"));
       col.appendChild(el("span", "chart__co", job.company || ""));
 
       bars.appendChild(col);
@@ -133,32 +278,7 @@
     plot.appendChild(bars);
     figure.appendChild(plot);
     figure.appendChild(el("figcaption", "chart__cap", "Years at each company, oldest first"));
-
-    // Accessible equivalent of the chart.
-    var table = el("table", "chart__table");
-    table.appendChild(el("caption", null, "Years spent at each company"));
-
-    var thead = el("thead");
-    var hrow = el("tr");
-    ["Company", "Role", "Period", "Years"].forEach(function (h) {
-      var th = el("th", null, h);
-      th.scope = "col";
-      hrow.appendChild(th);
-    });
-    thead.appendChild(hrow);
-    table.appendChild(thead);
-
-    var tbody = el("tbody");
-    jobs.forEach(function (job) {
-      var tr = el("tr");
-      tr.appendChild(cell("th", job.company || ""));
-      tr.appendChild(cell("td", job.role || ""));
-      tr.appendChild(cell("td", job.dates || ""));
-      tr.appendChild(cell("td", (Number(job.years) || 0).toFixed(1)));
-      tbody.appendChild(tr);
-    });
-    table.appendChild(tbody);
-    figure.appendChild(table);
+    figure.appendChild(careerTable(jobs, "Years spent at each company", true));
 
     return figure;
   });

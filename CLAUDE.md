@@ -46,10 +46,18 @@ and prints a message naming the file, rather than blanking the page. It also rej
 that should be a list but isn't, so a section can never vanish silently. Keep both.
 The renderer uses `textContent`, never `innerHTML` — do not change this.
 
-The career chart and the delivery process are built from HTML and CSS, not SVG, because they
-have to reflow from horizontal to vertical on a phone. The link budget and the DAS riser are
-inline SVG with a text equivalent beside them. Any visually-hidden `<table>` needs
-`table-layout: fixed` or it ignores `width: 1px` and widens the whole page.
+The career timeline, the column chart and the delivery process are built from HTML and CSS,
+not SVG, so labels never shrink with a viewBox and a real logo `<img>` can sit in the axis.
+Bar lengths are derived from `from`/`to` dates, never typed, so nothing goes stale. The DAS
+riser is inline SVG, hidden below 720px where its labels would render at ~5px, with its text
+description shown there instead.
+
+Two traps worth remembering: a visually-hidden `<table>` needs `table-layout: fixed` or it
+ignores `width: 1px` and widens the whole page; and an HTML comment containing `-->` in its
+text closes early and leaks the markup it was meant to hide.
+
+Company logos load only from `/img/logos/` — `main.js` validates the path, which is what
+keeps the no-third-party-requests rule true by construction. See `public/img/logos/README.md`.
 
 ## Never do any of these without asking first
 

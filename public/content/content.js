@@ -37,70 +37,110 @@
 window.SITE = {
 
   /* ─────────────────────────────────────────────────────────────────────────
-     CAREER CHART — the bar chart of time spent at each company.
+     CAREER — feeds BOTH charts from this one list:
+       • the timeline on the home page (when each thing happened)
+       • the column chart on /experience/ (how long each job lasted)
 
-     Oldest first, left to right. Each bar's height comes from "years".
+     Oldest first, top to bottom.
 
-     "mark"    is the short name printed in the tile under the bar. Keep it
-               SHORT — 8 characters or fewer, or it will look cramped on a
-               phone. It gets uppercased automatically.
-     "years"   is a number, not text. Use one decimal place: 4.1, not "4 yrs".
-     "current" draws this bar in amber instead of teal. One job only.
+     "from" / "to"  are "YYYY-MM". Use "present" for the job you're in now.
+                    ⚠ Write the month as two digits: "2007-09", not "2007-9".
+                    The number of years is worked out from these, so nothing
+                    ever goes stale — your current job grows on its own.
+     "kind"         "study" draws a hollow bar and is left out of the column
+                    chart. Leave it off for jobs.
+     "mark"         short name for the tile when there is no logo file.
+                    8 characters or fewer. Uppercased automatically.
+     "logo"         optional. See the note below.
+     "current"      draws in amber instead of teal. One job only.
 
-     ⚠ The "years" figure for your current job does not update itself.
-       Nudge it up by 0.3 every few months, or just once a year.
+     ── ADDING COMPANY LOGOS ────────────────────────────────────────────────
+     Each entry shows a lettered tile until you give it a logo file.
+
+       1. Get the logo from that company's own brand or press page. Check
+          their brand guidelines — some ask permission before you use theirs.
+       2. Save it as public/img/logos/nokia.svg (svg, png or webp).
+          Square-ish works best. Monochrome or simple marks look sharpest.
+       3. Add the line:   logo: "/img/logos/nokia.svg",
+       4. Commit both the file and this change together.
+
+     Only paths inside /img/logos/ are accepted, so nothing on this site can
+     ever load an image from someone else's server.
      ───────────────────────────────────────────────────────────────────────── */
   timeline: [
+
+    {
+      company: "Bangladesh University of Engineering and Technology",
+      mark: "BUET",
+      kind: "study",
+      role: "B.Sc. Electrical & Electronic Engineering",
+      dates: "Apr 2002 — Jun 2007",
+      from: "2002-04",
+      to: "2007-06",
+      // logo: "/img/logos/buet.svg",
+    },
 
     // ── COPY FROM HERE ──
     {
       company: "Grameenphone",
       mark: "GP",
-      dates: "Sep 2007 — Oct 2011",
-      years: 4.1,
       role: "Senior System Engineer",
+      dates: "Sep 2007 — Oct 2011",
+      from: "2007-09",
+      to: "2011-10",
+      // logo: "/img/logos/grameenphone.svg",
     },
     // ── TO HERE ──
 
     {
       company: "Ericsson",
       mark: "ERICSSON",
-      dates: "Oct 2011 — Nov 2013",
-      years: 2.1,
       role: "Services Engineer",
+      dates: "Oct 2011 — Nov 2013",
+      from: "2011-10",
+      to: "2013-11",
+      // logo: "/img/logos/ericsson.svg",
     },
 
     {
       company: "Huawei",
       mark: "HUAWEI",
-      dates: "Nov 2013 — Dec 2014",
-      years: 1.1,
       role: "Senior Engineer & Team Lead",
+      dates: "Nov 2013 — Dec 2014",
+      from: "2013-11",
+      to: "2014-12",
+      // logo: "/img/logos/huawei.svg",
     },
 
     {
       company: "FlipNet (MTN Irancell)",
       mark: "FLIPNET",
-      dates: "Dec 2014 — Jun 2018",
-      years: 3.5,
       role: "4G & 3G Consultant / Team Lead",
+      dates: "Dec 2014 — Jun 2018",
+      from: "2014-12",
+      to: "2018-06",
+      // logo: "/img/logos/flipnet.svg",
     },
 
     {
       company: "Nokia",
       mark: "NOKIA",
-      dates: "Feb 2019 — Jan 2024",
-      years: 4.9,
       role: "Senior NPO Engineer",
+      dates: "Feb 2019 — Jan 2024",
+      from: "2019-02",
+      to: "2024-01",
+      // logo: "/img/logos/nokia.svg",
     },
 
     {
       company: "Genwave Technologies",
       mark: "GENWAVE",
-      dates: "May 2025 — Present",
-      years: 1.3,
-      current: true,
       role: "RF Engineer",
+      dates: "May 2025 — Present",
+      from: "2025-05",
+      to: "present",
+      current: true,
+      // logo: "/img/logos/genwave.svg",
     },
 
   ],
