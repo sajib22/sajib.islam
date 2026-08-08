@@ -7,6 +7,7 @@ on the Experience page.
 
 | File | Used by | Source |
 |---|---|---|
+| `buet.webp` | Bangladesh University of Engineering and Technology | supplied by Sajib |
 | `grameenphone.webp` | Grameenphone | supplied by Sajib |
 | `ericsson.webp` | Ericsson | supplied by Sajib |
 | `huawei.webp` | Huawei | supplied by Sajib |
@@ -14,15 +15,16 @@ on the Experience page.
 | `nokia.webp` | Nokia | supplied by Sajib |
 | `genwave.webp` | Genwave Technologies | supplied by Sajib |
 
-BUET has no logo file, so it still shows a lettered tile. That is fine — the
-tile and a logo are the same size, so the two mix without the layout moving.
+Every entry in the timeline now has a logo. If you add a company without one,
+it falls back to a lettered tile of the same size, so the two mix without the
+layout moving.
 
 Each file was trimmed to its mark, flattened onto white, and resized to fit
-the badge. All six together come to about 20KB.
+the badge. All seven together come to about 23KB.
 
-**These are other companies' trademarks.** They are used here to identify
-where Sajib actually worked, which is what a CV does. If any company objects,
-delete the file and the `logo:` line and the lettered tile comes back.
+**These are other organisations' trademarks.** They are used here to identify
+where Sajib actually studied and worked, which is what a CV does. If any owner
+objects, delete the file and the `logo:` line and the lettered tile comes back.
 
 ## Adding or replacing one
 

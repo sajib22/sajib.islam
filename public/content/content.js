@@ -77,7 +77,7 @@ window.SITE = {
       dates: "Apr 2002 — Jun 2007",
       from: "2002-04",
       to: "2007-06",
-      // logo: "/img/logos/buet.svg",
+      logo: "/img/logos/buet.webp",
     },
 
     // ── COPY FROM HERE ──
