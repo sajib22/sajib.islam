@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Experience — Sajib Islam</title>
+<meta name="description" content="Seventeen years of RF engineering: in-building 5G and LTE at Genwave Technologies in Toronto, RAN optimization at Nokia, RF planning at MTN Irancell, and IBS design at Huawei, Ericsson and Grameenphone.">
+<link rel="canonical" href="https://sajibislam.com/experience/">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Sajib Islam">
+<meta property="og:title" content="Experience — Sajib Islam">
+<meta property="og:description" content="Seventeen years across six companies: in-building 5G and LTE, RAN optimization, and multi-vendor RF planning.">
+<meta property="og:url" content="https://sajibislam.com/experience/">
+<meta property="og:image" content="https://sajibislam.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sajib Islam — RF engineer, Toronto.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Experience — Sajib Islam">
+<meta name="twitter:description" content="Seventeen years across six companies: in-building 5G and LTE, RAN optimization, and multi-vendor RF planning.">
+<meta name="twitter:image" content="https://sajibislam.com/og.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F1F4F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1315" media="(prefers-color-scheme: dark)">
+
+<link rel="stylesheet" href="/styles.css">
+<script>
+  try {
+    var t = localStorage.getItem("theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     TITLE BLOCK — ⚠ THIS BLOCK IS REPEATED IN ALL FOUR PAGE FILES.
+     If you change the navigation, change it in index.html, experience/index.html,
+     projects/index.html AND about/index.html. See CONTRIBUTING.md.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<header class="rail">
+  <p class="rail__name"><a href="/">Sajib Islam</a></p>
+  <p class="rail__disc">RF Engineer &middot; EIT</p>
+  <p class="rail__loc">Toronto, ON</p>
+
+  <nav class="rail__nav" aria-label="Pages">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/experience/" aria-current="page">Experience</a></li>
+      <li><a href="/projects/">Projects</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <button class="toggle" type="button" id="theme-toggle" aria-label="Switch to dark theme">
+    <span class="toggle__dot" aria-hidden="true"></span>
+    <span class="toggle__label">Dark</span>
+  </button>
+</header>
+
+<main class="sheet" id="main">
+
+  <section class="page-head" aria-labelledby="page-h">
+    <p class="eyebrow">Experience</p>
+    <h1 id="page-h">Seventeen years, six companies, three continents</h1>
+    <p class="lede">I started out planning macro sites in Dhaka and ended up commissioning
+    in-building systems in Toronto. What connects the two is the same question in different
+    forms: is the signal where it needs to be, and can you prove it?</p>
+  </section>
+
+
+  <section id="career" aria-labelledby="career-h">
+    <h2 id="career-h"><span class="mark">Time at each company</span></h2>
+    <div data-render="timeline"></div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       DAS RISER DIAGRAM — hand-drawn, no external file. The description
+       underneath is what a screen reader reads.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="how" aria-labelledby="how-h">
+    <h2 id="how-h"><span class="mark">What an in-building system looks like</span></h2>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 640 300" aria-hidden="true" focusable="false">
+        <!-- floor slabs -->
+        <g class="dg-rule">
+          <line x1="60" y1="62"  x2="600" y2="62"></line>
+          <line x1="60" y1="122" x2="600" y2="122"></line>
+          <line x1="60" y1="182" x2="600" y2="182"></line>
+          <line x1="60" y1="242" x2="600" y2="242"></line>
+        </g>
+        <g class="dg-sub">
+          <text x="14" y="58">L4</text>
+          <text x="14" y="118">L3</text>
+          <text x="14" y="178">L2</text>
+          <text x="14" y="238">L1</text>
+        </g>
+
+        <!-- head-end and riser -->
+        <rect class="dg-box" x="20" y="262" width="118" height="30" rx="2"></rect>
+        <text class="dg-label" x="79" y="281" text-anchor="middle">HEAD-END</text>
+        <path class="dg-line" d="M79,262 V44"></path>
+        <text class="dg-sub" x="90" y="257">RISER</text>
+
+        <!-- horizontal coax run on each floor -->
+        <g class="dg-line">
+          <path d="M79,44 H540"></path>
+          <path d="M79,104 H540"></path>
+          <path d="M79,164 H540"></path>
+          <path d="M79,224 H540"></path>
+        </g>
+
+        <!-- splitters -->
+        <g>
+          <rect class="dg-box" x="160" y="36"  width="36" height="16" rx="2"></rect>
+          <rect class="dg-box" x="160" y="96"  width="36" height="16" rx="2"></rect>
+          <rect class="dg-box" x="160" y="156" width="36" height="16" rx="2"></rect>
+          <rect class="dg-box" x="160" y="216" width="36" height="16" rx="2"></rect>
+        </g>
+
+        <!-- antennas: node plus two radiating arcs, pointing into the floor -->
+        <g>
+          <g transform="translate(300,44)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+          <g transform="translate(400,44)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+          <g transform="translate(500,44)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+
+          <g transform="translate(300,104)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+          <g transform="translate(400,104)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+          <g transform="translate(500,104)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+
+          <g transform="translate(300,164)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+          <g transform="translate(400,164)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+          <g transform="translate(500,164)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+
+          <g transform="translate(300,224)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+          <g transform="translate(400,224)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+          <g transform="translate(500,224)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
+        </g>
+
+        <!-- labels, top floor only, to avoid clutter -->
+        <g class="dg-sub">
+          <text x="178" y="26" text-anchor="middle">SPLITTER</text>
+          <text x="300" y="26" text-anchor="middle">ANTENNA</text>
+        </g>
+      </svg>
+
+      <figcaption class="diagram__cap">Four-storey DAS riser &mdash; one head-end, one riser, twelve antennas</figcaption>
+
+      <p class="diagram__alt">Diagram of a distributed antenna system in a four-storey building.
+      A head-end at ground level feeds a single vertical riser cable. On each of the four
+      floors, the riser feeds a horizontal coaxial run through a splitter, which distributes
+      the signal to three ceiling-mounted antennas per floor &mdash; twelve antennas in total.</p>
+    </figure>
+  </section>
+
+
+  <section id="roles" aria-labelledby="roles-h">
+    <h2 id="roles-h"><span class="mark">Roles</span></h2>
+    <div data-render="experience"></div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       DELIVERY PROCESS — edit these six steps directly.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="process" aria-labelledby="process-h">
+    <h2 id="process-h"><span class="mark">How a system gets delivered</span></h2>
+    <p class="lede">Every in-building project runs through the same six stages. Most of the
+    risk lives in the first two and most of the argument lives in the last one.</p>
+    <ol class="flow">
+      <li class="flow__step"><span class="flow__n">01</span><span class="flow__t">Site survey</span></li>
+      <li class="flow__step"><span class="flow__n">02</span><span class="flow__t">Design &amp; link budget</span></li>
+      <li class="flow__step"><span class="flow__n">03</span><span class="flow__t">Commissioning</span></li>
+      <li class="flow__step"><span class="flow__n">04</span><span class="flow__t">CW, PIM &amp; walk test</span></li>
+      <li class="flow__step"><span class="flow__n">05</span><span class="flow__t">Optimization</span></li>
+      <li class="flow__step"><span class="flow__n">06</span><span class="flow__t">Close-out pack</span></li>
+    </ol>
+  </section>
+
+
+  <section id="skills" aria-labelledby="skills-h">
+    <h2 id="skills-h"><span class="mark">Technical skills</span></h2>
+    <div data-render="skills"></div>
+  </section>
+
+  <p class="onward">
+    <a href="/projects/">Projects &rarr;</a>
+    <a href="/about/">About &rarr;</a>
+    <a href="/#contact">Get in touch &rarr;</a>
+  </p>
+
+  <noscript>
+    <p class="noscript">Some sections of this page are built with JavaScript and are not
+    showing. You can still reach me at
+    <a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a>.</p>
+  </noscript>
+
+  <footer class="foot">
+    <p>Sajib Islam &mdash; Toronto, ON</p>
+    <p><a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a></p>
+  </footer>
+
+</main>
+
+<script src="/content/content.js"></script>
+<script src="/main.js"></script>
+</body>
+</html>

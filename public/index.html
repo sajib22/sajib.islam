@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://sajibislam.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Sajib Islam — RF and DAS engineer, Toronto.">
+<meta property="og:image:alt" content="Sajib Islam — RF engineer, Toronto.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sajib Islam — RF Engineer, Toronto">
 <meta name="twitter:description" content="In-building 5G and LTE: DAS, IBS and Private 5G design, commissioning and optimization. Fifteen years of RAN planning across Nokia, Ericsson and Huawei.">
@@ -67,13 +67,9 @@
     "Private 5G",
     "RF planning and design",
     "5G NR and LTE RAN optimization",
-    "Link budget analysis",
-    "Machine learning"
+    "Link budget analysis"
   ],
-  "alumniOf": [
-    { "@type": "CollegeOrUniversity", "name": "Toronto Metropolitan University" },
-    { "@type": "CollegeOrUniversity", "name": "Bangladesh University of Engineering and Technology" }
-  ],
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Bangladesh University of Engineering and Technology" },
   "sameAs": [
     "https://www.linkedin.com/in/sajibislam/",
     "https://www.linkedin.com/in/md-sajibull-islam/"
@@ -83,23 +79,24 @@
 </head>
 
 <body>
-<a class="skip" href="#about">Skip to content</a>
+<a class="skip" href="#main">Skip to content</a>
 
 <!-- ══════════════════════════════════════════════════════════════════════════
-     TITLE BLOCK. Sticky rail on wide screens, plain header on phones.
+     TITLE BLOCK — ⚠ THIS BLOCK IS REPEATED IN ALL FOUR PAGE FILES.
+     If you change the navigation, change it in index.html, experience/index.html,
+     projects/index.html AND about/index.html. See CONTRIBUTING.md.
      ══════════════════════════════════════════════════════════════════════════ -->
 <header class="rail">
-  <p class="rail__name"><a href="#top">Sajib Islam</a></p>
+  <p class="rail__name"><a href="/">Sajib Islam</a></p>
   <p class="rail__disc">RF Engineer &middot; EIT</p>
   <p class="rail__loc">Toronto, ON</p>
 
-  <nav class="rail__nav" aria-label="Sections">
+  <nav class="rail__nav" aria-label="Pages">
     <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#education">Education</a></li>
+      <li><a href="/" aria-current="page">Home</a></li>
+      <li><a href="/experience/">Experience</a></li>
+      <li><a href="/projects/">Projects</a></li>
+      <li><a href="/about/">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -110,7 +107,7 @@
   </button>
 </header>
 
-<main class="sheet" id="top">
+<main class="sheet" id="main">
 
   <!-- ════════════════════════════════════════════════════════════════════════
        HERO — edit this copy directly.
@@ -184,57 +181,52 @@
 
 
   <!-- ════════════════════════════════════════════════════════════════════════
-       ABOUT — edit these paragraphs directly. First person, plain language.
+       WHAT I DO — edit this copy directly.
        ════════════════════════════════════════════════════════════════════════ -->
-  <section id="about" aria-labelledby="about-h">
-    <h2 id="about-h"><span class="mark">About</span></h2>
-    <div class="prose">
-      <p>I&rsquo;m an RF engineer at Genwave Technologies in Toronto, and my work is almost entirely
-      in-building: distributed antenna systems, Private 5G and Cisco URWB networks for large venues.
-      That means the design package and link budget up front, then commissioning, CW and PIM testing,
-      walk testing, and the optimization that moves a system from installed to actually meeting its
-      engineered targets.</p>
-
-      <p>Before Canada I spent fifteen years on the macro side. Five of them were at Nokia, leading
-      LTE and 5G optimization and doing the multi-vendor KPI and counter mapping that proves a network
-      still behaves the same after a swap. Before that I planned and optimized 4G and 3G for MTN
-      Irancell in Tehran, and started out at Grameenphone, Ericsson and Huawei in Dhaka, where I
-      designed more than a hundred in-building systems and ran a 250-site IBS vendor swap. That
-      background is why I tend to read an in-building problem as a network problem first and a
-      cabling problem second.</p>
-
-      <p>The other half of my work is making the analysis faster. I write Python that turns raw
-      measurement data into finished reports, and Power BI models that turn counter dumps into a
-      ranked list of things to fix. I&rsquo;m currently doing a Master of Engineering at Toronto
-      Metropolitan University with a field of study in artificial intelligence, mostly to push that
-      further.</p>
+  <section id="what" aria-labelledby="what-h">
+    <h2 id="what-h"><span class="mark">What I do</span></h2>
+    <div class="caps">
+      <div class="cap">
+        <h3 class="cap__h">In-building design</h3>
+        <p>DAS, IBS and Private 5G for venues where a macro network can&rsquo;t reach. Design
+        packages, link budgets and coverage predictions that survive contact with the building.</p>
+      </div>
+      <div class="cap">
+        <h3 class="cap__h">Commissioning &amp; test</h3>
+        <p>Head-end and remote integration across ADRF, Corning/BTI and Zinwave. CW, PIM and
+        walk testing, EMF and Safety Code 6 validation, and the close-out pack that proves it.</p>
+      </div>
+      <div class="cap">
+        <h3 class="cap__h">RAN optimization</h3>
+        <p>Fifteen years of worst-cell tuning, mobility and handover troubleshooting, and
+        multi-vendor KPI mapping across Nokia, Ericsson and Huawei estates.</p>
+      </div>
+      <div class="cap">
+        <h3 class="cap__h">Analysis automation</h3>
+        <p>Python that turns raw measurement data into finished reports, and Power BI models
+        that turn counter dumps into a ranked list of what to fix.</p>
+      </div>
     </div>
   </section>
 
 
   <!-- ════════════════════════════════════════════════════════════════════════
-       The sections below are built from content/content.js. Edit that file,
-       not this one.
+       CAREER CHART — built from the "timeline" list in content/content.js.
        ════════════════════════════════════════════════════════════════════════ -->
-  <section id="experience" aria-labelledby="experience-h">
-    <h2 id="experience-h"><span class="mark">Experience</span></h2>
-    <div data-render="experience"></div>
+  <section id="career" aria-labelledby="career-h">
+    <h2 id="career-h"><span class="mark">Seventeen years, six companies</span></h2>
+    <div data-render="timeline"></div>
+    <p class="onward"><a href="/experience/">Read the full experience &rarr;</a></p>
   </section>
 
-  <section id="skills" aria-labelledby="skills-h">
-    <h2 id="skills-h"><span class="mark">Technical skills</span></h2>
-    <div data-render="skills"></div>
-  </section>
 
+  <!-- ════════════════════════════════════════════════════════════════════════
+       FEATURED PROJECTS — the three marked "featured: true" in content.js.
+       ════════════════════════════════════════════════════════════════════════ -->
   <section id="projects" aria-labelledby="projects-h">
-    <h2 id="projects-h"><span class="mark">Projects</span></h2>
-    <div data-render="projects"></div>
-  </section>
-
-  <section id="education" aria-labelledby="education-h">
-    <h2 id="education-h"><span class="mark">Education &amp; certifications</span></h2>
-    <div data-render="education"></div>
-    <div data-render="certifications"></div>
+    <h2 id="projects-h"><span class="mark">Selected work</span></h2>
+    <div data-render="projects-featured"></div>
+    <p class="onward"><a href="/projects/">All projects &rarr;</a></p>
   </section>
 
 

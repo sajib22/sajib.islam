@@ -6,6 +6,20 @@ browser) and the Claude app. You never need a laptop or a terminal for anything 
 **The short version:** almost everything you will ever want to change lives in one file —
 `public/content/content.js`. Edit it, commit, and the site updates itself in about a minute.
 
+## The four pages
+
+| Page | File | What's on it |
+|---|---|---|
+| `/` | `public/index.html` | Hero, what I do, career chart, three featured projects, contact |
+| `/experience/` | `public/experience/index.html` | Career chart, DAS diagram, all roles, delivery process, skills |
+| `/projects/` | `public/projects/index.html` | Every project with the long write-up |
+| `/about/` | `public/about/index.html` | The long story, education, certifications, recognition |
+
+**⚠ The navigation and footer are copied into all four files.** There is no build step, so
+nothing can share them automatically. If you add a page or rename a nav link, you must make
+the same edit in all four. Search each file for `TITLE BLOCK` — the comment there says the
+same thing.
+
 ---
 
 ## How to edit a file from your phone
@@ -33,12 +47,47 @@ File: **`public/content/content.js`**, the `experience:` section.
    "Current" marker.
 5. Newest job goes at the top. The page shows them in the order they appear in the file.
 
+## Add a company to the career chart
+
+Same file, the `timeline:` section at the very top. **Oldest first, left to right.**
+
+Three things matter:
+
+- `mark:` is the short name in the tile under the bar — the stand-in for a logo. Keep it to
+  **8 characters or fewer** or it gets cut off on a phone.
+- `years:` is a plain number with one decimal (`4.1`), not text. It sets the bar height.
+- `current: true` colours the bar amber. One job only — delete the line from the old one.
+
+**The chart does not know what today's date is.** The `years:` number on your current job
+sits there until you change it. Nudge it up by 0.3 every few months, or just once a year.
+
+If you add a job, add it in **two** places: `timeline:` for the chart and `experience:` for
+the written entry. They are separate lists on purpose — the chart wants six short bars, the
+experience list wants four grouped roles.
+
 ## Add a project
 
 Same file, the `projects:` section. Copy the fenced block, paste, edit.
 
+- `blurb:` is the short version shown on the home page cards.
+- `detail:` is the long version shown only on `/projects/`. Delete the line to use the blurb
+  in both places.
+- `featured: true` puts it on the home page. **Pick exactly three.** If you mark none, the
+  first three are used.
+- `outcome:` is the small amber line — a number or result, kept short. Optional.
+
 If the project has nothing to link to, **delete the `link:` and `linkLabel:` lines
 entirely** — the card will simply render without a link. Do not leave `link: ""`.
+
+## Add a company logo to the chart
+
+Right now each company shows a typographic tile, not a real logo, because logo files are
+trademarked and I would not put them in a public repo without you deciding to.
+
+If you want real logos: download each one from that company's own brand or press page,
+save them as `public/img/logos/nokia.svg` and so on, and ask Claude to switch the chart
+over. It is a one-line change per company in `main.js`. Check each company's brand
+guidelines first — some prohibit use without permission.
 
 ## Add a skill
 
@@ -56,14 +105,16 @@ Don't forget the quotes and the comma. To add a whole new group, copy a `{ … }
 These are **not** in `content.js` — they're written straight into the page because they
 change once a decade.
 
-File: **`public/index.html`**. Search for these comment banners:
+Search for these comment banners:
 
-| What you want to change | Search for |
-|---|---|
-| Page title, description, social preview text | `SEO & SOCIAL` |
-| Your name, one-line intro, hero email | `HERO` |
-| The three About paragraphs | `ABOUT` |
-| Email, LinkedIn, GitHub links | `CONTACT` |
+| What you want to change | File | Search for |
+|---|---|---|
+| Page title, description, social preview text | each page | `SEO & SOCIAL` |
+| Your name, one-line intro, hero email | `public/index.html` | `HERO` |
+| The four "what I do" blocks | `public/index.html` | `WHAT I DO` |
+| Email and LinkedIn links | `public/index.html` | `CONTACT` |
+| The long About story | `public/about/index.html` | `THE LONG VERSION` |
+| The six delivery steps | `public/experience/index.html` | `DELIVERY PROCESS` |
 
 The GitHub row in the contact list is currently commented out. To switch it on, follow the
 instructions in the comment right above it.

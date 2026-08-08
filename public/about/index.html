@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>About — Sajib Islam</title>
+<meta name="description" content="Sajib Islam is an RF engineer in Toronto and an Engineer-in-Training with APEGS. Education, Nokia certifications, professional affiliations and recognition.">
+<link rel="canonical" href="https://sajibislam.com/about/">
+
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Sajib Islam">
+<meta property="og:title" content="About — Sajib Islam">
+<meta property="og:description" content="RF engineer in Toronto, Engineer-in-Training with APEGS. Education, certifications, affiliations and recognition.">
+<meta property="og:url" content="https://sajibislam.com/about/">
+<meta property="og:image" content="https://sajibislam.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sajib Islam — RF engineer, Toronto.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About — Sajib Islam">
+<meta name="twitter:description" content="RF engineer in Toronto, Engineer-in-Training with APEGS. Education, certifications, affiliations and recognition.">
+<meta name="twitter:image" content="https://sajibislam.com/og.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F1F4F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1315" media="(prefers-color-scheme: dark)">
+
+<link rel="stylesheet" href="/styles.css">
+<script>
+  try {
+    var t = localStorage.getItem("theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     TITLE BLOCK — ⚠ THIS BLOCK IS REPEATED IN ALL FOUR PAGE FILES.
+     If you change the navigation, change it in index.html, experience/index.html,
+     projects/index.html AND about/index.html. See CONTRIBUTING.md.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<header class="rail">
+  <p class="rail__name"><a href="/">Sajib Islam</a></p>
+  <p class="rail__disc">RF Engineer &middot; EIT</p>
+  <p class="rail__loc">Toronto, ON</p>
+
+  <nav class="rail__nav" aria-label="Pages">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/experience/">Experience</a></li>
+      <li><a href="/projects/">Projects</a></li>
+      <li><a href="/about/" aria-current="page">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <button class="toggle" type="button" id="theme-toggle" aria-label="Switch to dark theme">
+    <span class="toggle__dot" aria-hidden="true"></span>
+    <span class="toggle__label">Dark</span>
+  </button>
+</header>
+
+<main class="sheet" id="main">
+
+  <section class="page-head" aria-labelledby="page-h">
+    <p class="eyebrow">About</p>
+    <h1 id="page-h">Sajib Islam</h1>
+    <p class="lede">RF engineer in Toronto. Engineer-in-Training with APEGS, working toward
+    P.Eng.</p>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       THE LONG VERSION — edit these paragraphs directly.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="story" aria-labelledby="story-h">
+    <h2 id="story-h"><span class="mark">The long version</span></h2>
+    <div class="prose">
+      <p>I&rsquo;m an RF engineer at Genwave Technologies in Toronto, and my work is almost
+      entirely in-building: distributed antenna systems, Private 5G and Cisco URWB networks
+      for large venues. That means the design package and link budget up front, then
+      commissioning, CW and PIM testing, walk testing, and the optimization that moves a
+      system from installed to actually meeting its engineered targets.</p>
+
+      <p>Before Canada I spent fifteen years on the macro side. Five of them were at Nokia,
+      leading LTE and 5G optimization and doing the multi-vendor KPI and counter mapping that
+      proves a network still behaves the same after a swap. Before that I planned and
+      optimized 4G and 3G for MTN Irancell in Tehran, running a transition across more than
+      two thousand sites. I started out at Grameenphone, Ericsson and Huawei in Dhaka, where I
+      designed more than a hundred in-building systems and ran a 250-site IBS vendor swap.</p>
+
+      <p>That background is why I tend to read an in-building problem as a network problem
+      first and a cabling problem second. A venue with poor coverage is rarely just a venue
+      with poor coverage &mdash; it is a donor that was never characterised properly, or a
+      neighbour list nobody updated, or a KPI target somebody agreed to without checking
+      whether the physics allowed it.</p>
+
+      <p>The other half of my work is making the analysis faster. I write Python that turns
+      raw measurement data into finished reports, and Power BI models that turn counter dumps
+      into a ranked list of things to fix. Fifteen years of assembling that kind of thing by
+      hand is a good reason to stop doing it by hand.</p>
+
+      <p>I&rsquo;ve worked across Bangladesh, Iran, Myanmar and now Canada, mostly with teams
+      where English was nobody&rsquo;s first language, including mine. That turns out to be
+      good training for the part of engineering that is actually about getting people to agree
+      on what the numbers mean.</p>
+    </div>
+  </section>
+
+
+  <section id="education" aria-labelledby="education-h">
+    <h2 id="education-h"><span class="mark">Education</span></h2>
+    <div data-render="education"></div>
+    <div data-render="certifications"></div>
+    <div data-render="recognition"></div>
+  </section>
+
+
+  <section id="elsewhere" aria-labelledby="elsewhere-h">
+    <h2 id="elsewhere-h"><span class="mark">Elsewhere</span></h2>
+    <ul class="contact">
+      <li>
+        <span class="contact__k">Email</span>
+        <a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a>
+      </li>
+      <li>
+        <span class="contact__k">LinkedIn</span>
+        <a class="link" href="https://www.linkedin.com/in/sajibislam/" rel="me noopener">linkedin.com/in/sajibislam</a>
+      </li>
+      <li>
+        <span class="contact__k">Analytics</span>
+        <a class="link" href="https://www.linkedin.com/in/md-sajibull-islam/" rel="me noopener">linkedin.com/in/md-sajibull-islam</a>
+      </li>
+    </ul>
+  </section>
+
+  <p class="onward">
+    <a href="/experience/">Experience &rarr;</a>
+    <a href="/projects/">Projects &rarr;</a>
+    <a href="/#contact">Get in touch &rarr;</a>
+  </p>
+
+  <noscript>
+    <p class="noscript">Some sections of this page are built with JavaScript and are not
+    showing. You can still reach me at
+    <a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a>.</p>
+  </noscript>
+
+  <footer class="foot">
+    <p>Sajib Islam &mdash; Toronto, ON</p>
+    <p><a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a></p>
+  </footer>
+
+</main>
+
+<script src="/content/content.js"></script>
+<script src="/main.js"></script>
+</body>
+</html>

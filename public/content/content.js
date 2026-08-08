@@ -1,8 +1,8 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    content.js — THIS IS THE ONLY FILE YOU NORMALLY NEED TO EDIT.
 
-   Everything on the site that is a list — jobs, skills, projects, education,
-   certifications — lives here, in the same order it appears on the page.
+   Everything on the site that is a list — jobs, the career chart, skills,
+   projects, education, certifications — lives here.
 
    HOW TO ADD SOMETHING
      1. Find the right section below.
@@ -20,10 +20,14 @@
      telling you which one. The rest of the site keeps working. Fix the typo,
      or undo your change in GitHub — see CONTRIBUTING.md.
 
+   WHERE THIS SHOWS UP
+     One file feeds all four pages. The same list can appear in two places —
+     e.g. projects show as three cards on the home page and in full on the
+     Projects page. You only ever edit it here, once.
+
    NOT IN THIS FILE
-     Your name, the about paragraphs, and your contact links live in
-     public/index.html. They change once a decade, so they are written
-     straight into the page. CONTRIBUTING.md says exactly which lines.
+     Your name, the hero line, the About paragraphs and your contact links are
+     written straight into the page files. CONTRIBUTING.md says exactly where.
 
    WHY THIS FILE LIVES INSIDE public/
      Only files inside public/ get served to the internet. A content folder
@@ -31,6 +35,76 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 window.SITE = {
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     CAREER CHART — the bar chart of time spent at each company.
+
+     Oldest first, left to right. Each bar's height comes from "years".
+
+     "mark"    is the short name printed in the tile under the bar. Keep it
+               SHORT — 8 characters or fewer, or it will look cramped on a
+               phone. It gets uppercased automatically.
+     "years"   is a number, not text. Use one decimal place: 4.1, not "4 yrs".
+     "current" draws this bar in amber instead of teal. One job only.
+
+     ⚠ The "years" figure for your current job does not update itself.
+       Nudge it up by 0.3 every few months, or just once a year.
+     ───────────────────────────────────────────────────────────────────────── */
+  timeline: [
+
+    // ── COPY FROM HERE ──
+    {
+      company: "Grameenphone",
+      mark: "GP",
+      dates: "Sep 2007 — Oct 2011",
+      years: 4.1,
+      role: "Senior System Engineer",
+    },
+    // ── TO HERE ──
+
+    {
+      company: "Ericsson",
+      mark: "ERICSSON",
+      dates: "Oct 2011 — Nov 2013",
+      years: 2.1,
+      role: "Services Engineer",
+    },
+
+    {
+      company: "Huawei",
+      mark: "HUAWEI",
+      dates: "Nov 2013 — Dec 2014",
+      years: 1.1,
+      role: "Senior Engineer & Team Lead",
+    },
+
+    {
+      company: "FlipNet (MTN Irancell)",
+      mark: "FLIPNET",
+      dates: "Dec 2014 — Jun 2018",
+      years: 3.5,
+      role: "4G & 3G Consultant / Team Lead",
+    },
+
+    {
+      company: "Nokia",
+      mark: "NOKIA",
+      dates: "Feb 2019 — Jan 2024",
+      years: 4.9,
+      role: "Senior NPO Engineer",
+    },
+
+    {
+      company: "Genwave Technologies",
+      mark: "GENWAVE",
+      dates: "May 2025 — Present",
+      years: 1.3,
+      current: true,
+      role: "RF Engineer",
+    },
+
+  ],
+
 
   /* ─────────────────────────────────────────────────────────────────────────
      EXPERIENCE — newest job first.
@@ -80,7 +154,7 @@ window.SITE = {
       dates: "Dec 2014 — Jun 2018",
       bullets: [
         "Owned end-to-end RF planning and optimization of 4G and 3G in Atoll — coverage and capacity planning, link budgets, PCI and neighbour planning, and new-site candidate evaluation.",
-        "Monitored network, city and cluster level KPIs and drove corrective action to restore performance targets.",
+        "Planned, implemented and optimized a network transition covering more than 2,000 sites, delivered inside an eighteen-month target.",
         "Troubleshot parameter mismatch, high uplink interference, TX faults, capacity bottlenecks, MIMO configuration and Carrier Aggregation issues.",
         "Mentored and trained team members in RF design and optimization methodology.",
       ],
@@ -94,6 +168,7 @@ window.SITE = {
       bullets: [
         "Designed and deployed 100+ in-building (IBS/DAS) systems and 200+ repeater sites, and executed a 250+ site IBS vendor swap from Ericsson to Huawei for the largest mobile operator in Bangladesh.",
         "Delivered multi-vendor RAN planning, design and optimization for operators across Bangladesh and Myanmar (Telenor, Ooredoo).",
+        "Completed planning and design for more than 200 sites at Grameenphone, and built the end-to-end working process the technology division used for site solutions.",
         "Coordinated multi-entity delivery, presented daily progress to senior management, and trained stakeholder and vendor teams through deployment cycles.",
       ],
     },
@@ -119,6 +194,7 @@ window.SITE = {
         "Link budget analysis",
         "Coverage prediction",
         "Propagation model tuning",
+        "Monte Carlo simulation",
         "Atoll",
         "iBwave",
         "Mentum Planet",
@@ -139,6 +215,7 @@ window.SITE = {
         "WinFIOL",
         "Huawei U2000",
         "5G SA / NSA",
+        "Open RAN",
         "LTE",
         "HSPA",
         "GSM",
@@ -159,6 +236,8 @@ window.SITE = {
         "Drive test analysis",
         "Call trace (GPEH, UeTR, CTR)",
         "Layer 3 signaling analysis",
+        "Worst-cell optimization",
+        "SSV & KPI acceptance",
       ],
     },
 
@@ -169,6 +248,7 @@ window.SITE = {
         "SQL",
         "Power BI",
         "Power Query",
+        "Power Pivot",
         "DAX",
         "Tableau",
         "Looker Studio",
@@ -179,14 +259,13 @@ window.SITE = {
     },
 
     {
-      group: "Machine learning",
+      group: "Mapping & documentation",
       items: [
-        "scikit-learn",
-        "TensorFlow / Keras",
-        "Random Forest",
-        "XGBoost",
-        "LSTM",
-        "U-Net",
+        "MapInfo",
+        "QGIS",
+        "AutoCAD",
+        "Design packages",
+        "Close-out documentation",
       ],
     },
 
@@ -194,38 +273,65 @@ window.SITE = {
 
 
   /* ─────────────────────────────────────────────────────────────────────────
-     PROJECTS — shown as cards.
+     PROJECTS — three of these show on the home page, all of them on /projects/.
 
-     "link" is optional. If a project is private or has nothing to link to,
-     delete the "link" and "linkLabel" lines entirely and the card renders
-     without a link.
+     "blurb"  is the short version, used on the cards.
+     "detail" is the longer version, used only on the Projects page.
+              Delete the line if you don't want a longer version.
+     "featured: true" picks which ones appear on the home page. Pick three.
+     "link" is optional — delete it and "linkLabel" if there's nothing to link.
      ───────────────────────────────────────────────────────────────────────── */
   projects: [
 
     // ── COPY FROM HERE ──
     {
       name: "RF measurement & reporting automation",
-      blurb: "Python tooling that ingests raw walk-test and measurement data and produces finished survey reports, replacing manual document assembly. Cut analysis turnaround time by 90%.",
+      featured: true,
+      blurb: "Python tooling that turns raw walk-test and measurement data into finished survey reports, replacing manual document assembly.",
+      detail: "Site survey reporting used to mean exporting measurement data, pasting it into a template, redrawing floorplan overlays by hand and reformatting everything for the client. This ingests the raw measurement files directly and produces the finished report. The point was never the tooling — it was that engineering time was going into document assembly instead of engineering. Cut analysis turnaround time by 90%.",
       tech: ["Python", "Pandas", "Excel"],
+      outcome: "90% faster turnaround",
     },
     // ── TO HERE ──
 
     {
       name: "Pre-swap / post-swap KPI analytics",
-      blurb: "Power BI model comparing network KPIs before and after vendor swaps across a large RAN estate, turning raw counter data into ranked optimization actions for senior stakeholders.",
+      featured: true,
+      blurb: "Power BI model comparing network KPIs before and after vendor swaps across a large RAN estate, turning raw counter data into ranked optimization actions.",
+      detail: "After an OEM swap, the question senior stakeholders ask is simply whether the network still performs. Answering it properly means comparing hundreds of counters across thousands of cells, in a form somebody can act on. This model pulled from SQL Server, SharePoint and CSV exports into one data model, applied row-level security so each team saw only its own estate, and produced a ranked list of what regressed and by how much — not a wall of charts.",
       tech: ["Power BI", "DAX", "Power Query", "SQL"],
+      outcome: "Adopted for stakeholder reporting",
     },
 
     {
       name: "IBS vendor swap — 250+ sites",
-      blurb: "Planned and executed an in-building system swap from Ericsson to Huawei across more than 250 sites for the largest mobile operator in Bangladesh, holding KPI parity through cutover.",
-      tech: ["IBS / DAS", "Multi-vendor KPI mapping"],
+      featured: true,
+      blurb: "Planned and executed an in-building system swap from Ericsson to Huawei across more than 250 sites for the largest mobile operator in Bangladesh.",
+      detail: "A vendor swap on in-building systems is unforgiving: the sites are venues with real occupants, the cutover windows are short, and the acceptance criterion is that nobody notices. This covered planning, sequencing and post-swap KPI optimization across more than 250 sites, holding performance parity through cutover.",
+      tech: ["IBS / DAS", "Multi-vendor KPI mapping", "Huawei", "Ericsson"],
+      outcome: "KPI parity held through cutover",
     },
 
     {
-      name: "[[ML PROJECT NAME]]",
-      blurb: "[[ONE OR TWO SENTENCES — the problem, the model you used, and the result. This is where your TMU coursework or side ML work goes.]]",
-      tech: ["Python", "[[MODEL]]"],
+      name: "2,000-site network transition",
+      blurb: "Planned, implemented and optimized a 4G/3G network transition covering more than 2,000 sites for MTN Irancell, delivered inside an eighteen-month target.",
+      detail: "End-to-end RF planning and optimization at national scale in Atoll — coverage and capacity plans, link budgets, PCI and neighbour planning, and new-site candidate evaluation — while monitoring network, city and cluster level KPIs throughout and driving corrective action when clusters fell behind target.",
+      tech: ["Atoll", "RF planning", "KPI optimization"],
+      outcome: "2,000+ sites in 18 months",
+    },
+
+    {
+      name: "Private 5G & Cisco URWB deployments",
+      blurb: "Design, commissioning and optimization of Private 5G and Cisco URWB networks for large Canadian venues, from link budget through to close-out documentation.",
+      detail: "Private networks in venues bring constraints a public macro network doesn't: the coverage target is a specific floor plate, the interference environment is other tenants, and the client wants evidence rather than assurances. Work spans design packages and link budgets, head-end and remote integration across ADRF, Corning/BTI and Zinwave, CW, PIM and walk testing, EMF and Safety Code 6 validation, and the close-out pack.",
+      tech: ["Private 5G", "Cisco URWB", "iBwave", "Walk testing"],
+    },
+
+    {
+      name: "5G SSV & KPI acceptance",
+      blurb: "Prepared, verified and defended 5G system verification and KPI acceptance reports against contractual targets on domestic and overseas Nokia projects.",
+      detail: "Acceptance is where a network stops being an engineering problem and becomes a contractual one. This meant running the verification, assembling the evidence, and then standing behind the numbers with the customer when a target was contested — including the multi-vendor counter and feature mapping needed to show that two different vendors' equipment were being measured on equivalent terms.",
+      tech: ["5G NR", "Nokia NetAct", "KPI acceptance"],
     },
 
   ],
@@ -240,27 +346,19 @@ window.SITE = {
 
     // ── COPY FROM HERE ──
     {
-      credential: "Master of Engineering, Electrical & Computer Engineering",
-      institution: "Toronto Metropolitan University",
-      location: "Toronto, ON",
-      dates: "Jan 2025 — [[EXPECTED COMPLETION]]",
-      note: "Artificial intelligence field of study. Part-time, alongside full-time engineering work.",
-    },
-    // ── TO HERE ──
-
-    {
       credential: "B.Sc. in Electrical & Electronic Engineering",
       institution: "Bangladesh University of Engineering and Technology (BUET)",
       location: "Dhaka, Bangladesh",
       dates: "Apr 2002 — Jun 2007",
       note: "Assessed by WES as equivalent to a Canadian four-year bachelor's degree.",
     },
+    // ── TO HERE ──
 
   ],
 
 
   /* ─────────────────────────────────────────────────────────────────────────
-     CERTIFICATIONS
+     CERTIFICATIONS & AFFILIATIONS
 
      If you ever have none, leave this as an empty list — like this:
      certifications: [],
@@ -300,6 +398,26 @@ window.SITE = {
       name: "Member, Institution of Engineers, Bangladesh (IEB)",
       issuer: "IEB",
       date: "Since 2012",
+    },
+
+  ],
+
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     RECOGNITION — shows on the About page. Leave as [] to hide the section.
+     ───────────────────────────────────────────────────────────────────────── */
+  recognition: [
+
+    // ── COPY FROM HERE ──
+    {
+      name: "Appreciate Excellence Award",
+      detail: "Nokia / Ericsson — outstanding support on the TDD LTE2300 project.",
+    },
+    // ── TO HERE ──
+
+    {
+      name: "Appreciate Excellence Award",
+      detail: "Nokia / Ericsson — sustained effort through an OEM network swap.",
     },
 
   ],
