@@ -600,6 +600,27 @@ h1 {
   text-wrap: pretty;
 }
 
+/* ─── Useful links (tools page) ─────────────────────────────────────────── */
+
+.links {
+  display: grid;
+  gap: var(--s6);
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+.links__h {
+  margin: 0 0 var(--s3);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.links__group ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s4); }
+.links__group li { display: grid; gap: 2px; }
+.links__desc { font-size: 0.875rem; color: var(--steel); text-wrap: pretty; }
+.ext { font-size: 0.75em; color: var(--steel); }
+
 /* ─── Career timeline (home) ────────────────────────────────────────────────
    One row per phase on a shared year axis: studies first, then every job.
    Gaps between bars are real gaps in the record and are meant to show. */

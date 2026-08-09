@@ -139,6 +139,7 @@ Search for these comment banners:
 | Email and LinkedIn links | `public/index.html` | `CONTACT` |
 | The long About story | `public/about/index.html` | `THE LONG VERSION` |
 | The six delivery steps | `public/experience/index.html` | `DELIVERY PROCESS` |
+| The useful-links list | `public/tools/index.html` | `USEFUL LINKS` |
 
 The GitHub row in the contact list is currently commented out. To switch it on, follow the
 instructions in the comment right above it.
