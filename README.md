@@ -8,18 +8,26 @@ step. Deployed as a Cloudflare Worker serving static assets; a push to `main` sh
 
 ## Layout
 
+Four pages: `/`, `/experience/`, `/projects/`, `/about/`.
+
 ```
-public/            everything served at the root of sajibislam.com
-  index.html         the page — head/meta, JSON-LD, hero, about, contact
-  styles.css         all styling; the theme is ~8 variables at the top
-  main.js            renders content.js into the page; theme toggle
+public/                    everything served at the root of sajibislam.com
+  index.html                 home — hero, career chart, featured projects, contact
+  experience/index.html      career chart, DAS diagram, roles, process, skills
+  projects/index.html        every project, long form
+  about/index.html           the long story, education, certifications
+  styles.css                 all styling; the theme is ~8 variables at the top
+  main.js                    renders content.js into whichever page is loaded
   content/
-    content.js       ← experience, skills, projects, education. Edit this.
+    content.js             ← career chart, experience, skills, projects. Edit this.
   404.html  favicon.svg  apple-touch-icon.png  og.png  robots.txt  sitemap.xml
 src/
-  index.js           Worker entry point — passes everything to public/
-wrangler.jsonc       deploy config. Do not edit without checking CONTRIBUTING.md.
+  index.js                 Worker entry point — passes everything to public/
+wrangler.jsonc             deploy config. Do not edit without checking CONTRIBUTING.md.
 ```
+
+The header and footer are duplicated across the four page files — the cost of having no
+build step. Change one, change all four.
 
 ## Documentation
 

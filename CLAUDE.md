@@ -28,16 +28,36 @@ of sajibislam.com. Everything the visitor sees is plain HTML, CSS and vanilla JS
 
 ## Where content lives
 
-- `public/content/content.js` — experience, skills, projects, education, certifications.
-  One `window.SITE` object, rendered by `public/main.js`. **This is the file Sajib edits.**
-  It lives inside `public/` because only files under `public/` are served.
-- `public/index.html` — name, hero line, About paragraphs, contact links, all SEO tags and
-  the JSON-LD block. Static HTML, changes rarely.
+Four pages: `/` , `/experience/`, `/projects/`, `/about/`.
+
+- `public/content/content.js` — the career chart, experience, skills, projects, education,
+  certifications, recognition. One `window.SITE` object, rendered by `public/main.js`.
+  **This is the file Sajib edits.** It lives inside `public/` because only files under
+  `public/` are served. One list can feed two views: projects show as three cards on the
+  home page (`data-render="projects-featured"`) and in full on `/projects/`.
+- `public/index.html`, `public/experience/index.html`, `public/projects/index.html`,
+  `public/about/index.html` — hero and page copy, prose, contact links, SEO tags, JSON-LD.
+- **The header/nav and footer are duplicated across all four page files.** That is the cost
+  of having no build step. Change one, change all four.
 - `public/styles.css` — the theme is ~8 CSS custom properties in the first 30 lines.
 
 Each section renders inside a `try/catch`: a typo in `content.js` breaks only that section
-and prints a message naming the file, rather than blanking the page. Keep it that way.
+and prints a message naming the file, rather than blanking the page. It also rejects a value
+that should be a list but isn't, so a section can never vanish silently. Keep both.
 The renderer uses `textContent`, never `innerHTML` — do not change this.
+
+The career timeline, the column chart and the delivery process are built from HTML and CSS,
+not SVG, so labels never shrink with a viewBox and a real logo `<img>` can sit in the axis.
+Bar lengths are derived from `from`/`to` dates, never typed, so nothing goes stale. The DAS
+riser is inline SVG, hidden below 720px where its labels would render at ~5px, with its text
+description shown there instead.
+
+Two traps worth remembering: a visually-hidden `<table>` needs `table-layout: fixed` or it
+ignores `width: 1px` and widens the whole page; and an HTML comment containing `-->` in its
+text closes early and leaks the markup it was meant to hide.
+
+Company logos load only from `/img/logos/` — `main.js` validates the path, which is what
+keeps the no-third-party-requests rule true by construction. See `public/img/logos/README.md`.
 
 ## Never do any of these without asking first
 

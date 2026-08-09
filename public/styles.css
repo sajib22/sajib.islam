@@ -77,7 +77,8 @@ body {
 .eyebrow,
 .rail__disc, .rail__loc, .rail__nav, .toggle,
 .role__dates, .role__flag, .skill__group, .proj__tech,
-.edu__dates, .cert__meta, .contact__k, .foot, .budget__cap {
+.edu__dates, .cert__meta, .contact__k, .foot,
+.chart__cap, .tl__cap, .tl__dates, .diagram__cap {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
@@ -147,7 +148,7 @@ body {
   border-bottom: 1px solid transparent;
 }
 .rail__nav a:hover { color: var(--ink); }
-.rail__nav a[aria-current="true"] {
+.rail__nav a[aria-current] {
   color: var(--ink);
   border-bottom-color: var(--accent);
 }
@@ -245,80 +246,6 @@ h1 {
 
 .hero__contact { margin: var(--s5) 0 0; font-size: 0.9375rem; }
 
-/* ─── Signature: the link budget ────────────────────────────────────────── */
-
-.budget { margin: var(--s7) 0 0; }
-
-.budget__chart {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-.budget__grid line { stroke: var(--rule); stroke-width: 1; }
-.budget__trace {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2;
-  stroke-linejoin: round;
-}
-.budget__node circle { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
-
-.budget__chart text {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-.budget__level text { font-size: 13px; fill: var(--ink); }
-.budget__delta text { font-size: 12px; fill: var(--steel); text-anchor: middle; }
-.budget__part  text { font-size: 11px; fill: var(--steel); letter-spacing: 0.1em; }
-
-.budget__level text:first-child,
-.budget__part  text:first-child { text-anchor: start; }
-.budget__level text:last-child,
-.budget__part  text:last-child  { text-anchor: end; }
-.budget__level text:not(:first-child):not(:last-child),
-.budget__part  text:not(:first-child):not(:last-child) { text-anchor: middle; }
-
-.budget__cap {
-  margin-top: var(--s3);
-  font-size: 0.6875rem;
-  color: var(--steel);
-}
-
-.budget__table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.8125rem;
-}
-.budget__table caption {
-  text-align: left;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--steel);
-  padding-bottom: var(--s3);
-}
-.budget__table th, .budget__table td {
-  text-align: left;
-  padding: var(--s2) var(--s3) var(--s2) 0;
-  border-bottom: 1px solid var(--rule);
-  font-weight: 400;
-}
-.budget__table thead th {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--steel);
-}
-.budget__table tbody th { color: var(--ink); }
-.budget__table td {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  color: var(--steel);
-}
-
 /* ─── Prose ─────────────────────────────────────────────────────────────── */
 
 .prose { max-width: var(--measure); }
@@ -410,13 +337,38 @@ h1 {
   border-radius: 2px;
 }
 .proj__blurb { margin: 0; font-size: 0.9375rem; color: var(--steel); text-wrap: pretty; }
-.proj__tech {
+.proj__outcome {
   margin: 0;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 0.6875rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.proj__tech {
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1);
+}
+.proj__tech li {
+  padding: 0.1rem var(--s2);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
   color: var(--steel);
 }
-.proj__link { margin: auto 0 0; font-size: 0.8125rem; }
+.proj__link { margin: 0; font-size: 0.8125rem; }
+
+/* Full write-ups on /projects/ — one per row, room to actually read. */
+.projects--full { grid-template-columns: 1fr; gap: var(--s5); }
+.projects--full .proj { padding: var(--s5); gap: var(--s4); }
+.projects--full .proj__blurb { font-size: 1rem; max-width: var(--measure); }
 
 /* ─── Education & certifications ────────────────────────────────────────── */
 
@@ -475,6 +427,568 @@ h1 {
 }
 .render-error code { font-family: var(--font-mono); font-size: 0.8125rem; }
 
+/* ─── Company badge, shared by both charts ──────────────────────────────────
+   Shows a real logo when one has been dropped into /img/logos/, and a
+   lettered tile until then. Both are the same size so the layout doesn't
+   move when you add logo files one at a time. */
+
+.logo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Logo tiles keep a white ground in both themes. Brand marks are drawn for
+   light backgrounds — Huawei's wordmark is black, Nokia's is blue — so
+   letting the dark theme show through would make several of them vanish. */
+.has-logo {
+  background: #FFFFFF;
+  padding: 3px 4px;
+}
+.logo-text {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* ─── Portrait ──────────────────────────────────────────────────────────────
+   Only ever present when a photo file exists — main.js adds .has-portrait to
+   the section, so these rules do nothing until then. */
+
+.portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Matches the width/height attributes on the element, so the space is
+     reserved before the file downloads and nothing shifts. */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--surface);
+}
+
+/* Phones: a modest portrait above the name, not a full-bleed photo. */
+.has-portrait [data-render="portrait"] {
+  max-width: 8.5rem;
+  margin-bottom: var(--s5);
+}
+
+@media (min-width: 40rem) {
+  /* Wider screens have room to set the photo beside the text. */
+  .hero.has-portrait,
+  .page-head.has-portrait {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 11rem;
+    column-gap: var(--s6);
+    align-items: start;
+  }
+  .has-portrait [data-render="portrait"] {
+    grid-column: 2;
+    grid-row: 1 / span 20;
+    max-width: none;
+    margin-bottom: 0;
+  }
+  /* Everything else stays in the first column, in source order. */
+  .has-portrait > :not([data-render="portrait"]) { grid-column: 1; }
+}
+
+/* ─── Tools / calculators ───────────────────────────────────────────────────
+   Live-updating conversion cards. Numbers are monospaced with tabular figures
+   so digits line up as they change. */
+
+.tools-nav {
+  margin-top: var(--s5);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+.tools-nav a {
+  padding: var(--s1) var(--s3);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--steel);
+  text-decoration: none;
+}
+.tools-nav a:hover { color: var(--ink); border-color: var(--steel); }
+
+.tool__intro { margin: 0 0 var(--s5); max-width: var(--measure); color: var(--steel); text-wrap: pretty; }
+
+.calc { display: grid; gap: var(--s4); margin: 0 0 var(--s4); }
+@media (min-width: 34rem) {
+  .calc--2 { grid-template-columns: 1fr 1fr; gap: var(--s4) var(--s5); }
+}
+
+.field { margin: 0; display: grid; gap: var(--s2); }
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+.field .control { display: flex; align-items: center; gap: var(--s2); min-width: 0; }
+
+.field input,
+.field select {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--s2) var(--s3);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field select { flex: 0 0 auto; }
+.field .control > select:last-child { flex: 0 0 auto; width: auto; }
+.field input:focus,
+.field select:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+
+.field .unit {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--steel);
+  min-width: 2.25rem;
+}
+.field__status {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--amber);
+  min-height: 0.9rem;
+}
+.field--wide { max-width: 22rem; }
+
+.out {
+  margin: var(--s2) 0 0;
+  padding-top: var(--s4);
+  border-top: 1px solid var(--rule);
+  display: grid;
+  gap: var(--s2);
+}
+.out__row { margin: 0; display: flex; justify-content: space-between; gap: var(--s4); align-items: baseline; }
+.out__k { font-size: 0.875rem; color: var(--steel); }
+.out__v {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1rem;
+  color: var(--ink);
+  text-align: right;
+}
+.tool__ref {
+  margin: var(--s4) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  color: var(--steel);
+  text-wrap: pretty;
+}
+
+/* ─── Useful links (tools page) ─────────────────────────────────────────── */
+
+.links {
+  display: grid;
+  gap: var(--s6);
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+.links__h {
+  margin: 0 0 var(--s3);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.links__group ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s4); }
+.links__group li { display: grid; gap: 2px; }
+.links__desc { font-size: 0.875rem; color: var(--steel); text-wrap: pretty; }
+.ext { font-size: 0.75em; color: var(--steel); }
+
+/* ─── Career timeline (home) ────────────────────────────────────────────────
+   One row per phase on a shared year axis: studies first, then every job.
+   Gaps between bars are real gaps in the record and are meant to show. */
+
+.tl { margin: var(--s7) 0 0; }
+
+.tl__rows { margin: 0; padding: 0; list-style: none; }
+
+.tl__row,
+.tl__axis {
+  display: grid;
+  /* Wide enough for an eight-character wordmark like ERICSSON until real
+     logo files replace it. */
+  grid-template-columns: 4.75rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s3);
+}
+.tl__row + .tl__row { margin-top: var(--s3); }
+
+.tl__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: var(--s1);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink);
+  text-align: center;
+}
+.tl__badge--blank { border-color: transparent; background: none; }
+.tl__row.is-current .tl__badge { border-color: var(--amber); color: var(--amber); }
+
+.tl__main { min-width: 0; }
+
+.tl__label {
+  margin: 0 0 3px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s3);
+  align-items: baseline;
+  line-height: 1.3;
+}
+.tl__co { font-size: 0.8125rem; }
+.tl__dates {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.6875rem;
+  color: var(--steel);
+}
+
+.tl__track {
+  position: relative;
+  height: 0.75rem;
+  background: var(--rule);
+  border-radius: 1px;
+}
+.tl__bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--accent);
+  border-radius: 1px;
+}
+.tl__row.is-current .tl__bar { background: var(--amber); }
+
+/* Studies read as a different kind of thing: outlined, not filled. */
+.tl__row.is-study .tl__bar {
+  background: none;
+  border: 1.5px solid var(--steel);
+}
+
+.tl__axis { margin-top: var(--s2); }
+.tl__ticks { position: relative; height: 1rem; }
+.tl__tick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.625rem;
+  color: var(--steel);
+}
+
+.tl__cap {
+  margin-top: var(--s4);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--steel);
+}
+
+/* ─── Career column chart ───────────────────────────────────────────────────
+   Vertical columns at every width. Built from divs, not an SVG, so a real
+   logo <img> can sit under each column and the labels never shrink. */
+
+.chart { margin: var(--s6) 0 0; }
+
+.chart__plot { --max: 5; padding-top: var(--s5); }
+
+.chart__bars {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: var(--s2);
+  /* Stretch, not end: columns have different label heights, and bottom-
+     aligning them would leave the tracks — and so the logos — at different
+     heights across the chart. */
+  align-items: stretch;
+}
+
+.chart__col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--s2);
+  min-width: 0;
+}
+
+.chart__track {
+  position: relative;
+  height: 11rem;
+  border-bottom: 1px solid var(--rule);
+  background-image: repeating-linear-gradient(
+    to top,
+    var(--rule) 0 1px,
+    transparent 1px calc(100% / var(--max))
+  );
+}
+
+.chart__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--yrs) / var(--max) * 100%);
+  min-height: 2px;
+  background: var(--accent);
+  border-radius: 1px 1px 0 0;
+}
+.chart__col.is-current .chart__bar { background: var(--amber); }
+
+.chart__val {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--yrs) / var(--max) * 100%);
+  margin-bottom: var(--s1);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  color: var(--ink);
+}
+
+.chart__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: var(--s1);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink);
+  text-align: center;
+}
+.chart__col.is-current .chart__mark { border-color: var(--amber); color: var(--amber); }
+
+.chart__co {
+  display: block;
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--steel);
+  text-wrap: pretty;
+}
+
+.chart__cap {
+  margin-top: var(--s4);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--steel);
+}
+
+/* Text equivalent of the chart — always in the DOM for screen readers,
+   never shown, because the chart itself works at every width.
+   table-layout: fixed is load-bearing: without it a table ignores width:1px,
+   lays out at its min-content width and widens the whole page. */
+.chart__table {
+  position: absolute;
+  table-layout: fixed;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+}
+
+/* ─── Capability blocks ─────────────────────────────────────────────────── */
+
+.caps {
+  display: grid;
+  gap: var(--s5);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.cap__h {
+  margin: 0 0 var(--s2);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.cap p { margin: 0; font-size: 0.9375rem; color: var(--steel); text-wrap: pretty; }
+
+/* ─── Hand-drawn technical diagrams ─────────────────────────────────────── */
+
+.diagram { margin: var(--s6) 0 0; }
+.diagram svg { display: block; width: 100%; height: auto; overflow: visible; }
+.diagram__cap {
+  margin-top: var(--s4);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--steel);
+}
+.diagram text {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.dg-rule   { stroke: var(--rule); stroke-width: 1; }
+.dg-line   { stroke: var(--accent); stroke-width: 2; fill: none; }
+.dg-line--soft { stroke: var(--steel); stroke-width: 1.5; fill: none; stroke-dasharray: 4 3; }
+.dg-box    { fill: var(--surface); stroke: var(--accent); stroke-width: 1.5; }
+.dg-box--muted { fill: var(--surface); stroke: var(--steel); stroke-width: 1; }
+.dg-dot    { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.dg-fill   { fill: var(--accent); }
+.dg-label  { font-size: 11px; fill: var(--ink); }
+.dg-sub    { font-size: 10px; fill: var(--steel); letter-spacing: 0.06em; }
+
+/* The diagram's text equivalent. Hidden for sighted readers on a wide screen
+   where the drawing is legible; shown as real text on a phone, where a 640-unit
+   viewBox squeezed into 320px would render the labels at about five pixels. */
+.diagram__alt {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+}
+
+@media (max-width: 44.9375rem) {
+  .diagram svg,
+  .diagram__cap { display: none; }
+
+  .diagram__alt {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: var(--s4);
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    background: var(--surface);
+    font-size: 0.9375rem;
+    color: var(--steel);
+    text-wrap: pretty;
+  }
+}
+
+/* Screen-reader equivalent for anything else. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Delivery process ──────────────────────────────────────────────────────
+   HTML rather than SVG for the same reason as the chart: it has to reflow
+   from a row of steps into a stacked list on a phone. */
+
+.flow {
+  margin: var(--s6) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--s4);
+  /* Six steps. Explicit columns rather than auto-fit, so it breaks 3+3 or
+     2+2+2 instead of an accidental-looking 4+2. */
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 34rem) {
+  .flow { grid-template-columns: repeat(3, 1fr); }
+}
+.flow__step {
+  padding-top: var(--s3);
+  border-top: 2px solid var(--accent);
+}
+.flow__n {
+  display: block;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.flow__t {
+  display: block;
+  margin-top: var(--s1);
+  font-size: 0.875rem;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+/* ─── Page intro (sits under the h1 on inner pages) ─────────────────────── */
+
+.lede {
+  margin: var(--s5) 0 0;
+  max-width: var(--measure);
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
+  line-height: 1.55;
+  color: var(--steel);
+  text-wrap: pretty;
+}
+
+.page-head { padding-top: var(--s7); }
+.page-head h1 { font-size: clamp(1.875rem, 5.5vw, 2.75rem); }
+
+/* ─── Next/previous page links at the foot of each page ─────────────────── */
+
+.onward {
+  margin-top: var(--s7);
+  padding-top: var(--s5);
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3) var(--s5);
+}
+.onward a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: none;
+}
+.onward a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+
 /* ═══ Wide screens: the rail becomes a sticky title block ═══════════════════ */
 
 @media (min-width: 64rem) {
@@ -497,22 +1011,36 @@ h1 {
   .hero, .sheet > section:first-child { padding-top: var(--s8); }
 }
 
-/* ═══ Narrow screens: the chart is unreadable, so show the table ═══════════ */
+/* ═══ Narrow screens: columns stay columns ═════════════════════════════════
+   Six columns still fit at 360px — about 45px each, which is enough for a
+   logo. What doesn't fit is a horizontal company name, so it turns and
+   reads bottom-to-top, the way axis labels do on any crowded chart. */
 
 @media (max-width: 44.9375rem) {
-  .budget__chart, .budget__cap { display: none; }
+  .chart__bars { gap: var(--s1); }
+  .chart__plot { padding-top: var(--s4); }
+
+  .chart__track { height: 8rem; }
+  .chart__val { font-size: 0.625rem; }
+
+  .chart__mark { height: 2rem; padding: 2px; }
+  .chart__mark .logo-text { font-size: 0.5rem; letter-spacing: 0; }
+
+  .chart__co {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    align-self: center;
+    /* Fixed, not max-height, so every column ends at the same place and the
+       caption doesn't sit under a ragged edge. */
+    height: 7.5rem;
+    overflow: hidden;
+    text-align: right;
+  }
+
+  /* The timeline's badge column can afford to be a little tighter too. */
+  .tl__row,
+  .tl__axis { grid-template-columns: 3.5rem minmax(0, 1fr); gap: var(--s2); }
+  .tl__badge { height: 2rem; }
+  .tl__badge .logo-text { font-size: 0.5rem; letter-spacing: 0; }
 }
 
-@media (min-width: 45rem) {
-  /* Table stays in the DOM as the chart's text equivalent for screen readers. */
-  .budget__table {
-    position: absolute;
-    width: 1px; height: 1px;
-    margin: -1px; padding: 0;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: 0;
-  }
-}

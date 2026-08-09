@@ -4,8 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Page not found — Sajib Islam</title>
-<meta name="robots" content="noindex">
+<title>Projects — Sajib Islam</title>
+<meta name="description" content="RF engineering projects by Sajib Islam: measurement and reporting automation, pre-swap and post-swap KPI analytics, a 250-site IBS vendor swap, a 2,000-site network transition, and Private 5G deployments.">
+<link rel="canonical" href="https://sajibislam.com/projects/">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Sajib Islam">
+<meta property="og:title" content="Projects — Sajib Islam">
+<meta property="og:description" content="Measurement automation, KPI analytics, a 250-site IBS vendor swap, a 2,000-site network transition, and Private 5G deployments.">
+<meta property="og:url" content="https://sajibislam.com/projects/">
+<meta property="og:image" content="https://sajibislam.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sajib Islam — RF engineer, Toronto.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Projects — Sajib Islam">
+<meta name="twitter:description" content="Measurement automation, KPI analytics, a 250-site IBS vendor swap, a 2,000-site network transition, and Private 5G deployments.">
+<meta name="twitter:image" content="https://sajibislam.com/og.png">
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -30,7 +45,6 @@
      If you change the navigation, change it in index.html, experience/index.html,
      projects/index.html, about/index.html, tools/index.html AND 404.html.
      See CONTRIBUTING.md.
-     No link is marked aria-current here — this page is not one of them.
      ══════════════════════════════════════════════════════════════════════════ -->
 <header class="rail">
   <p class="rail__name"><a href="/">Sajib Islam</a></p>
@@ -41,7 +55,7 @@
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/experience/">Experience</a></li>
-      <li><a href="/projects/">Projects</a></li>
+      <li><a href="/projects/" aria-current="page">Projects</a></li>
       <li><a href="/tools/">Tools</a></li>
       <li><a href="/about/">About</a></li>
       <li><a href="/#contact">Contact</a></li>
@@ -56,19 +70,30 @@
 
 <main class="sheet" id="main">
 
-  <section class="page-head" aria-labelledby="nf">
-    <p class="eyebrow">404</p>
-    <h1 id="nf">Page not found</h1>
-    <p class="lede">That address doesn&rsquo;t exist on this site. It may have been a typo,
-    or a link that pointed somewhere that has since moved.</p>
+  <section class="page-head" aria-labelledby="page-h">
+    <p class="eyebrow">Projects</p>
+    <h1 id="page-h">Work worth describing</h1>
+    <p class="lede">Some of this is software I wrote because the alternative was doing the
+    same thing by hand for the rest of my career. The rest is network delivery at a scale
+    where a mistake is expensive. Both are here.</p>
+  </section>
+
+  <section id="all" aria-labelledby="all-h">
+    <h2 id="all-h"><span class="mark">All projects</span></h2>
+    <div data-render="projects"></div>
   </section>
 
   <p class="onward">
-    <a href="/">Home &rarr;</a>
     <a href="/experience/">Experience &rarr;</a>
-    <a href="/projects/">Projects &rarr;</a>
     <a href="/about/">About &rarr;</a>
+    <a href="/#contact">Get in touch &rarr;</a>
   </p>
+
+  <noscript>
+    <p class="noscript">This page is built with JavaScript and is not showing. You can still
+    reach me at
+    <a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a>.</p>
+  </noscript>
 
   <footer class="foot">
     <p>Sajib Islam &mdash; Toronto, ON</p>
@@ -77,6 +102,7 @@
 
 </main>
 
+<script src="/content/content.js"></script>
 <script src="/main.js"></script>
 </body>
 </html>

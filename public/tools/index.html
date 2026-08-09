@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>RF Tools — Sajib Islam</title>
+<meta name="description" content="Free browser-based RF engineering calculators: watt and dBm power conversion, LTE EARFCN to frequency, free-space path loss, VSWR and return loss, and wavelength. Nothing is sent anywhere — it all runs in your browser.">
+<link rel="canonical" href="https://sajibislam.com/tools/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sajib Islam">
+<meta property="og:title" content="RF Tools — Sajib Islam">
+<meta property="og:description" content="Browser-based RF calculators: power (W/dBm), LTE EARFCN to frequency, free-space path loss, VSWR/return loss, wavelength.">
+<meta property="og:url" content="https://sajibislam.com/tools/">
+<meta property="og:image" content="https://sajibislam.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sajib Islam — RF engineer, Toronto.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RF Tools — Sajib Islam">
+<meta name="twitter:description" content="Browser-based RF calculators: power (W/dBm), LTE EARFCN to frequency, free-space path loss, VSWR/return loss, wavelength.">
+<meta name="twitter:image" content="https://sajibislam.com/og.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F1F4F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1315" media="(prefers-color-scheme: dark)">
+
+<link rel="stylesheet" href="/styles.css">
+<script>
+  try {
+    var t = localStorage.getItem("theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     TITLE BLOCK — ⚠ THIS BLOCK IS REPEATED IN ALL PAGE FILES.
+     If you change the navigation, change it in index.html, experience/index.html,
+     projects/index.html, about/index.html, tools/index.html AND 404.html.
+     See CONTRIBUTING.md.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<header class="rail">
+  <p class="rail__name"><a href="/">Sajib Islam</a></p>
+  <p class="rail__disc">RF Engineer &middot; EIT</p>
+  <p class="rail__loc">Toronto, ON</p>
+
+  <nav class="rail__nav" aria-label="Pages">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/experience/">Experience</a></li>
+      <li><a href="/projects/">Projects</a></li>
+      <li><a href="/tools/" aria-current="page">Tools</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <button class="toggle" type="button" id="theme-toggle" aria-label="Switch to dark theme">
+    <span class="toggle__dot" aria-hidden="true"></span>
+    <span class="toggle__label">Dark</span>
+  </button>
+</header>
+
+<main class="sheet" id="main">
+
+  <section class="page-head" aria-labelledby="page-h">
+    <p class="eyebrow">Tools</p>
+    <h1 id="page-h">RF calculators</h1>
+    <p class="lede">The conversions I reach for often enough to want them in one place.
+    Everything here runs in your browser &mdash; nothing you type is sent anywhere, because
+    there is nowhere to send it. Edit any field and the rest update as you type.</p>
+
+    <nav class="tools-nav" aria-label="Calculators">
+      <a href="#power">Power</a>
+      <a href="#earfcn">EARFCN</a>
+      <a href="#fspl">Path loss</a>
+      <a href="#vswr">VSWR</a>
+      <a href="#wavelength">Wavelength</a>
+      <a href="#links">Links</a>
+    </nav>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       1. POWER
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="power" class="tool" aria-labelledby="power-h">
+    <h2 id="power-h"><span class="mark">Power &mdash; watt, milliwatt, dBm, dBW</span></h2>
+    <p class="tool__intro">Type a value in any unit; the others follow. dBm is referenced to
+    one milliwatt, so 0&nbsp;dBm = 1&nbsp;mW and 30&nbsp;dBm = 1&nbsp;W.</p>
+
+    <div class="calc calc--2">
+      <p class="field">
+        <label for="pw-w">Power</label>
+        <span class="control"><input id="pw-w" type="number" step="any" inputmode="decimal"><span class="unit">W</span></span>
+      </p>
+      <p class="field">
+        <label for="pw-mw">Power</label>
+        <span class="control"><input id="pw-mw" type="number" step="any" inputmode="decimal" value="100"><span class="unit">mW</span></span>
+      </p>
+      <p class="field">
+        <label for="pw-dbm">Power</label>
+        <span class="control"><input id="pw-dbm" type="number" step="any" inputmode="decimal"><span class="unit">dBm</span></span>
+      </p>
+      <p class="field">
+        <label for="pw-dbw">Power</label>
+        <span class="control"><input id="pw-dbw" type="number" step="any" inputmode="decimal"><span class="unit">dBW</span></span>
+      </p>
+    </div>
+    <p class="tool__ref">dBm = 10·log₁₀(P/1&nbsp;mW) &nbsp;·&nbsp; dBW = dBm − 30</p>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       2. LTE EARFCN ⇄ FREQUENCY
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="earfcn" class="tool" aria-labelledby="earfcn-h">
+    <h2 id="earfcn-h"><span class="mark">LTE EARFCN ⇄ frequency</span></h2>
+    <p class="tool__intro">Pick a band, then enter an EARFCN to get the carrier frequency, or a
+    frequency to get the nearest channel. Based on the band table in 3GPP&nbsp;TS&nbsp;36.101.</p>
+
+    <p class="field field--wide">
+      <label for="ea-band">Operating band</label>
+      <span class="control"><select id="ea-band"></select></span>
+    </p>
+
+    <div class="calc calc--2">
+      <p class="field">
+        <label for="ea-dl-n">Downlink EARFCN</label>
+        <span class="control"><input id="ea-dl-n" type="number" step="1" inputmode="numeric"></span>
+        <span class="field__status" id="ea-dl-status"></span>
+      </p>
+      <p class="field">
+        <label for="ea-dl-f">Downlink frequency</label>
+        <span class="control"><input id="ea-dl-f" type="number" step="any" inputmode="decimal"><span class="unit">MHz</span></span>
+      </p>
+    </div>
+
+    <div class="calc calc--2" id="ea-ul-row">
+      <p class="field">
+        <label for="ea-ul-n">Uplink EARFCN</label>
+        <span class="control"><input id="ea-ul-n" type="number" step="1" inputmode="numeric"></span>
+        <span class="field__status" id="ea-ul-status"></span>
+      </p>
+      <p class="field">
+        <label for="ea-ul-f">Uplink frequency</label>
+        <span class="control"><input id="ea-ul-f" type="number" step="any" inputmode="decimal"><span class="unit">MHz</span></span>
+      </p>
+    </div>
+
+    <p class="tool__ref" id="ea-note"></p>
+    <p class="tool__ref">F = F_low + 0.1·(N − N_offset) MHz</p>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       3. FREE-SPACE PATH LOSS
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="fspl" class="tool" aria-labelledby="fspl-h">
+    <h2 id="fspl-h"><span class="mark">Free-space path loss</span></h2>
+    <p class="tool__intro">The loss between two isotropic antennas with clear line of sight &mdash;
+    the floor of any link budget, before antenna gain, cable, body loss or clutter.</p>
+
+    <div class="calc calc--2">
+      <p class="field">
+        <label for="fs-f">Frequency</label>
+        <span class="control"><input id="fs-f" type="number" step="any" inputmode="decimal" value="1800"><span class="unit">MHz</span></span>
+      </p>
+      <p class="field">
+        <label for="fs-d">Distance</label>
+        <span class="control"><input id="fs-d" type="number" step="any" inputmode="decimal" value="1"><select id="fs-unit" aria-label="Distance unit"><option value="km">km</option><option value="m">m</option><option value="mi">mi</option></select></span>
+      </p>
+    </div>
+
+    <div class="out">
+      <p class="out__row"><span class="out__k">Free-space path loss</span><span class="out__v" id="fs-out">—</span></p>
+      <p class="out__row"><span class="out__k">Wavelength</span><span class="out__v" id="fs-lambda">—</span></p>
+    </div>
+    <p class="tool__ref">FSPL(dB) = 20·log₁₀(d) + 20·log₁₀(f) + 32.44 &nbsp;·&nbsp; d in km, f in MHz</p>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       4. VSWR / RETURN LOSS
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="vswr" class="tool" aria-labelledby="vswr-h">
+    <h2 id="vswr-h"><span class="mark">VSWR &amp; return loss</span></h2>
+    <p class="tool__intro">How well a load is matched. Enter VSWR or return loss; the reflection
+    coefficient, mismatch loss and reflected-power share follow.</p>
+
+    <div class="calc calc--2">
+      <p class="field">
+        <label for="vs-vswr">VSWR</label>
+        <span class="control"><input id="vs-vswr" type="number" step="any" inputmode="decimal"><span class="unit">: 1</span></span>
+      </p>
+      <p class="field">
+        <label for="vs-rl">Return loss</label>
+        <span class="control"><input id="vs-rl" type="number" step="any" inputmode="decimal"><span class="unit">dB</span></span>
+      </p>
+    </div>
+
+    <div class="out">
+      <p class="out__row"><span class="out__k">Reflection coefficient |Γ|</span><span class="out__v" id="vs-gamma">—</span></p>
+      <p class="out__row"><span class="out__k">Mismatch loss</span><span class="out__v" id="vs-ml">—</span></p>
+      <p class="out__row"><span class="out__k">Power reflected</span><span class="out__v" id="vs-pref">—</span></p>
+    </div>
+    <p class="tool__ref">|Γ| = (VSWR−1)/(VSWR+1) &nbsp;·&nbsp; RL = −20·log₁₀|Γ| &nbsp;·&nbsp; ML = −10·log₁₀(1−|Γ|²)</p>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       5. WAVELENGTH
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="wavelength" class="tool" aria-labelledby="wavelength-h">
+    <h2 id="wavelength-h"><span class="mark">Wavelength ⇄ frequency</span></h2>
+    <p class="tool__intro">Free-space wavelength, with the half- and quarter-wave lengths that set
+    antenna and stub dimensions.</p>
+
+    <div class="calc calc--2">
+      <p class="field">
+        <label for="wl-f">Frequency</label>
+        <span class="control"><input id="wl-f" type="number" step="any" inputmode="decimal"><span class="unit">MHz</span></span>
+      </p>
+      <p class="field">
+        <label for="wl-l">Wavelength λ</label>
+        <span class="control"><input id="wl-l" type="number" step="any" inputmode="decimal"><span class="unit">cm</span></span>
+      </p>
+    </div>
+
+    <div class="out">
+      <p class="out__row"><span class="out__k">Half wave (λ/2)</span><span class="out__v" id="wl-half">—</span></p>
+      <p class="out__row"><span class="out__k">Quarter wave (λ/4)</span><span class="out__v" id="wl-quarter">—</span></p>
+    </div>
+    <p class="tool__ref">λ = c / f &nbsp;·&nbsp; c = 299,792,458 m/s (free space)</p>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       USEFUL LINKS — edit these directly. To add one, copy an <li> … </li>
+       block inside the right group and change the href, the name and the
+       description. External sites open in a new tab.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section id="links" class="tool" aria-labelledby="links-h">
+    <h2 id="links-h"><span class="mark">Useful links</span></h2>
+    <p class="tool__intro">Reference material and tools I point people to. These are external
+    sites; each opens in a new tab.</p>
+
+    <div class="links">
+
+      <div class="links__group">
+        <h3 class="links__h">Standards &amp; references</h3>
+        <ul>
+          <li>
+            <a class="link" href="https://www.3gpp.org/" target="_blank" rel="noopener noreferrer">3GPP <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">The body that writes the LTE and 5G NR specifications.</span>
+          </li>
+          <li>
+            <a class="link" href="https://www.sharetechnote.com/" target="_blank" rel="noopener noreferrer">ShareTechnote <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">Deep, practical notes on the LTE and 5G air interface.</span>
+          </li>
+          <li>
+            <a class="link" href="https://www.microwaves101.com/" target="_blank" rel="noopener noreferrer">Microwaves101 <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">Encyclopedic RF and microwave engineering reference.</span>
+          </li>
+          <li>
+            <a class="link" href="https://www.itu.int/" target="_blank" rel="noopener noreferrer">ITU <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">International spectrum and radiocommunication standards.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="links__group">
+        <h3 class="links__h">Calculators &amp; tools</h3>
+        <ul>
+          <li>
+            <a class="link" href="https://www.everythingrf.com/rf-calculators" target="_blank" rel="noopener noreferrer">everything RF <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">A large library of RF calculators and a component search.</span>
+          </li>
+          <li>
+            <a class="link" href="https://www.rfwireless-world.com/" target="_blank" rel="noopener noreferrer">RF Wireless World <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">RF tutorials, calculators and vendor references.</span>
+          </li>
+          <li>
+            <a class="link" href="https://www.ibwave.com/" target="_blank" rel="noopener noreferrer">iBwave <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">In-building network design software and resources.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="links__group">
+        <h3 class="links__h">Coverage &amp; tower maps</h3>
+        <ul>
+          <li>
+            <a class="link" href="https://celltowers.ca/" target="_blank" rel="noopener noreferrer">celltowers.ca <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">Canadian cell site and tower locations on a map.</span>
+          </li>
+          <li>
+            <a class="link" href="https://www.cellmapper.net/" target="_blank" rel="noopener noreferrer">CellMapper <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">Crowd-sourced cell tower and coverage maps, worldwide.</span>
+          </li>
+          <li>
+            <a class="link" href="https://opencellid.org/" target="_blank" rel="noopener noreferrer">OpenCelliD <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">Open database of cell tower locations.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="links__group">
+        <h3 class="links__h">Spectrum &amp; regulatory (Canada)</h3>
+        <ul>
+          <li>
+            <a class="link" href="https://ised-isde.canada.ca/site/spectrum-management-telecommunications/en" target="_blank" rel="noopener noreferrer">ISED Spectrum Management <span class="ext" aria-hidden="true">↗</span></a>
+            <span class="links__desc">Canada&rsquo;s spectrum licensing, allocations and radio equipment rules.</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <p class="onward">
+    <a href="/experience/">Experience &rarr;</a>
+    <a href="/projects/">Projects &rarr;</a>
+    <a href="/#contact">Get in touch &rarr;</a>
+  </p>
+
+  <noscript>
+    <p class="noscript">These calculators need JavaScript, which is off or blocked. Everything
+    still runs only in your browser once it&rsquo;s on &mdash; nothing is sent anywhere.</p>
+  </noscript>
+
+  <footer class="foot">
+    <p>Sajib Islam &mdash; Toronto, ON</p>
+    <p><a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a></p>
+  </footer>
+
+</main>
+
+<script src="/tools/tools.js"></script>
+</body>
+</html>

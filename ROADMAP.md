@@ -45,23 +45,30 @@ the friction.
 
 ---
 
-## 2. RF calculators — link budget, path loss, DAS power budget
+## 2. RF calculators — STARTED (`/tools/`)
 
-**Attaches to:** new static pages under `public/tools/`, e.g. `public/tools/link-budget.html`.
-No Worker changes at all — these are pure client-side calculators.
+**Built:** `public/tools/index.html` + `public/tools/tools.js` — one page with five
+calculators: power (W/mW/dBm/dBW), LTE EARFCN ⇄ frequency (band table from 3GPP TS 36.101),
+free-space path loss, VSWR / return loss, and wavelength. Pure client-side vanilla JS, no
+Worker change, no config change. The maths is written out plainly in `tools.js` with the
+formula beside each tool on the page.
 
-**Cloudflare products:** none. No config change, no `wrangler.jsonc` edit.
+**Still worth adding**, each as another `<section class="tool">` on that page (plus an entry
+in the `.tools-nav` chip row and an `#id` anchor):
+- **Link budget** — TX power + gains − losses → EIRP and received level. The natural next one.
+- **DAS downlink power budget** — head-end output through the coax/splitter/tap chain to
+  per-antenna EIRP. Sajib's core work; this is the highest-value addition.
+- **Coax / cable loss** — loss per 100 m by cable type and frequency.
+- **Antenna near-field / far-field boundary**, **Fresnel zone radius**, **dBm ↔ µV/m**.
 
-**Why static:** the maths runs in the browser, so there's no server cost, it works offline
-once loaded, and it stays inside the no-build-step rule. A link budget calculator is a form
-plus about forty lines of vanilla JS.
+**When adding a whole new tool section:**
+- Reuse the `.tool`, `.calc`, `.field`, `.out` classes already in `styles.css`.
+- Add a function for it in `tools.js` following the existing pattern (wire inputs, compute on
+  `input`, write results with `textContent`). Keep the formula visible in a `.tool__ref`.
+- Add its chip to `.tools-nav` and give the section a matching `id`.
 
-**Notes for whoever builds it:**
-- Reuse `public/styles.css` — the design tokens are already there. Don't start a new stylesheet.
-- Add a nav entry in the `.rail__nav` list in `index.html`.
-- Add each new page to `public/sitemap.xml`.
-- These are genuinely useful to other RF engineers and are the most likely thing on this list
-  to bring traffic. Worth doing before the contact form.
+Adding calculators does **not** touch the shared nav or any other page — the Tools page
+already exists in the navigation.
 
 ---
 
