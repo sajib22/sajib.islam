@@ -13,13 +13,14 @@ browser) and the Claude app. You never need a laptop or a terminal for anything 
 | `/` | `public/index.html` | Hero, career timeline, what I do, three featured projects, contact |
 | `/experience/` | `public/experience/index.html` | Column chart, DAS diagram, all roles, delivery process, skills |
 | `/projects/` | `public/projects/index.html` | Every project with the long write-up |
+| `/tools/` | `public/tools/index.html` | RF calculators (power, EARFCN, path loss, VSWR, wavelength) |
 | `/about/` | `public/about/index.html` | The long story, education, certifications, recognition |
 
 Plus `public/404.html`, which shows the same header and footer so a wrong URL isn't a dead end.
 
-**⚠ The navigation and footer are copied into all five files.** There is no build step, so
+**⚠ The navigation and footer are copied into all six files.** There is no build step, so
 nothing can share them automatically. If you add a page or rename a nav link, you must make
-the same edit in all five. Search each file for `TITLE BLOCK` — the comment there says the
+the same edit in all six. Search each file for `TITLE BLOCK` — the comment there says the
 same thing.
 
 ---
@@ -185,6 +186,7 @@ requests" rule and it makes the page slower on a phone.
 | `wrangler.jsonc` | This is the deploy config. A wrong value here doesn't break the page — it breaks the *deploy*, and the old version stays live while you wonder why nothing changed. |
 | `src/index.js` | The Worker entry point. Future features attach here. |
 | `public/main.js` | The code that turns `content.js` into the page. |
+| `public/tools/tools.js` | The RF calculators' maths. A wrong change here gives wrong numbers, which is worse than an obvious break — ask Claude to add or change a calculator. |
 
 Also never add: a framework, a package, a web font, a tracking script, or anything that
 costs money. And never put a phone number, home address, personal email or ID number in any

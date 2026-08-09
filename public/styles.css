@@ -500,6 +500,106 @@ h1 {
   .has-portrait > :not([data-render="portrait"]) { grid-column: 1; }
 }
 
+/* ─── Tools / calculators ───────────────────────────────────────────────────
+   Live-updating conversion cards. Numbers are monospaced with tabular figures
+   so digits line up as they change. */
+
+.tools-nav {
+  margin-top: var(--s5);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+.tools-nav a {
+  padding: var(--s1) var(--s3);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--steel);
+  text-decoration: none;
+}
+.tools-nav a:hover { color: var(--ink); border-color: var(--steel); }
+
+.tool__intro { margin: 0 0 var(--s5); max-width: var(--measure); color: var(--steel); text-wrap: pretty; }
+
+.calc { display: grid; gap: var(--s4); margin: 0 0 var(--s4); }
+@media (min-width: 34rem) {
+  .calc--2 { grid-template-columns: 1fr 1fr; gap: var(--s4) var(--s5); }
+}
+
+.field { margin: 0; display: grid; gap: var(--s2); }
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+.field .control { display: flex; align-items: center; gap: var(--s2); min-width: 0; }
+
+.field input,
+.field select {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--s2) var(--s3);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field select { flex: 0 0 auto; }
+.field .control > select:last-child { flex: 0 0 auto; width: auto; }
+.field input:focus,
+.field select:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+
+.field .unit {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--steel);
+  min-width: 2.25rem;
+}
+.field__status {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--amber);
+  min-height: 0.9rem;
+}
+.field--wide { max-width: 22rem; }
+
+.out {
+  margin: var(--s2) 0 0;
+  padding-top: var(--s4);
+  border-top: 1px solid var(--rule);
+  display: grid;
+  gap: var(--s2);
+}
+.out__row { margin: 0; display: flex; justify-content: space-between; gap: var(--s4); align-items: baseline; }
+.out__k { font-size: 0.875rem; color: var(--steel); }
+.out__v {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1rem;
+  color: var(--ink);
+  text-align: right;
+}
+.tool__ref {
+  margin: var(--s4) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  color: var(--steel);
+  text-wrap: pretty;
+}
+
 /* ─── Career timeline (home) ────────────────────────────────────────────────
    One row per phase on a shared year axis: studies first, then every job.
    Gaps between bars are real gaps in the record and are meant to show. */
