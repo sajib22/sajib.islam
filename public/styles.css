@@ -468,7 +468,7 @@ h1 {
   height: auto;
   /* Matches the width/height attributes on the element, so the space is
      reserved before the file downloads and nothing shifts. */
-  aspect-ratio: 600 / 700;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border: 1px solid var(--rule);
   border-radius: 2px;

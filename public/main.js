@@ -110,7 +110,7 @@
       img.decoding = "async";
       // Reserves the right box before the file arrives, so nothing jumps.
       img.width = 600;
-      img.height = 700;
+      img.height = 600;
       mount.appendChild(img);
 
       var section = mount.closest("section");
