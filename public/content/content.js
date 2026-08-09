@@ -53,7 +53,7 @@ window.SITE = {
      load a picture from someone else's server.
      ───────────────────────────────────────────────────────────────────────── */
   profile: {
-    // photo: "/img/portrait.webp",
+     photo: "/img/portrait.webp",
     alt: "Sajib Islam",
   },
 
