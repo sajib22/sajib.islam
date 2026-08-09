@@ -83,6 +83,41 @@
     }
   }
 
+  /* ─── Portrait ───────────────────────────────────────────────────────────
+
+     Rendered rather than written into the HTML so that the page is unchanged
+     while no photo file exists — an <img> pointing at a missing file would
+     show a broken icon on every page. When one is added, the surrounding
+     section gets .has-portrait and the CSS lays out around it. */
+
+  (function portrait() {
+    if (!haveContent) return;
+
+    var mounts = document.querySelectorAll('[data-render="portrait"]');
+    if (!mounts.length) return;
+
+    var profile = window.SITE.profile;
+    if (!profile || typeof profile !== "object") return;
+
+    // Same guard as the logos: local files only, never another host.
+    if (!profile.photo || !/^\/img\/[A-Za-z0-9._-]+\.(webp|jpg|jpeg|png)$/i.test(String(profile.photo))) return;
+
+    Array.prototype.forEach.call(mounts, function (mount) {
+      var img = document.createElement("img");
+      img.src = profile.photo;
+      img.alt = profile.alt || "";
+      img.className = "portrait";
+      img.decoding = "async";
+      // Reserves the right box before the file arrives, so nothing jumps.
+      img.width = 600;
+      img.height = 700;
+      mount.appendChild(img);
+
+      var section = mount.closest("section");
+      if (section) section.classList.add("has-portrait");
+    });
+  })();
+
   /* ─── Career: shared helpers for both charts ─────────────────────────────
 
      Dates are written "YYYY-MM" in content.js and turned into a decimal year

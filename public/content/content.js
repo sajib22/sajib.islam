@@ -37,6 +37,27 @@
 window.SITE = {
 
   /* ─────────────────────────────────────────────────────────────────────────
+     YOUR PHOTO — shows on the home page and on the About page.
+
+     Nothing is shown until you add the file, and the layout is unaffected
+     while it's missing, so there is no rush and nothing to undo.
+
+       1. Export a square-ish headshot, about 600px wide. WebP is smallest;
+          JPG is fine. Keep it under 60KB — it loads on every page.
+       2. Upload it in the GitHub app to public/img/ as portrait.webp
+          (Add file → Upload files, then choose the public/img folder).
+       3. Delete the // in front of the "photo" line below.
+       4. Commit the photo and this change together.
+
+     Only paths inside /img/ are accepted, so the site can never be made to
+     load a picture from someone else's server.
+     ───────────────────────────────────────────────────────────────────────── */
+  profile: {
+    // photo: "/img/portrait.webp",
+    alt: "Sajib Islam",
+  },
+
+  /* ─────────────────────────────────────────────────────────────────────────
      CAREER — feeds BOTH charts from this one list:
        • the timeline on the home page (when each thing happened)
        • the column chart on /experience/ (how long each job lasted)

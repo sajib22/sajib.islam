@@ -458,6 +458,48 @@ h1 {
   max-width: 100%;
 }
 
+/* ─── Portrait ──────────────────────────────────────────────────────────────
+   Only ever present when a photo file exists — main.js adds .has-portrait to
+   the section, so these rules do nothing until then. */
+
+.portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Matches the width/height attributes on the element, so the space is
+     reserved before the file downloads and nothing shifts. */
+  aspect-ratio: 600 / 700;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--surface);
+}
+
+/* Phones: a modest portrait above the name, not a full-bleed photo. */
+.has-portrait [data-render="portrait"] {
+  max-width: 8.5rem;
+  margin-bottom: var(--s5);
+}
+
+@media (min-width: 40rem) {
+  /* Wider screens have room to set the photo beside the text. */
+  .hero.has-portrait,
+  .page-head.has-portrait {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 11rem;
+    column-gap: var(--s6);
+    align-items: start;
+  }
+  .has-portrait [data-render="portrait"] {
+    grid-column: 2;
+    grid-row: 1 / span 20;
+    max-width: none;
+    margin-bottom: 0;
+  }
+  /* Everything else stays in the first column, in source order. */
+  .has-portrait > :not([data-render="portrait"]) { grid-column: 1; }
+}
+
 /* ─── Career timeline (home) ────────────────────────────────────────────────
    One row per phase on a shared year axis: studies first, then every job.
    Gaps between bars are real gaps in the record and are meant to show. */

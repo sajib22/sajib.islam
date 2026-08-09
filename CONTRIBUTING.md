@@ -69,6 +69,22 @@ If you add a job, add it in **two** places: `timeline:` for the charts and `expe
 the written entry. They are separate lists on purpose — the charts want one row per company,
 the experience list groups the early Dhaka roles into one entry.
 
+## Add your photo
+
+The slot is built and waiting; nothing shows and the layout is unaffected until you add
+the file, so there is no rush.
+
+1. Export a square-ish headshot about **600px wide**, under **60KB**. WebP is smallest,
+   JPG is fine.
+2. In the GitHub app: **Add file → Upload files**, navigate into `public/img/`, and upload
+   it as `portrait.webp`.
+3. In `public/content/content.js`, near the top, delete the `//` in front of the `photo:`
+   line inside `profile:`.
+4. Commit both together.
+
+It then appears beside your name on the home page and on the About page — above the name on
+a phone, beside it on a wider screen. Space is reserved before it loads, so nothing jumps.
+
 ## Add company logos
 
 Both charts show a lettered tile until you give them a logo file. To switch one on:
