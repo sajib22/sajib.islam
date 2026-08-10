@@ -12,7 +12,8 @@
   --ink:     #14191B;   /* main text              */
   --steel:   #55636A;   /* secondary text         */
   --accent:  #0B6B7A;   /* links, focus, markers  */
-  --amber:   #7E5A0E;   /* used for ONE thing: the current role */
+  --green:   #0E7E45;   /* current role — green to signal "present" */
+  --amber:   #7E5A0E;   /* project outcomes, warnings */
   --rule:    #D5DCDC;   /* hairlines and borders  */
 }
 
@@ -22,6 +23,7 @@
   --ink:     #E3E9EA;
   --steel:   #98A6AC;
   --accent:  #5CC7D8;
+  --green:   #34D399;
   --amber:   #D7A63C;
   --rule:    #242D31;
 }
@@ -33,6 +35,7 @@
     --ink:     #E3E9EA;
     --steel:   #98A6AC;
     --accent:  #5CC7D8;
+    --green:   #34D399;
     --amber:   #D7A63C;
     --rule:    #242D31;
   }
@@ -132,55 +135,79 @@ body {
   color: var(--steel);
 }
 
-.rail__nav { margin-top: var(--s4); }
+.rail__nav { margin-top: var(--s5); }
 .rail__nav ul {
   margin: 0; padding: 0;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: var(--s2) var(--s4);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 }
 .rail__nav a {
   color: var(--steel);
   text-decoration: none;
-  padding-bottom: 2px;
-  border-bottom: 1px solid transparent;
-}
-.rail__nav a:hover { color: var(--ink); }
-.rail__nav a[aria-current] {
-  color: var(--ink);
-  border-bottom-color: var(--accent);
-}
-
-.toggle {
-  margin-top: var(--s4);
   display: inline-flex;
   align-items: center;
   gap: var(--s2);
-  padding: var(--s1) var(--s3);
+  padding: var(--s2) var(--s3);
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+.rail__nav a:hover { color: var(--ink); background: var(--surface); }
+.rail__nav a[aria-current] {
+  color: var(--accent);
+  background: var(--surface);
+  font-weight: 600;
+}
+.rail__nav .nav-icon {
+  width: 1.1em; height: 1.1em;
+  flex-shrink: 0;
+  display: inline-block;
+}
+.rail__nav .nav-icon svg {
+  width: 100%; height: 100%;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.toggle {
+  position: fixed;
+  top: var(--s4);
+  right: var(--s4);
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s2) var(--s3);
   font: inherit;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.75rem;
   color: var(--steel);
-  background: transparent;
+  background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 2px;
+  border-radius: 999px;
   cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: border-color 0.15s, color 0.15s;
 }
 .toggle:hover { color: var(--ink); border-color: var(--steel); }
-.toggle__dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
+.toggle__icon {
+  width: 1.1rem; height: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.toggle__icon svg { width: 100%; height: 100%; }
+.toggle__dot { display: none; }
 
 /* ─── Sheet (the content column) ────────────────────────────────────────── */
 
 .sheet {
-  max-width: 46rem;
+  max-width: 64rem;
   margin: 0 auto;
   padding: 0 var(--s5) var(--s8);
 }
@@ -272,16 +299,42 @@ h1 {
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--amber);
+  color: var(--green);
 }
 .role__flag::before {
   content: "";
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--amber);
+  background: var(--green);
 }
 
-.role__org { margin: var(--s2) 0 0; font-size: 0.9375rem; color: var(--steel); }
+.role__org {
+  margin: var(--s2) 0 0;
+  font-size: 0.9375rem;
+  color: var(--steel);
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+.role__logo {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  object-fit: contain;
+  background: #FFFFFF;
+  padding: 2px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+}
+
+.ibs-diagram {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--surface);
+}
 
 .role__bullets {
   margin: var(--s3) 0 0;
@@ -653,7 +706,7 @@ h1 {
   text-align: center;
 }
 .tl__badge--blank { border-color: transparent; background: none; }
-.tl__row.is-current .tl__badge { border-color: var(--amber); color: var(--amber); }
+.tl__row.is-current .tl__badge { border-color: var(--green); color: var(--green); }
 
 .tl__main { min-width: 0; }
 
@@ -686,12 +739,11 @@ h1 {
   background: var(--accent);
   border-radius: 1px;
 }
-.tl__row.is-current .tl__bar { background: var(--amber); }
+.tl__row.is-current .tl__bar { background: var(--green); }
 
-/* Studies read as a different kind of thing: outlined, not filled. */
+/* Studies use the same filled bar as jobs for visual consistency. */
 .tl__row.is-study .tl__bar {
-  background: none;
-  border: 1.5px solid var(--steel);
+  background: var(--accent);
 }
 
 .tl__axis { margin-top: var(--s2); }
@@ -764,7 +816,7 @@ h1 {
   background: var(--accent);
   border-radius: 1px 1px 0 0;
 }
-.chart__col.is-current .chart__bar { background: var(--amber); }
+.chart__col.is-current .chart__bar { background: var(--green); }
 
 .chart__val {
   position: absolute;
@@ -791,7 +843,7 @@ h1 {
   color: var(--ink);
   text-align: center;
 }
-.chart__col.is-current .chart__mark { border-color: var(--amber); color: var(--amber); }
+.chart__col.is-current .chart__mark { border-color: var(--green); color: var(--green); }
 
 .chart__co {
   display: block;
@@ -1005,7 +1057,7 @@ h1 {
     border-right: 1px solid var(--rule);
     min-height: 100vh;
   }
-  .rail__nav ul { flex-direction: column; gap: var(--s2); }
+  .rail__nav ul { flex-direction: column; gap: var(--s1); }
   /* Stays centred in the column beside the rail rather than hugging it. */
   .sheet { padding-left: var(--s7); padding-right: var(--s7); }
   .hero, .sheet > section:first-child { padding-top: var(--s8); }

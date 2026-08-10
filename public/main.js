@@ -334,8 +334,24 @@
 
       li.appendChild(el("h3", "role__title", role.title || ""));
 
-      var org = [role.company, role.location].filter(Boolean).join(" · ");
-      if (org) li.appendChild(el("p", "role__org", org));
+      var orgP = el("p", "role__org");
+      var matchedTimeline = haveContent && window.SITE.timeline ? window.SITE.timeline.filter(function (t) {
+        return role.company && t.company && (role.company.indexOf(t.company) !== -1 || t.company.indexOf(role.company) !== -1);
+      }) : [];
+      if (matchedTimeline.length && matchedTimeline[0].logo && LOGO_PATH.test(String(matchedTimeline[0].logo))) {
+        var logoImg = document.createElement("img");
+        logoImg.src = matchedTimeline[0].logo;
+        logoImg.alt = "";
+        logoImg.className = "role__logo";
+        logoImg.loading = "lazy";
+        logoImg.decoding = "async";
+        orgP.appendChild(logoImg);
+      }
+      var orgText = [role.company, role.location].filter(Boolean).join(" · ");
+      if (orgText) {
+        orgP.appendChild(document.createTextNode(orgText));
+        li.appendChild(orgP);
+      }
 
       var bullets = list(role.bullets);
       if (bullets.length) {
@@ -495,17 +511,22 @@
     if (!button) return;
 
     var label = button.querySelector(".toggle__label");
+    var iconWrap = button.querySelector(".toggle__icon");
     var root = document.documentElement;
     var media = window.matchMedia("(prefers-color-scheme: dark)");
+
+    var sunSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+    var moonSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
 
     function isDark() {
       return root.dataset.theme ? root.dataset.theme === "dark" : media.matches;
     }
 
-    // The button is named for what it does, not for the state it is in.
     function paint() {
-      var next = isDark() ? "light" : "dark";
-      if (label) label.textContent = next === "dark" ? "Dark" : "Light";
+      var dark = isDark();
+      var next = dark ? "light" : "dark";
+      if (label) label.textContent = dark ? "Light" : "Dark";
+      if (iconWrap) iconWrap.innerHTML = dark ? sunSVG : moonSVG;
       button.setAttribute("aria-label", "Switch to " + next + " theme");
     }
 

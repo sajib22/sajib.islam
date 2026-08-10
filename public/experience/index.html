@@ -53,17 +53,17 @@
 
   <nav class="rail__nav" aria-label="Pages">
     <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/experience/" aria-current="page">Experience</a></li>
-      <li><a href="/projects/">Projects</a></li>
-      <li><a href="/tools/">Tools</a></li>
-      <li><a href="/about/">About</a></li>
-      <li><a href="/#contact">Contact</a></li>
+      <li><a href="/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></span>Home</a></li>
+      <li><a href="/experience/" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></span>Experience</a></li>
+      <li><a href="/projects/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>Projects</a></li>
+      <li><a href="/tools/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></span>Tools</a></li>
+      <li><a href="/about/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>About</a></li>
+      <li><a href="/contact/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>Contact</a></li>
     </ul>
   </nav>
 
   <button class="toggle" type="button" id="theme-toggle" aria-label="Switch to dark theme">
-    <span class="toggle__dot" aria-hidden="true"></span>
+    <span class="toggle__icon" aria-hidden="true"></span>
     <span class="toggle__label">Dark</span>
   </button>
 </header>
@@ -93,75 +93,15 @@
     <h2 id="how-h"><span class="mark">What an in-building system looks like</span></h2>
 
     <figure class="diagram">
-      <svg viewBox="0 0 640 300" aria-hidden="true" focusable="false">
-        <!-- floor slabs -->
-        <g class="dg-rule">
-          <line x1="60" y1="62"  x2="600" y2="62"></line>
-          <line x1="60" y1="122" x2="600" y2="122"></line>
-          <line x1="60" y1="182" x2="600" y2="182"></line>
-          <line x1="60" y1="242" x2="600" y2="242"></line>
-        </g>
-        <g class="dg-sub">
-          <text x="14" y="58">L4</text>
-          <text x="14" y="118">L3</text>
-          <text x="14" y="178">L2</text>
-          <text x="14" y="238">L1</text>
-        </g>
+      <img class="ibs-diagram" src="/img/ibs-diagram.webp" alt="In-building DAS system diagram showing a multi-storey building with carrier BTS, multi-network combiner, couplers and splitters on each floor feeding antennas" width="800" height="800" loading="lazy" decoding="async">
 
-        <!-- head-end and riser -->
-        <rect class="dg-box" x="20" y="262" width="118" height="30" rx="2"></rect>
-        <text class="dg-label" x="79" y="281" text-anchor="middle">HEAD-END</text>
-        <path class="dg-line" d="M79,262 V44"></path>
-        <text class="dg-sub" x="90" y="257">RISER</text>
+      <figcaption class="diagram__cap">In-building DAS system &mdash; carrier BTS feeds a multi-network combiner, with couplers and splitters distributing signal to antennas on each floor</figcaption>
 
-        <!-- horizontal coax run on each floor -->
-        <g class="dg-line">
-          <path d="M79,44 H540"></path>
-          <path d="M79,104 H540"></path>
-          <path d="M79,164 H540"></path>
-          <path d="M79,224 H540"></path>
-        </g>
-
-        <!-- splitters -->
-        <g>
-          <rect class="dg-box" x="160" y="36"  width="36" height="16" rx="2"></rect>
-          <rect class="dg-box" x="160" y="96"  width="36" height="16" rx="2"></rect>
-          <rect class="dg-box" x="160" y="156" width="36" height="16" rx="2"></rect>
-          <rect class="dg-box" x="160" y="216" width="36" height="16" rx="2"></rect>
-        </g>
-
-        <!-- antennas: node plus two radiating arcs, pointing into the floor -->
-        <g>
-          <g transform="translate(300,44)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-          <g transform="translate(400,44)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-          <g transform="translate(500,44)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-
-          <g transform="translate(300,104)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-          <g transform="translate(400,104)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-          <g transform="translate(500,104)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-
-          <g transform="translate(300,164)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-          <g transform="translate(400,164)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-          <g transform="translate(500,164)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-
-          <g transform="translate(300,224)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-          <g transform="translate(400,224)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-          <g transform="translate(500,224)"><circle class="dg-dot" r="3.5"></circle><path class="dg-line--soft" d="M-8,4 A 9,9 0 0 0 8,4"></path><path class="dg-line--soft" d="M-13,8 A 15,15 0 0 0 13,8"></path></g>
-        </g>
-
-        <!-- labels, top floor only, to avoid clutter -->
-        <g class="dg-sub">
-          <text x="178" y="26" text-anchor="middle">SPLITTER</text>
-          <text x="300" y="26" text-anchor="middle">ANTENNA</text>
-        </g>
-      </svg>
-
-      <figcaption class="diagram__cap">Four-storey DAS riser &mdash; one head-end, one riser, twelve antennas</figcaption>
-
-      <p class="diagram__alt">Diagram of a distributed antenna system in a four-storey building.
-      A head-end at ground level feeds a single vertical riser cable. On each of the four
-      floors, the riser feeds a horizontal coaxial run through a splitter, which distributes
-      the signal to three ceiling-mounted antennas per floor &mdash; twelve antennas in total.</p>
+      <p class="diagram__alt">Diagram of a distributed antenna system in a multi-storey building.
+      A carrier fibre transmission feeds a carrier BTS at ground level, which connects to a
+      multi-network combiner. The combiner feeds a vertical riser with couplers on each floor.
+      Each coupler connects to a splitter that distributes signal to ceiling-mounted antennas
+      across the floor plate.</p>
     </figure>
   </section>
 
@@ -198,7 +138,7 @@
   <p class="onward">
     <a href="/projects/">Projects &rarr;</a>
     <a href="/about/">About &rarr;</a>
-    <a href="/#contact">Get in touch &rarr;</a>
+    <a href="/contact/">Get in touch &rarr;</a>
   </p>
 
   <noscript>
