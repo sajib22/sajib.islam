@@ -776,9 +776,19 @@ h1 {
   position: absolute;
   top: 0;
   bottom: 0;
+  /* --w is the real width, set by main.js. --grow is 1 normally and 0 while
+     the plot is armed, which is what makes the bar sweep out from its start
+     date. Default of 1 means the chart is correct even if the script fails. */
+  width: calc(var(--w, 0%) * var(--grow, 1));
   background: var(--accent);
   border-radius: 1px;
+  transition: width 800ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 70ms);
 }
+/* Arming must snap to zero, not glide to it — otherwise the bar spends the
+   transition collapsing and there is nothing left to grow. */
+.tl__plot.is-armed { --grow: 0; }
+.tl__plot.is-armed .tl__bar { transition: none; }
 .tl__row.is-current .tl__bar { background: var(--green); }
 
 /* Studies use the same filled bar as jobs for visual consistency. */
@@ -851,24 +861,39 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  height: calc(var(--yrs) / var(--max) * 100%);
+  /* --grow is 1 normally and 0 while the plot is armed, so the column rises
+     from the axis. Default of 1 keeps the chart correct without JavaScript. */
+  height: calc(var(--yrs) * var(--grow, 1) / var(--max) * 100%);
   min-height: 2px;
   background: var(--accent);
   border-radius: 1px 1px 0 0;
+  transition: height 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 80ms);
 }
+/* Same here: the collapse to zero is instant, only the growth is animated. */
+.chart__plot.is-armed { --grow: 0; }
+.chart__plot.is-armed .chart__bar,
+.chart__plot.is-armed .chart__val { transition: none; }
 .chart__col.is-current .chart__bar { background: var(--green); }
 
 .chart__val {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(var(--yrs) / var(--max) * 100%);
+  bottom: calc(var(--yrs) * var(--grow, 1) / var(--max) * 100%);
   margin-bottom: var(--s1);
   text-align: center;
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-size: 0.75rem;
+  line-height: 1.25;
   color: var(--ink);
+  /* Rides up with its column, and fades in so the labels don't pile up on
+     the axis while every bar is still at zero. */
+  opacity: var(--grow, 1);
+  transition: bottom 900ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              opacity 500ms ease-out;
+  transition-delay: calc(var(--i, 0) * 80ms);
 }
 
 .chart__mark {

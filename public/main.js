@@ -173,12 +173,77 @@
     return decimalYear(entry.to, "to") - decimalYear(entry.from, "from");
   }
 
+  /* Whole months between the two dates, so a label can read "4 yrs 2 mos"
+     instead of "4.1". Rounded, because "present" lands mid-month. */
+  function spanMonths(entry) {
+    return Math.max(Math.round(spanYears(entry) * 12), 0);
+  }
+
+  /* A non-breaking space holds each number to its unit, so a narrow column
+     wraps as "4 yrs" / "11 mos" rather than "4 yrs 11" / "mos". */
+  var NB = "\u00A0";
+
+  function formatDuration(months) {
+    var y = Math.floor(months / 12);
+    var m = months % 12;
+    var parts = [];
+    if (y) parts.push(y + NB + (y === 1 ? "yr" : "yrs"));
+    if (m) parts.push(m + NB + (m === 1 ? "mo" : "mos"));
+    return parts.length ? parts.join(" ") : "0" + NB + "mos";
+  }
+
+  /* ─── Chart animation ─────────────────────────────────────────────────────
+
+     The bars carry their real size in CSS; a "--grow" multiplier on the plot
+     scales them. Adding .is-armed pins --grow to 0, and removing it on the
+     next frame lets the transition run 0 → full. Doing it that way round
+     means a chart is full size when the stylesheet loads and JavaScript does
+     not, so a failure here can never leave an empty chart behind.
+
+     Plays once when the chart first scrolls into view, and replays on every
+     click anywhere in its section, as requested. */
+
+  function animateChart(plot) {
+    if (!plot || !plot.classList) return;
+
+    var reduce = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
+    function play() {
+      plot.classList.add("is-armed");
+      void plot.offsetWidth;               // paint the zeroed state first
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { plot.classList.remove("is-armed"); });
+      });
+    }
+
+    /* The caller is still building the figure, so the plot has no parent yet.
+       Wiring waits a frame, by which point section() has mounted it and
+       closest() can actually find the surrounding <section>. */
+    requestAnimationFrame(function () {
+      var section = plot.closest ? plot.closest("section") : null;
+      if (section) section.addEventListener("click", play);
+
+      if (typeof IntersectionObserver === "function") {
+        var seen = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { play(); obs.disconnect(); }
+          });
+        }, { threshold: 0.25 });
+        seen.observe(plot);
+      } else {
+        play();
+      }
+    });
+  }
+
   function careerTable(entries, caption, includeYears) {
     var table = el("table", "chart__table");
     table.appendChild(el("caption", null, caption));
 
     var head = ["Organisation", "Role", "Period"];
-    if (includeYears) head.push("Years");
+    if (includeYears) head.push("Duration");
 
     var thead = el("thead");
     var hrow = el("tr");
@@ -196,7 +261,7 @@
       tr.appendChild(cell("th", entry.company || ""));
       tr.appendChild(cell("td", entry.role || ""));
       tr.appendChild(cell("td", entry.dates || ""));
-      if (includeYears) tr.appendChild(cell("td", spanYears(entry).toFixed(1)));
+      if (includeYears) tr.appendChild(cell("td", formatDuration(spanMonths(entry))));
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
@@ -245,10 +310,13 @@
       var track = el("div", "tl__track");
       var bar = el("span", "tl__bar");
       bar.style.left = pct(from).toFixed(2) + "%";
-      bar.style.width = Math.max(pct(to) - pct(from), 0.8).toFixed(2) + "%";
+      /* The final width lives in --w; styles.css multiplies it by --grow so
+         the bar can be animated out from its start date. */
+      bar.style.setProperty("--w", Math.max(pct(to) - pct(from), 0.8).toFixed(2) + "%");
       track.appendChild(bar);
       main.appendChild(track);
 
+      row.style.setProperty("--i", String(i));   // stagger, oldest bar first
       row.appendChild(main);
       rows.appendChild(row);
     });
@@ -271,6 +339,7 @@
     figure.appendChild(el("figcaption", "tl__cap", "Studies and roles, " + min + " to today"));
     figure.appendChild(careerTable(entries, "Career timeline", false));
 
+    animateChart(plot);
     return figure;
   });
 
@@ -298,9 +367,10 @@
     jobs.forEach(function (job, i) {
       var col = el("li", "chart__col" + (job.current ? " is-current" : ""));
       col.style.setProperty("--yrs", years[i].toFixed(2));
+      col.style.setProperty("--i", String(i));   // stagger, oldest column first
 
       var track = el("div", "chart__track");
-      track.appendChild(el("span", "chart__val", years[i].toFixed(1)));
+      track.appendChild(el("span", "chart__val", formatDuration(spanMonths(job))));
       track.appendChild(el("span", "chart__bar"));
       col.appendChild(track);
 
@@ -312,9 +382,10 @@
 
     plot.appendChild(bars);
     figure.appendChild(plot);
-    figure.appendChild(el("figcaption", "chart__cap", "Years at each company, oldest first"));
+    figure.appendChild(el("figcaption", "chart__cap", "Years and Months at each company, oldest first"));
     figure.appendChild(careerTable(jobs, "Years spent at each company", true));
 
+    animateChart(plot);
     return figure;
   });
 
