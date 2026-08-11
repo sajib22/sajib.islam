@@ -461,6 +461,14 @@ window.SITE = {
       institution: "Bangladesh University of Engineering and Technology (BUET)",
       location: "Dhaka, Bangladesh",
       dates: "Apr 2002 — Jun 2007",
+      /* "from" and "to" are what the timeline plot at the top of the page is
+         drawn from — same "YYYY-MM" format as the career timeline. Leave them
+         off an entry and it simply doesn't appear in the plot. "mark" is the
+         short label shown when there is no logo file. */
+      from: "2002-04",
+      to: "2007-06",
+      mark: "BUET",
+      logo: "/img/logos/buet.webp",
       note: "Assessed by WES as equivalent to a Canadian four-year bachelor's degree.",
     },
     // ── TO HERE ──
@@ -470,6 +478,9 @@ window.SITE = {
       institution: "Notre Dame College",
       location: "Dhaka, Bangladesh",
       dates: "Jun 1999 — May 2001",
+      from: "1999-06",
+      to: "2001-05",
+      mark: "NDC",
     },
 
     {
@@ -477,6 +488,9 @@ window.SITE = {
       institution: "B.L. Government High School",
       location: "Sirajganj, Bangladesh",
       dates: "Jan 1997 — Mar 1999",
+      from: "1997-01",
+      to: "1999-03",
+      mark: "BLGHS",
     },
 
   ],

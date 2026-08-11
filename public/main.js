@@ -269,9 +269,13 @@
     return table;
   }
 
-  /* ─── Career timeline: study first, then every job, on one time axis ──── */
+  /* ─── Timeline plot: every entry laid out on one shared time axis ────────
 
-  section("career-timeline", "timeline", "Career timeline", function (entries) {
+     Used twice: the career timeline on the home page, and the schooling
+     timeline on the education page. Entries must carry company, dates, from
+     and to; mark, logo, kind and current are optional. */
+
+  function buildTimeline(entries, captionText, tableCaption) {
     if (!entries.length) return null;
 
     var starts = entries.map(function (e) { return decimalYear(e.from, "from"); });
@@ -323,11 +327,15 @@
 
     plot.appendChild(rows);
 
-    // Year axis, aligned under the tracks by reusing the row grid.
+    // Year axis, aligned under the tracks by reusing the row grid. A short
+    // span gets closer ticks, or a ten-year plot would show only two labels.
     var axis = el("div", "tl__axis");
     axis.appendChild(el("span", "tl__badge tl__badge--blank"));
     var ticks = el("div", "tl__ticks");
-    for (var y = Math.ceil(min / 5) * 5; y <= max; y += 5) {
+    /* Strictly inside the span: a tick sitting exactly on the right edge has
+       its label clipped by the edge of the plot. */
+    var step = span > 12 ? 5 : 2;
+    for (var y = Math.ceil(min / step) * step; y < max; y += step) {
       var tick = el("span", "tl__tick", String(y));
       tick.style.left = pct(y).toFixed(2) + "%";
       ticks.appendChild(tick);
@@ -336,11 +344,49 @@
     plot.appendChild(axis);
 
     figure.appendChild(plot);
-    figure.appendChild(el("figcaption", "tl__cap", "Studies and roles, " + min + " to today"));
-    figure.appendChild(careerTable(entries, "Career timeline", false));
+    /* {max} is the last year actually worked or studied — not the axis bound,
+       which is rounded up and would claim a year that never happened. */
+    var lastYear = Math.floor(Math.max.apply(null, ends));
+    figure.appendChild(el("figcaption", "tl__cap",
+      captionText.replace("{min}", min).replace("{max}", lastYear)));
+    figure.appendChild(careerTable(entries, tableCaption, false));
 
     animateChart(plot);
     return figure;
+  }
+
+  /* ─── Career timeline: study first, then every job, on one time axis ──── */
+
+  section("career-timeline", "timeline", "Career timeline", function (entries) {
+    return buildTimeline(entries, "Studies and roles, {min} to today", "Career timeline");
+  });
+
+  /* ─── Education timeline: the same plot, built from the education list ───
+
+     The education entries use their own field names, so they are mapped onto
+     the shape buildTimeline expects. Sorted oldest first here rather than
+     relying on list order, so the cards below can stay newest-first. */
+
+  section("education-timeline", "education", "Education timeline", function (items) {
+    var withDates = items.filter(function (e) { return e.from && e.to; });
+    if (!withDates.length) return null;
+
+    var entries = withDates.map(function (e) {
+      return {
+        company: e.institution || "",
+        mark: e.mark || "",
+        logo: e.logo,
+        role: e.credential || "",
+        dates: e.dates || "",
+        from: e.from,
+        to: e.to,
+        kind: "study",
+      };
+    }).sort(function (a, b) {
+      return decimalYear(a.from, "from") - decimalYear(b.from, "from");
+    });
+
+    return buildTimeline(entries, "Schooling, {min} to {max}", "Education timeline");
   });
 
   /* ─── Column chart: how long each job lasted ─────────────────────────────
