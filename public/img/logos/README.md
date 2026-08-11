@@ -13,7 +13,7 @@ on the Experience page.
 | `huawei.webp` | Huawei | supplied by Sajib |
 | `flipnet.webp` | FlipNet (MTN Irancell) | supplied by Sajib |
 | `nokia.webp` | Nokia | supplied by Sajib |
-| `genwave.webp` | Genwave Technologies | supplied by Sajib |
+| `genwave.webp` | Genwave Technology | supplied by Sajib |
 
 Every entry in the timeline now has a logo. If you add a company without one,
 it falls back to a lettered tile of the same size, so the two mix without the

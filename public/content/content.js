@@ -154,7 +154,7 @@ window.SITE = {
     },
 
     {
-      company: "Genwave Technologies",
+      company: "Genwave Technology",
       mark: "GENWAVE",
       role: "RF Engineer",
       dates: "May 2025 — Present",
@@ -182,7 +182,7 @@ window.SITE = {
     // ── COPY FROM HERE ──
     {
       title: "RF Engineer",
-      company: "Genwave Technologies",
+      company: "Genwave Technology",
       location: "Toronto, ON",
       dates: "May 2025 — Present",
       current: true,
@@ -222,15 +222,38 @@ window.SITE = {
     },
 
     {
-      title: "Senior RNP/RNO & IBS Team Lead, Services Engineer, Senior System Engineer",
-      company: "Huawei, Ericsson & Grameenphone",
+      title: "Senior RNP/RNO Engineer & IBS Team Lead",
+      company: "Huawei Technologies",
       location: "Dhaka, Bangladesh",
-      dates: "Sep 2007 — Dec 2014",
+      dates: "Nov 2013 — Dec 2014",
       bullets: [
-        "Designed and deployed 100+ in-building (IBS/DAS) systems and 200+ repeater sites, and executed a 250+ site IBS vendor swap from Ericsson to Huawei for the largest mobile operator in Bangladesh.",
+        "Led the IBS team executing a 250+ site in-building vendor swap from Ericsson to Huawei for the largest mobile operator in Bangladesh, holding KPI parity through every cutover.",
         "Delivered multi-vendor RAN planning, design and optimization for operators across Bangladesh and Myanmar (Telenor, Ooredoo).",
-        "Completed planning and design for more than 200 sites at Grameenphone, and built the end-to-end working process the technology division used for site solutions.",
         "Coordinated multi-entity delivery, presented daily progress to senior management, and trained stakeholder and vendor teams through deployment cycles.",
+      ],
+    },
+
+    {
+      title: "Services Engineer",
+      company: "Ericsson",
+      location: "Dhaka, Bangladesh",
+      dates: "Oct 2011 — Nov 2013",
+      bullets: [
+        "Designed and deployed 100+ in-building (IBS/DAS) systems and 200+ repeater sites for Grameenphone, the largest mobile operator in Bangladesh.",
+        "Performed RF planning, design and optimization for 2G, 3G and LTE networks, including coverage prediction, link budgets and neighbour planning.",
+        "Produced design packages, close-out documentation and performance reports for multi-site deployments.",
+      ],
+    },
+
+    {
+      title: "Senior System Engineer",
+      company: "Grameenphone",
+      location: "Dhaka, Bangladesh",
+      dates: "Sep 2007 — Oct 2011",
+      bullets: [
+        "Completed planning and design for more than 200 sites, and built the end-to-end working process the technology division used for site solutions.",
+        "Performed RF site surveys, coverage analysis and new-site candidate evaluations across the national network.",
+        "Coordinated between planning, implementation and optimization teams to ensure sites met coverage and quality targets.",
       ],
     },
 

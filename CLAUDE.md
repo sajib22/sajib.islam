@@ -9,6 +9,7 @@ Read this before doing anything in this repo. It replaces re-explaining the proj
 3. **Don't touch unrelated code.** Do surface bad code or design smells you discover so we can address them as a separate issue.
 4. **Flag uncertainty explicitly.** If you're unsure, see point 1. Where it makes sense, run a small, localised, low-risk experiment and bring me the hypothesis and the results to discuss. Confidence without certainty causes more damage than admitting a gap.
 5. **Suggest better ways.** I'm always open to ideas — especially ones with long-lasting impact over tactical fixes. Don't hesitate.
+6. **Stay inside the requested scope.** When I request a change, stick only to that specific and particular area. Do not change other sections that I did not mention or request. Always verify and validate that you are doing the right task before you start — read the actual file, check the actual state, confirm the target. Don't guess and don't assume. If a change seems to require touching something outside the requested area, stop and ask me first.
 
 ## Hard constraints
 

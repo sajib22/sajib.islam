@@ -229,8 +229,7 @@ h2 {
 .mark { display: inline-flex; align-items: center; gap: var(--s3); }
 .mark::before {
   content: "";
-  width: 8px; height: 8px;
-  border-radius: 50%;
+  width: 6px; height: 6px;
   background: var(--accent);
 }
 
@@ -338,7 +337,10 @@ h1 {
 
 .ibs-diagram {
   display: block;
-  max-width: 100%;
+  /* width:100% lets it shrink below the 28rem cap — without it the fixed cap
+     overflows the viewport on a phone and the whole page scrolls sideways. */
+  width: 100%;
+  max-width: 28rem;
   height: auto;
   border: 1px solid var(--rule);
   border-radius: 4px;
@@ -557,9 +559,11 @@ h1 {
   display: block;
   width: 100%;
   height: auto;
+  /* Matches the width/height attributes on the element, so the space is
+     reserved before the file downloads and nothing shifts. */
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border: 2px solid var(--rule);
+  border: 1px solid var(--rule);
   border-radius: 50%;
   background: var(--surface);
 }
@@ -833,7 +837,7 @@ h1 {
 
 .chart__track {
   position: relative;
-  height: 11rem;
+  height: 8rem;
   border-bottom: 1px solid var(--rule);
   background-image: repeating-linear-gradient(
     to top,
@@ -1058,6 +1062,12 @@ h1 {
 .page-head { padding-top: var(--s7); }
 .page-head h1 { font-size: clamp(1.875rem, 5.5vw, 2.75rem); }
 
+.stat-num {
+  font-size: 1.25em;
+  color: var(--accent);
+  font-weight: 750;
+}
+
 /* ─── Next/previous page links at the foot of each page ─────────────────── */
 
 .onward {
@@ -1108,7 +1118,7 @@ h1 {
   .chart__bars { gap: var(--s1); }
   .chart__plot { padding-top: var(--s4); }
 
-  .chart__track { height: 8rem; }
+  .chart__track { height: 6rem; }
   .chart__val { font-size: 0.625rem; }
 
   .chart__mark { height: 2rem; padding: 2px; }

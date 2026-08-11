@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Experience — Sajib Islam</title>
-<meta name="description" content="Seventeen years of RF engineering: in-building 5G and LTE at Genwave Technologies in Toronto, RAN optimization at Nokia, RF planning at MTN Irancell, and IBS design at Huawei, Ericsson and Grameenphone.">
+<meta name="description" content="Seventeen years of RF engineering: in-building 5G and LTE at Genwave Technology in Toronto, RAN optimization at Nokia, RF planning at MTN Irancell, and IBS design at Huawei, Ericsson and Grameenphone.">
 <link rel="canonical" href="https://sajibislam.com/experience/">
 
 <meta property="og:type" content="article">
@@ -72,7 +72,7 @@
 
   <section class="page-head" aria-labelledby="page-h">
     <p class="eyebrow">Experience</p>
-    <h1 id="page-h">Seventeen years, six companies, three continents</h1>
+    <h1 id="page-h"><strong class="stat-num">17</strong> years, <strong class="stat-num">6</strong> companies, <strong class="stat-num">3</strong> continents</h1>
     <p class="lede">I started out planning macro sites in Dhaka and ended up commissioning
     in-building systems in Toronto. What connects the two is the same question in different
     forms: is the signal where it needs to be, and can you prove it?</p>
@@ -86,7 +86,7 @@
 
 
   <!-- ════════════════════════════════════════════════════════════════════════
-       DAS RISER DIAGRAM — hand-drawn, no external file. The description
+       DAS DIAGRAM — the image lives at /img/das-image.webp. The description
        underneath is what a screen reader reads.
        ════════════════════════════════════════════════════════════════════════ -->
   <section id="how" aria-labelledby="how-h">
@@ -94,22 +94,25 @@
 
     <div class="diagram-row">
       <figure class="diagram">
-        <img class="ibs-diagram" src="/img/ibs-diagram.webp" alt="In-building DAS system diagram showing a multi-storey building with carrier BTS, multi-network combiner, couplers and splitters on each floor feeding antennas" width="800" height="800" loading="lazy" decoding="async">
+        <img class="ibs-diagram" src="/img/das-image.webp" alt="Distributed antenna system across three buildings: a BTS and head end feed remote units on every floor over fibre, a rooftop donor antenna feeds a BDA, and two neighbouring buildings are served from conversion units over the same fibre" width="1000" height="1007" loading="lazy" decoding="async">
 
-        <figcaption class="diagram__cap">In-building DAS system &mdash; carrier BTS feeds a multi-network combiner, with couplers and splitters distributing signal to antennas on each floor</figcaption>
+        <figcaption class="diagram__cap">Distributed antenna system &mdash; a head end feeds remote units on every floor over fibre, with a donor antenna and BDA as the alternative signal source</figcaption>
 
-        <p class="diagram__alt">Diagram of a distributed antenna system in a multi-storey building.
-        A carrier fibre transmission feeds a carrier BTS at ground level, which connects to a
-        multi-network combiner. The combiner feeds a vertical riser with couplers on each floor.
-        Each coupler connects to a splitter that distributes signal to ceiling-mounted antennas
-        across the floor plate.</p>
+        <p class="diagram__alt">Diagram of a distributed antenna system serving three buildings.
+        In the main building a carrier BTS connects to a head end at ground level, and a rooftop
+        donor antenna feeds a bi-directional amplifier as an alternative signal source. Fibre
+        runs up a vertical riser to remote units on each floor, and each remote unit feeds
+        ceiling antennas across the floor plate. Two neighbouring buildings are served over the
+        same fibre through conversion units at their base, which drive their own stacks of
+        remote units. Red lines are fibre optic runs and black lines are RF coaxial runs.</p>
       </figure>
 
       <div class="diagram-explain">
         <h3 class="diagram-explain__h">Distributed Antenna System (DAS)</h3>
-        <p>A DAS extends wireless coverage inside buildings where the outdoor macro network cannot penetrate. Instead of relying on a single high-power source, it distributes the signal through a network of low-power antennas spread across every floor.</p>
-        <p><strong>How it works:</strong> A carrier base station feeds into a multi-network combiner at ground level. From there, the combined signal travels up a vertical riser through couplers on each floor. Each coupler connects to splitters that distribute the signal to ceiling-mounted antennas, delivering uniform coverage across the entire floor plate.</p>
-        <p><strong>Why it matters:</strong> Modern buildings with thick concrete, low-E glass and dense floor plans block most outdoor signal. A properly designed DAS ensures reliable voice, data and emergency service coverage throughout the venue &mdash; from parking garages to penthouse floors.</p>
+        <p>A DAS extends wireless coverage inside buildings where the outdoor macro network cannot reach. Instead of relying on one high-power source, it splits the signal across many low-power antennas spread through every floor.</p>
+        <p><strong>Where the signal comes from:</strong> either an on-site carrier base station (BTS) for a full off-air-independent system, or a rooftop donor antenna feeding a bi-directional amplifier (BDA) that repeats the macro network indoors. Both terminate at the head end.</p>
+        <p><strong>How it is distributed:</strong> the head end converts RF to optical and sends it up the riser on fibre. Remote units on each floor convert it back to RF and drive the ceiling antennas over coax. Because the backbone is fibre, the same head end can reach neighbouring buildings through conversion units at their base &mdash; which is how a campus is covered from one source.</p>
+        <p><strong>Why it matters:</strong> concrete cores, low-E glass and deep floor plates block most outdoor signal. A properly engineered DAS delivers reliable voice, data and emergency-service coverage everywhere in the venue, from the parking levels to the top floor.</p>
       </div>
     </div>
   </section>
@@ -142,6 +145,18 @@
   <section id="skills" aria-labelledby="skills-h">
     <h2 id="skills-h"><span class="mark">Technical skills</span></h2>
     <div data-render="skills"></div>
+  </section>
+
+
+  <section id="certifications" aria-labelledby="certs-h">
+    <h2 id="certs-h"><span class="mark">Certifications &amp; affiliations</span></h2>
+    <div data-render="certifications"></div>
+  </section>
+
+
+  <section id="recognition" aria-labelledby="recog-h">
+    <h2 id="recog-h"><span class="mark">Awards &amp; recognition</span></h2>
+    <div data-render="recognition"></div>
   </section>
 
   <p class="onward">
