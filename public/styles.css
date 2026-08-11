@@ -345,6 +345,35 @@ h1 {
   background: var(--surface);
 }
 
+.diagram-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+}
+@media (min-width: 48rem) {
+  .diagram-row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .diagram-row .diagram { flex: 0 0 45%; max-width: 45%; }
+  .diagram-row .diagram-explain { flex: 1; }
+}
+
+.diagram-explain__h {
+  margin: 0 0 var(--s4);
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 650;
+  color: var(--accent);
+}
+.diagram-explain p {
+  margin: 0 0 var(--s4);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.diagram-explain p:last-child { margin-bottom: 0; }
+
 .role__bullets {
   margin: var(--s3) 0 0;
   padding-left: 1.1em;
