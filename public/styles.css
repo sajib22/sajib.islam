@@ -62,7 +62,13 @@ html {
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { transition-duration: 0.01ms !important; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    /* Keyframe animations need neutralising too, or the nav and title
+       entrances still move for a reader who asked for no motion. */
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 body {
@@ -145,6 +151,7 @@ body {
   font-size: 0.875rem;
 }
 .rail__nav a {
+  position: relative;
   color: var(--steel);
   text-decoration: none;
   display: inline-flex;
@@ -152,13 +159,57 @@ body {
   gap: var(--s2);
   padding: var(--s2) var(--s3);
   border-radius: 6px;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
 }
 .rail__nav a:hover { color: var(--ink); background: var(--surface); }
+.rail__nav a:hover .nav-icon { transform: scale(1.12); }
+.rail__nav .nav-icon { transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* ── The selected page ──────────────────────────────────────────────────────
+   Each nav click is a full page load, so these entrance animations replay
+   every time a page is chosen — which is exactly when the marker should
+   draw attention to where you have landed. */
+
 .rail__nav a[aria-current] {
   color: var(--accent);
   background: var(--surface);
   font-weight: 600;
+  animation: nav-in 420ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Underline on the narrow top bar, and a leading bar once the rail moves
+   to the left edge. Both wipe in from nothing. */
+.rail__nav a[aria-current]::after {
+  content: "";
+  position: absolute;
+  left: var(--s3);
+  right: var(--s3);
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: nav-wipe 460ms cubic-bezier(0.22, 0.61, 0.36, 1) 90ms both;
+}
+.rail__nav a[aria-current] .nav-icon {
+  animation: nav-pop 480ms cubic-bezier(0.34, 1.56, 0.64, 1) 60ms both;
+}
+
+@keyframes nav-in {
+  from { opacity: 0.35; transform: translateX(-6px); }
+  to   { opacity: 1;     transform: none; }
+}
+@keyframes nav-wipe {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes nav-wipe-y {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+@keyframes nav-pop {
+  from { transform: scale(0.55); opacity: 0; }
+  to   { transform: none;        opacity: 1; }
 }
 .rail__nav .nav-icon {
   width: 1.1em; height: 1.1em;
@@ -239,6 +290,31 @@ h3 {
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.35;
+}
+
+/* ── Title entrances ────────────────────────────────────────────────────────
+   Every page title and section heading lifts into place as it comes into
+   view. main.js adds .reveal only to headings it is actually watching, so a
+   heading is never left invisible if the script fails or the browser has no
+   IntersectionObserver — the plain heading is the default. */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+  transition: opacity 620ms ease-out,
+              transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+/* The section marker draws itself in just behind its heading. */
+.reveal.is-revealed .mark::before {
+  animation: mark-in 520ms cubic-bezier(0.34, 1.56, 0.64, 1) 140ms both;
+}
+@keyframes mark-in {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: none;     opacity: 1; }
 }
 
 /* ─── Hero ──────────────────────────────────────────────────────────────── */
@@ -1129,6 +1205,21 @@ h1 {
     min-height: 100vh;
   }
   .rail__nav ul { flex-direction: column; gap: var(--s1); }
+  .rail__nav a { display: flex; }
+
+  /* In the left rail the marker reads better as a vertical bar down the
+     leading edge than as an underline, so it wipes downward instead. */
+  .rail__nav a[aria-current]::after {
+    left: -0.65rem;
+    right: auto;
+    top: 15%;
+    bottom: 15%;
+    width: 3px;
+    height: auto;
+    border-radius: 0 3px 3px 0;
+    transform-origin: center top;
+    animation-name: nav-wipe-y;
+  }
   /* Stays centred in the column beside the rail rather than hugging it. */
   .sheet { padding-left: var(--s7); padding-right: var(--s7); }
   .hero, .sheet > section:first-child { padding-top: var(--s8); }

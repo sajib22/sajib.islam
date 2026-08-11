@@ -575,6 +575,42 @@
     return wrap;
   });
 
+  /* ─── Title entrances ─────────────────────────────────────────────────────
+
+     Every page title and section heading lifts into place the first time it
+     scrolls into view. The hidden state is added here rather than in the
+     stylesheet, and only to headings that are genuinely being observed, so
+     a heading can never be left invisible by a script that failed or a
+     browser without IntersectionObserver. */
+
+  (function revealTitles() {
+    var reduce = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || typeof IntersectionObserver !== "function") return;
+
+    var titles = document.querySelectorAll(".sheet h1, .sheet h2");
+    if (!titles.length) return;
+
+    /* Threshold 0 and no rootMargin on purpose: a heading reveals the moment
+       any part of it touches the viewport. Pulling the trigger line inwards
+       reads slightly better, but it risks stranding a heading that sits close
+       to the bottom of a short page — the page can run out of scroll before
+       that heading ever crosses the line, leaving it invisible for good. Not
+       worth the polish. */
+    var io = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("is-revealed");
+        obs.unobserve(e.target);       // one entrance each, not on every pass
+      });
+    }, { threshold: 0 });
+
+    Array.prototype.forEach.call(titles, function (title) {
+      title.classList.add("reveal");
+      io.observe(title);
+    });
+  })();
+
   /* ─── Theme toggle ───────────────────────────────────────────────────── */
 
   (function theme() {
