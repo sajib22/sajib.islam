@@ -105,7 +105,7 @@ window.SITE = {
     {
       company: "Grameenphone",
       mark: "GP",
-      role: "Senior System Engineer",
+      role: "System Engineer → Senior System Engineer",
       dates: "Sep 2007 — Oct 2011",
       from: "2007-09",
       to: "2011-10",
@@ -116,7 +116,7 @@ window.SITE = {
     {
       company: "Ericsson",
       mark: "ERICSSON",
-      role: "Services Engineer",
+      role: "Services Engineer (RAN Planning & Optimization)",
       dates: "Oct 2011 — Nov 2013",
       from: "2011-10",
       to: "2013-11",
@@ -124,9 +124,9 @@ window.SITE = {
     },
 
     {
-      company: "Huawei",
+      company: "Huawei Technologies",
       mark: "HUAWEI",
-      role: "Senior Engineer & Team Lead",
+      role: "Senior RNP & RNO Engineer, IBS Team Lead",
       dates: "Nov 2013 — Dec 2014",
       from: "2013-11",
       to: "2014-12",
@@ -136,7 +136,7 @@ window.SITE = {
     {
       company: "FlipNet (MTN Irancell)",
       mark: "FLIPNET",
-      role: "4G & 3G Consultant / Team Lead",
+      role: "4G & 3G RF Consultant and Team Lead",
       dates: "Dec 2014 — Jun 2018",
       from: "2014-12",
       to: "2018-06",
@@ -146,7 +146,7 @@ window.SITE = {
     {
       company: "Nokia",
       mark: "NOKIA",
-      role: "Senior NPO Engineer",
+      role: "Senior NPO Engineer (5G/4G/3G/2G)",
       dates: "Feb 2019 — Jan 2024",
       from: "2019-02",
       to: "2024-01",
@@ -156,7 +156,7 @@ window.SITE = {
     {
       company: "Genwave Technology",
       mark: "GENWAVE",
-      role: "RF Engineer",
+      role: "RF DAS Engineer",
       dates: "May 2025 — Present",
       from: "2025-05",
       to: "present",
@@ -181,9 +181,9 @@ window.SITE = {
 
     // ── COPY FROM HERE ──
     {
-      title: "RF Engineer",
+      title: "RF DAS Engineer",
       company: "Genwave Technology",
-      location: "Toronto, ON",
+      location: "Mississauga, ON",
       dates: "May 2025 — Present",
       current: true,
       bullets: [
@@ -196,8 +196,8 @@ window.SITE = {
     // ── TO HERE ──
 
     {
-      title: "Senior NPO Engineer",
-      company: "Nokia Solutions and Networks",
+      title: "Senior NPO Engineer (5G/4G/3G/2G Expert and Data Analyst)",
+      company: "Nokia",
       location: "Dhaka, Bangladesh",
       dates: "Feb 2019 — Jan 2024",
       bullets: [
@@ -209,7 +209,7 @@ window.SITE = {
     },
 
     {
-      title: "4G & 3G Consultant / Team Lead",
+      title: "4G & 3G RF Consultant and Team Lead",
       company: "FlipNet (MTN Irancell)",
       location: "Tehran, Iran",
       dates: "Dec 2014 — Jun 2018",
@@ -222,7 +222,7 @@ window.SITE = {
     },
 
     {
-      title: "Senior RNP/RNO Engineer & IBS Team Lead",
+      title: "Senior RNP & RNO Engineer and IBS Team Lead",
       company: "Huawei Technologies",
       location: "Dhaka, Bangladesh",
       dates: "Nov 2013 — Dec 2014",
@@ -234,7 +234,7 @@ window.SITE = {
     },
 
     {
-      title: "Services Engineer",
+      title: "Services Engineer (RAN Planning and Optimization)",
       company: "Ericsson",
       location: "Dhaka, Bangladesh",
       dates: "Oct 2011 — Nov 2013",
@@ -246,14 +246,41 @@ window.SITE = {
     },
 
     {
-      title: "Senior System Engineer",
+      title: "Senior System Engineer (IBS Specialist)",
       company: "Grameenphone",
       location: "Dhaka, Bangladesh",
-      dates: "Sep 2007 — Oct 2011",
+      dates: "Feb 2011 — Oct 2011",
       bullets: [
-        "Completed planning and design for more than 200 sites, and built the end-to-end working process the technology division used for site solutions.",
-        "Performed RF site surveys, coverage analysis and new-site candidate evaluations across the national network.",
-        "Coordinated between planning, implementation and optimization teams to ensure sites met coverage and quality targets.",
+        "Specialised in RF planning, design and optimization for in-building solutions, covering both active and passive DAS.",
+        "Delivered the IBS for Jamuna Future Park, the largest shopping centre in Bangladesh, and the Old Dhaka optimization programme combining IBS with macro sites.",
+        "Led an IBS network swap from Ericsson to Huawei across more than 200 in-building sites, and deployed femto and pico small cells.",
+        "Designed Wi-Fi hotspots integrated with the IBS system and built repeater solutions for corporate and VIP clients.",
+      ],
+    },
+
+    {
+      title: "Senior Executive",
+      company: "Grameenphone",
+      location: "Dhaka, Bangladesh",
+      dates: "May 2010 — Feb 2011",
+      bullets: [
+        "Planned, designed and dimensioned outdoor and in-building coverage, capacity and quality as a member of the IBS team.",
+        "Designed and dimensioned the first active DAS (fibre) system ever deployed for IBS in Bangladesh, at Grameenphone's corporate headquarters.",
+        "Ran drive testing with TEMS, log-file analysis and post-processing, publishing performance reports with resolutions.",
+        "Held radio network service through major events as a member of the Event Management team.",
+      ],
+    },
+
+    {
+      title: "System Engineer",
+      company: "Grameenphone",
+      location: "Dhaka, Bangladesh",
+      dates: "Sep 2007 — May 2010",
+      bullets: [
+        "Planned, designed and optimized radio sites as a member of the Radio Planning team, and worked as an IBS specialist within the IBS team.",
+        "Built indoor and outdoor repeater solutions, and designed Wi-Fi hotspots integrated with IBS.",
+        "Designed and planned active and passive DAS for in-building systems, including customised solutions for VIP and corporate locations.",
+        "Monitored site performance, ran regular voice and data dimensioning, and resolved poor-performing cells.",
       ],
     },
 
@@ -438,6 +465,20 @@ window.SITE = {
     },
     // ── TO HERE ──
 
+    {
+      credential: "Higher Secondary Certificate (H.S.C.), Science",
+      institution: "Notre Dame College",
+      location: "Dhaka, Bangladesh",
+      dates: "Jun 1999 — May 2001",
+    },
+
+    {
+      credential: "Secondary School Certificate (S.S.C.), Science",
+      institution: "B.L. Government High School",
+      location: "Sirajganj, Bangladesh",
+      dates: "Jan 1997 — Mar 1999",
+    },
+
   ],
 
 
@@ -473,10 +514,48 @@ window.SITE = {
     },
 
     {
+      name: "Learning Data Analytics Part 1: Foundations",
+      issuer: "LinkedIn Learning",
+    },
+
+    {
+      name: "Learning Data Analytics Part 2: Extending and Applying Core Knowledge",
+      issuer: "LinkedIn Learning",
+    },
+
+    {
+      name: "Excel for Business Analysts",
+      issuer: "LinkedIn Learning",
+    },
+
+    {
+      name: "Quick Start Guide to SQL",
+      issuer: "LinkedIn Learning",
+    },
+
+    {
+      name: "MySQL Essential Training",
+      issuer: "LinkedIn Learning",
+    },
+
+  ],
+
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     ORGANISATIONS — professional bodies and memberships.
+
+     Same shape as certifications: "name" is required, "issuer" and "date"
+     are optional. Leave the list empty and the section disappears.
+     ───────────────────────────────────────────────────────────────────────── */
+  organizations: [
+
+    // ── COPY FROM HERE ──
+    {
       name: "Engineer-in-Training (EIT)",
       issuer: "APEGS — Association of Professional Engineers & Geoscientists of Saskatchewan",
       date: "Since 2018, working toward P.Eng.",
     },
+    // ── TO HERE ──
 
     {
       name: "Member, Institution of Engineers, Bangladesh (IEB)",
@@ -494,13 +573,13 @@ window.SITE = {
 
     // ── COPY FROM HERE ──
     {
-      name: "Appreciate Excellence Award",
+      name: "Appreciate Excellence Award: Open",
       detail: "Nokia / Ericsson — outstanding support on the TDD LTE2300 project.",
     },
     // ── TO HERE ──
 
     {
-      name: "Appreciate Excellence Award",
+      name: "Appreciate Excellence Award: Empowered",
       detail: "Nokia / Ericsson — sustained effort through an OEM network swap.",
     },
 

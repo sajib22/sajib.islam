@@ -575,6 +575,28 @@
     return wrap;
   });
 
+  /* ─── Organisations ──────────────────────────────────────────────────── */
+
+  section("organizations", "organizations", "Organisations", function (items) {
+    if (!items.length) return null;
+    var wrap = el("div", "certs__block");
+    wrap.appendChild(el("h3", "certs__h", "Professional bodies"));
+
+    var ul = el("ul", "certs");
+    items.forEach(function (item) {
+      var li = el("li", "cert");
+      li.appendChild(el("p", "cert__name", item.name || ""));
+
+      var meta = [item.issuer, item.date].filter(Boolean).join(" · ");
+      if (meta) li.appendChild(el("p", "cert__meta", meta));
+
+      ul.appendChild(li);
+    });
+    wrap.appendChild(ul);
+
+    return wrap;
+  });
+
   /* ─── Title entrances ─────────────────────────────────────────────────────
 
      Every page title and section heading lifts into place the first time it
