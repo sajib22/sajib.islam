@@ -15,6 +15,11 @@
   --green:   #0E7E45;   /* current role — green to signal "present" */
   --amber:   #7E5A0E;   /* project outcomes, warnings */
   --rule:    #D5DCDC;   /* hairlines and borders  */
+
+  /* DAS diagram overlay — red is fibre, dark is coax, matching the legend
+     printed inside the artwork itself. */
+  --das-optic: #E5231B;
+  --das-rf:    #111827;
 }
 
 :root[data-theme="dark"] {
@@ -26,6 +31,8 @@
   --green:   #34D399;
   --amber:   #D7A63C;
   --rule:    #242D31;
+  --das-optic: #FF6A5C;
+  --das-rf:    #9FB0B6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,6 +45,8 @@
     --green:   #34D399;
     --amber:   #D7A63C;
     --rule:    #242D31;
+    --das-optic: #FF6A5C;
+    --das-rf:    #9FB0B6;
   }
 }
 
@@ -421,6 +430,59 @@ h1 {
   border: 1px solid var(--rule);
   border-radius: 4px;
   background: var(--surface);
+}
+
+/* ── DAS signal-flow overlay ────────────────────────────────────────────────
+   An SVG traced against the artwork's own 1000x1007 pixels, laid over the
+   image so the signal can be shown moving along the real cable routes. Red
+   is fibre and dark is coax, matching the legend printed in the artwork.
+   Pure CSS — the dashes travel on their own with no script involved. */
+
+.das-stage { position: relative; }
+.das-stage .ibs-diagram { margin: 0; }
+
+.das-fx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.das-fx use { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.dasf-base { opacity: 0.16; }
+.dasf {
+  /* pathLength="1" on every path, so one dash unit is the whole route and
+     these numbers mean the same thing on a short branch and a long riser. */
+  stroke-dasharray: 0.075 0.925;
+  animation: das-comet var(--dur, 3s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes das-comet {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+
+.dasf--optic, .dasf-base--optic { stroke: var(--das-optic); }
+.dasf--rf,    .dasf-base--rf    { stroke: var(--das-rf); }
+
+.das-blink circle { fill: var(--das-optic); }
+.das-blink {
+  animation: das-blink 1.7s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes das-blink {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 1; }
+}
+
+/* Motion is decoration here. Without it the routes still read as faint
+   lines over the artwork, which is the same information standing still. */
+@media (prefers-reduced-motion: reduce) {
+  .dasf { display: none; }
+  .dasf-base { opacity: 0.4; }
+  .das-blink { opacity: 0.6; }
 }
 
 .diagram-row {
@@ -1077,7 +1139,11 @@ h1 {
 }
 
 @media (max-width: 44.9375rem) {
-  .diagram svg,
+  /* Written when the diagram was a hand-drawn inline SVG whose labels became
+     unreadable on a phone. The diagram is an image now, and .das-fx is the
+     signal-flow overlay sitting on top of it — it carries no text, scales with
+     the artwork and must not be caught by this. */
+  .diagram svg:not(.das-fx),
   .diagram__cap { display: none; }
 
   .diagram__alt {
