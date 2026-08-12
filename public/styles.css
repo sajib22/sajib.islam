@@ -451,7 +451,11 @@ body {
   padding-bottom: var(--sec);
   scroll-margin-top: var(--s5);
 }
-.sheet > section:last-of-type { padding-bottom: 0; }
+/* The last section on a page needs no trailing air before the footer — but a
+   card does, or its final line sits flush against its own bottom border.
+   :last-of-type outranks the .card-section padding on specificity, so the
+   exclusion has to be written here rather than fixed over there. */
+.sheet > section:last-of-type:not(.card-section) { padding-bottom: 0; }
 .sheet > section + section { border-top: 1px solid var(--rule); }
 
 h2 {
