@@ -58,3 +58,12 @@ objects, delete the file and the `logo:` line and the lettered tile comes back.
   off another server, which would break the no-third-party-requests rule.
 - A missing file gives a broken image icon, which is the one failure that
   looks bad. Hence step 4.
+
+## Still to be supplied
+
+| File | Institution | Notes |
+|------|-------------|-------|
+| `notredame.svg` | Notre Dame College | Named in `content.js`; until the file is added the education plot shows the "NDC" text tile instead. |
+| `bl-high-school.png` | B.L. Government High School, Sirajganj | Named in `content.js`; shows the "BLGHS" text tile until added. |
+
+Drop either file in at exactly that name and it appears — no code change needed.

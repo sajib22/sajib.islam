@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>All About DAS — Sajib Islam</title>
+<meta name="description" content="What a distributed antenna system is, how the signal reaches every floor, the passive, active, hybrid, digital, off-air and public-safety types, and how a DAS is designed and proven.">
+<link rel="canonical" href="https://sajibislam.com/das/">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Sajib Islam">
+<meta property="og:title" content="All About DAS — Sajib Islam">
+<meta property="og:description" content="What a distributed antenna system is, how the signal reaches every floor, the passive, active, hybrid, digital, off-air and public-safety types, and how a DAS is designed and proven.">
+<meta property="og:url" content="https://sajibislam.com/das/">
+<meta property="og:image" content="https://sajibislam.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sajib Islam — RF engineer, Toronto.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="All About DAS — Sajib Islam">
+<meta name="twitter:description" content="What a distributed antenna system is, how the signal reaches every floor, the passive, active, hybrid, digital, off-air and public-safety types, and how a DAS is designed and proven.">
+<meta name="twitter:image" content="https://sajibislam.com/og.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F1F4F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1315" media="(prefers-color-scheme: dark)">
+
+<link rel="stylesheet" href="/styles.css">
+<script>
+  try {
+    var t = localStorage.getItem("theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     TITLE BLOCK — ⚠ THIS BLOCK IS REPEATED IN ALL PAGE FILES.
+     If you change the navigation, change it in every index.html under public/
+     AND in 404.html. See CONTRIBUTING.md.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<header class="rail">
+  <p class="rail__name"><a href="/">Sajib Islam</a></p>
+  <p class="rail__disc">RF Engineer &middot; EIT</p>
+  <p class="rail__loc">Toronto, ON</p>
+
+  <nav class="rail__nav" aria-label="Pages">
+    <ul>
+      <li><a href="/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></span>Home</a></li>
+      <li><a href="/experience/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></span>Experience</a></li>
+      <li><a href="/projects/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>Projects</a></li>
+      <li><a href="/das/" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M4.9 19.1a10 10 0 010-14.2"/><path d="M7.8 16.2a6 6 0 010-8.4"/><path d="M16.2 7.8a6 6 0 010 8.4"/><path d="M19.1 4.9a10 10 0 010 14.2"/></svg></span>All About DAS</a></li>
+      <li><a href="/tools/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></span>Tools</a></li>
+      <li><a href="/education/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg></span>Education</a></li>
+      <li><a href="/certifications/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><polyline points="8.5 14.5 7 22 12 19 17 22 15.5 14.5"/></svg></span>Certifications</a></li>
+      <li><a href="/awards/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M17 4H7v6a5 5 0 0010 0z"/><path d="M17 5h3v2a3 3 0 01-3 3"/><path d="M7 5H4v2a3 3 0 003 3"/></svg></span>Awards</a></li>
+      <li><a href="/organizations/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>Organizations</a></li>
+      <li><a href="/about/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>About</a></li>
+      <li><a href="/contact/"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>Contact</a></li>
+    </ul>
+  </nav>
+
+  <button class="toggle" type="button" id="theme-toggle" aria-label="Switch to dark theme">
+    <span class="toggle__icon" aria-hidden="true"></span>
+    <span class="toggle__label">Dark</span>
+  </button>
+</header>
+
+<main class="sheet" id="main">
+
+  <section class="page-head" aria-labelledby="page-h">
+    <p class="eyebrow">All About DAS</p>
+    <h1 id="page-h">All About DAS</h1>
+    <p class="lede">A distributed antenna system is what you build when a building defeats the
+    network outside it. This is the working explanation I give clients &mdash; what a DAS is,
+    how the signal actually gets to a phone on the eleventh floor, and which type to use when.</p>
+  </section>
+
+
+  <section id="what" aria-labelledby="what-h">
+    <h2 id="what-h"><span class="mark">What is a DAS?</span></h2>
+    <div class="prose">
+      <p>A distributed antenna system replaces one distant, high-power signal source with many
+      low-power antennas spread through a building. The macro network outside is designed to
+      cover streets and open ground. Once that signal has to pass through a concrete core, a
+      basement wall or modern low-emissivity glass, it arrives too weak and too noisy to carry
+      a call &mdash; coated glass alone can cost 25&nbsp;dB or more.</p>
+
+      <p>A DAS solves that by moving the antenna closer to the user. Instead of asking one
+      signal to punch through the building envelope, the system carries it inside over cable
+      or fibre and re-radiates it floor by floor. The result is even coverage at low power,
+      which also means less interference back into the macro network and better battery life
+      on every device connected to it.</p>
+
+      <p>The distinction worth holding on to: a DAS is a <em>distribution</em> system, not a
+      source of capacity. It takes signal from somewhere &mdash; a base station or the macro
+      network &mdash; and spreads it. What it cannot do is create capacity that the source
+      never had.</p>
+    </div>
+  </section>
+
+
+  <section id="how" aria-labelledby="how-h">
+    <h2 id="how-h"><span class="mark">How does a DAS work?</span></h2>
+    <div class="prose">
+      <p>Every DAS has three stages: a signal source, a distribution backbone, and the antennas
+      that finally radiate.</p>
+
+      <p><strong>1. The source.</strong> Either an on-site base station (BTS or small cell) fed
+      from the carrier&rsquo;s network, or a rooftop <em>donor antenna</em> pointed at a nearby
+      macro site. The donor route feeds a bi-directional amplifier (BDA) that repeats the
+      outdoor network indoors. An on-site base station gives dedicated capacity; a donor and
+      BDA share whatever the macro cell already has, which is cheaper but caps what the
+      building can carry.</p>
+
+      <p><strong>2. The head end.</strong> Sources are combined here, and in an active system
+      the RF is converted to optical. Fibre is what makes reach practical &mdash; it runs
+      hundreds of metres with negligible loss, where coax of the same length would lose most of
+      the signal to cable attenuation.</p>
+
+      <p><strong>3. Distribution and radiation.</strong> The backbone runs up a riser to remote
+      units on each floor, which convert back to RF and drive ceiling antennas over short coax
+      tails. In a passive system there is no conversion at all: couplers and splitters divide
+      one source across the antennas, losing a predictable amount at each split.</p>
+
+      <p>A DAS is bi-directional throughout. The uplink &mdash; the phone talking back &mdash;
+      is usually the harder direction to engineer, because a handset transmits at a fraction of
+      the power the network does, and uplink noise accumulated across every remote unit lands
+      back at one receiver.</p>
+    </div>
+  </section>
+
+
+  <section id="types" aria-labelledby="types-h">
+    <h2 id="types-h"><span class="mark">Types of DAS</span></h2>
+    <div class="caps">
+      <div class="cap">
+        <h3 class="cap__h">Passive DAS</h3>
+        <p>Coax, couplers and splitters only &mdash; no powered components after the source.
+        Cheap, extremely reliable and effectively maintenance-free, but loss accumulates with
+        distance, so it suits smaller buildings and shorter cable runs.</p>
+      </div>
+      <div class="cap">
+        <h3 class="cap__h">Active DAS</h3>
+        <p>Fibre from a head end to powered remote units on each floor. Handles large and tall
+        buildings, multiple operators and multiple bands, with per-remote control over power.
+        More expensive, and it needs power and monitoring at every remote.</p>
+      </div>
+      <div class="cap">
+        <h3 class="cap__h">Hybrid DAS</h3>
+        <p>Fibre backbone to floor-level remotes, then passive coax to the antennas on that
+        floor. The common compromise in practice: most of the reach of active, with far fewer
+        powered devices to install and maintain.</p>
+      </div>
+      <div class="cap">
+        <h3 class="cap__h">Digital DAS</h3>
+        <p>The signal is digitised at the head end and transported over structured cabling or
+        fibre. Cleanest performance and the easiest to reconfigure remotely, which matters most
+        on large multi-operator estates.</p>
+      </div>
+      <div class="cap">
+        <h3 class="cap__h">Off-air (repeater) DAS</h3>
+        <p>Fed by a donor antenna and BDA rather than a base station. Fast and comparatively
+        cheap, but it inherits the macro cell&rsquo;s capacity and needs careful isolation
+        between donor and service antennas or it will oscillate.</p>
+      </div>
+      <div class="cap">
+        <h3 class="cap__h">Public safety DAS</h3>
+        <p>A separate system for first-responder radio, on its own bands and to its own codes.
+        Usually mandated by the local fire authority, with battery backup, survivable cabling
+        and annual testing that commercial systems are not held to.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="parts" aria-labelledby="parts-h">
+    <h2 id="parts-h"><span class="mark">The parts, and what each one does</span></h2>
+    <div class="prose">
+      <ul>
+        <li><strong>BTS</strong> &mdash; base transceiver station. The carrier&rsquo;s own radio
+        equipment, giving the building dedicated capacity.</li>
+        <li><strong>Donor antenna</strong> &mdash; a directional rooftop antenna aimed at a
+        macro site, used when no on-site base station is available.</li>
+        <li><strong>BDA</strong> &mdash; bi-directional amplifier. Amplifies both directions of
+        an off-air feed. Its gain is limited by isolation from the donor.</li>
+        <li><strong>Head end</strong> &mdash; combines sources, sets levels, and converts RF to
+        optical in an active system.</li>
+        <li><strong>Riser</strong> &mdash; the vertical backbone, fibre or coax, running the
+        height of the building.</li>
+        <li><strong>Remote unit</strong> &mdash; converts back to RF and amplifies for its
+        floor. One per floor is typical.</li>
+        <li><strong>Expansion unit</strong> &mdash; extends the same head end into adjacent
+        buildings, which is how a campus is covered from one source.</li>
+        <li><strong>Coupler and splitter</strong> &mdash; divide signal between antennas in a
+        known, calculable ratio.</li>
+        <li><strong>Service antenna</strong> &mdash; the ceiling antenna that finally radiates,
+        usually omnidirectional indoors.</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <section id="when" aria-labelledby="when-h">
+    <h2 id="when-h"><span class="mark">When a building needs one</span></h2>
+    <div class="prose">
+      <p>The usual triggers are structural rather than electronic: large floor plates where the
+      centre is far from any window, below-grade parking and plant rooms, concrete cores and
+      shear walls, low-E glass, and any building where a fire code requires first-responder
+      radio coverage in every stairwell and basement.</p>
+
+      <p>Occupancy matters as much as construction. A stadium or a transit hub may have
+      perfectly good coverage and still fail, because thousands of devices are contending for
+      one cell. That is a capacity problem, and the fix is more sectors or more sources &mdash;
+      distributing a signal that has already run out of capacity does not help.</p>
+    </div>
+  </section>
+
+
+  <section id="design" aria-labelledby="design-h">
+    <h2 id="design-h"><span class="mark">Designing and proving one</span></h2>
+    <div class="prose">
+      <p>Design starts with a survey and a link budget. Every element between source and
+      antenna &mdash; cable loss, splitter and coupler loss, connectors &mdash; is accounted
+      for, so the power arriving at each antenna is a calculated number rather than a hope.
+      That budget drives antenna count and placement, which is then modelled against the floor
+      plans to predict signal level and quality across every space.</p>
+
+      <p>Proving it is a separate discipline. Commissioning verifies each remote and antenna
+      run; CW testing measures actual path loss against the prediction; PIM testing catches
+      passive intermodulation from a bad connector or corroded joint, which shows up as
+      unexplained uplink noise; and walk testing records the delivered signal level, quality
+      and throughput across the building. EMF exposure is validated against the applicable
+      limit &mdash; Safety Code 6 in Canada. The close-out pack is what the carrier accepts,
+      and it is the difference between a system that is installed and one that is proven.</p>
+    </div>
+  </section>
+
+
+  <section id="refs" aria-labelledby="refs-h">
+    <h2 id="refs-h"><span class="mark">Reference links</span></h2>
+    <p class="lede">Starting points rather than a reading list &mdash; standards bodies,
+    regulators and the design tooling used in practice.</p>
+    <ul class="contact">
+      <li>
+        <span class="contact__k">Standards</span>
+        <a class="link" href="https://www.3gpp.org/" rel="noopener">3gpp.org &mdash; the 5G NR and LTE specifications themselves</a>
+      </li>
+      <li>
+        <span class="contact__k">Overview</span>
+        <a class="link" href="https://en.wikipedia.org/wiki/Distributed_antenna_system" rel="noopener">Distributed antenna system &mdash; Wikipedia</a>
+      </li>
+      <li>
+        <span class="contact__k">Design tool</span>
+        <a class="link" href="https://www.ibwave.com/" rel="noopener">iBwave &mdash; in-building design and link budget modelling</a>
+      </li>
+      <li>
+        <span class="contact__k">Regulator</span>
+        <a class="link" href="https://ised-isde.canada.ca/" rel="noopener">ISED Canada &mdash; spectrum and equipment certification</a>
+      </li>
+      <li>
+        <span class="contact__k">RF exposure</span>
+        <a class="link" href="https://www.canada.ca/en/health-canada.html" rel="noopener">Health Canada &mdash; Safety Code 6 exposure limits</a>
+      </li>
+      <li>
+        <span class="contact__k">Public safety</span>
+        <a class="link" href="https://www.nfpa.org/" rel="noopener">NFPA &mdash; codes covering in-building first-responder radio</a>
+      </li>
+      <li>
+        <span class="contact__k">Industry</span>
+        <a class="link" href="https://www.commscope.com/" rel="noopener">CommScope &mdash; vendor reference material on in-building systems</a>
+      </li>
+    </ul>
+  </section>
+
+  <p class="onward">
+    <a href="/experience/">See it in practice &rarr;</a>
+    <a href="/projects/">Projects &rarr;</a>
+    <a href="/contact/">Get in touch &rarr;</a>
+  </p>
+
+  <footer class="foot">
+    <p>Sajib Islam &mdash; Toronto, ON</p>
+    <p><a class="link" href="mailto:contact@sajibislam.com">contact@sajibislam.com</a></p>
+  </footer>
+
+</main>
+
+<script src="/content/content.js"></script>
+<script src="/main.js"></script>
+</body>
+</html>

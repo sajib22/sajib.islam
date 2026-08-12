@@ -62,7 +62,8 @@ window.SITE = {
        • the timeline on the home page (when each thing happened)
        • the column chart on /experience/ (how long each job lasted)
 
-     Oldest first, top to bottom.
+     Write them in any order you like — both charts sort themselves, newest
+     first, from the "from" dates below.
 
      "from" / "to"  are "YYYY-MM". Use "present" for the job you're in now.
                     ⚠ Write the month as two digits: "2007-09", not "2007-9".
@@ -481,6 +482,10 @@ window.SITE = {
       from: "1999-06",
       to: "2001-05",
       mark: "NDC",
+      /* Upload the crest to public/img/logos/notredame.svg, then delete the
+         // below. Left commented so the page makes no request for a file that
+         isn't there yet; until then the "NDC" tile is shown. */
+      // logo: "/img/logos/notredame.svg",
     },
 
     {
@@ -491,6 +496,8 @@ window.SITE = {
       from: "1997-01",
       to: "1999-03",
       mark: "BLGHS",
+      // Same again: upload public/img/logos/bl-high-school.png, delete the //.
+      // logo: "/img/logos/bl-high-school.png",
     },
 
   ],

@@ -160,6 +160,14 @@
       img.className = "logo-img";
       img.loading = "lazy";
       img.decoding = "async";
+      /* If the file named here hasn't been added yet, fall back to the text
+         tile rather than leaving a broken-image icon in the middle of the
+         chart. That makes it safe to name a logo before uploading it. */
+      img.onerror = function () {
+        box.removeChild(img);
+        box.classList.remove("has-logo");
+        box.appendChild(el("span", "logo-text", entry.mark || entry.company || ""));
+      };
       box.appendChild(img);
       box.classList.add("has-logo");
     } else {
@@ -278,6 +286,12 @@
   function buildTimeline(entries, captionText, tableCaption) {
     if (!entries.length) return null;
 
+    /* Newest first, top to bottom. Sorted here rather than relying on the
+       order in content.js, so both plots agree however the list is written. */
+    entries = entries.slice().sort(function (x, y) {
+      return decimalYear(y.from, "from") - decimalYear(x.from, "from");
+    });
+
     var starts = entries.map(function (e) { return decimalYear(e.from, "from"); });
     var ends = entries.map(function (e) { return decimalYear(e.to, "to"); });
 
@@ -320,7 +334,7 @@
       track.appendChild(bar);
       main.appendChild(track);
 
-      row.style.setProperty("--i", String(i));   // stagger, oldest bar first
+      row.style.setProperty("--i", String(i));   // stagger, newest bar first
       row.appendChild(main);
       rows.appendChild(row);
     });
@@ -382,8 +396,6 @@
         to: e.to,
         kind: "study",
       };
-    }).sort(function (a, b) {
-      return decimalYear(a.from, "from") - decimalYear(b.from, "from");
     });
 
     return buildTimeline(entries, "Schooling, {min} to {max}", "Education timeline");
@@ -396,7 +408,10 @@
      and so the labels never shrink with a viewBox. */
 
   section("timeline", "timeline", "Career chart", function (entries) {
-    var jobs = entries.filter(function (e) { return e.kind !== "study"; });
+    var jobs = entries.filter(function (e) { return e.kind !== "study"; })
+      .sort(function (x, y) {                       // newest company first
+        return decimalYear(y.from, "from") - decimalYear(x.from, "from");
+      });
     if (!jobs.length) return null;
 
     var years = jobs.map(spanYears);
@@ -413,7 +428,7 @@
     jobs.forEach(function (job, i) {
       var col = el("li", "chart__col" + (job.current ? " is-current" : ""));
       col.style.setProperty("--yrs", years[i].toFixed(2));
-      col.style.setProperty("--i", String(i));   // stagger, oldest column first
+      col.style.setProperty("--i", String(i));   // stagger, newest column first
 
       var track = el("div", "chart__track");
       track.appendChild(el("span", "chart__val", formatDuration(spanMonths(job))));
@@ -428,7 +443,7 @@
 
     plot.appendChild(bars);
     figure.appendChild(plot);
-    figure.appendChild(el("figcaption", "chart__cap", "Years and Months at each company, oldest first"));
+    figure.appendChild(el("figcaption", "chart__cap", "Years and Months at each company, newest first"));
     figure.appendChild(careerTable(jobs, "Years spent at each company", true));
 
     animateChart(plot);
