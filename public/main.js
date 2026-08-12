@@ -658,6 +658,58 @@
     return wrap;
   });
 
+  /* ─── Hamburger menu ──────────────────────────────────────────────────────
+
+     The rail renders as an ordinary block until this runs. Adding .js-nav to
+     <html> is what turns it into a drawer, so if this file fails to load the
+     navigation stays on the page instead of being sealed shut. */
+
+  (function navDrawer() {
+    var rail = document.querySelector(".rail");
+    var button = document.getElementById("nav-toggle");
+    if (!rail || !button) return;
+
+    document.documentElement.classList.add("js-nav");
+
+    var backdrop = el("div", "nav-backdrop");
+    document.body.appendChild(backdrop);
+
+    var lastFocus = null;
+
+    function setOpen(open) {
+      rail.classList.toggle("is-open", open);
+      backdrop.classList.toggle("is-open", open);
+      button.setAttribute("aria-expanded", open ? "true" : "false");
+
+      if (open) {
+        lastFocus = document.activeElement;
+        var first = rail.querySelector(".rail__nav a");
+        if (first) first.focus();
+      } else if (lastFocus && lastFocus.focus) {
+        lastFocus.focus();
+      }
+    }
+
+    button.addEventListener("click", function () {
+      setOpen(button.getAttribute("aria-expanded") !== "true");
+    });
+
+    backdrop.addEventListener("click", function () { setOpen(false); });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && rail.classList.contains("is-open")) setOpen(false);
+    });
+
+    /* Following a link inside the drawer navigates away, but same-page
+       anchors do not — close up so the reader can see what they picked. */
+    rail.addEventListener("click", function (e) {
+      var link = e.target.closest ? e.target.closest("a") : null;
+      if (link) setOpen(false);
+    });
+
+    setOpen(false);
+  })();
+
   /* ─── Title entrances ─────────────────────────────────────────────────────
 
      Every page title and section heading lifts into place the first time it

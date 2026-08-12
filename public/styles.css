@@ -150,6 +150,110 @@ body {
   color: var(--steel);
 }
 
+/* ── Hamburger menu ─────────────────────────────────────────────────────────
+   The rail is a plain block by default, exactly as it renders with no
+   JavaScript. main.js adds .js-nav to <html>, and only then does the rail
+   become a drawer that hides off to the left. Doing it that way round means
+   a script failure leaves the navigation visible rather than unreachable. */
+
+.nav-toggle { display: none; }
+
+.js-nav .nav-toggle {
+  position: fixed;
+  top: var(--s4);
+  left: var(--s4);
+  z-index: 120;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s2) var(--s4) var(--s2) var(--s3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--steel);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: color 0.15s, border-color 0.15s;
+}
+.js-nav .nav-toggle:hover { color: var(--ink); border-color: var(--steel); }
+
+/* Three bars that fold into an X when the drawer is open. */
+.nav-toggle__bars,
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.25s ease, opacity 0.15s ease;
+}
+.nav-toggle__bars { position: relative; }
+.nav-toggle__bars::before { position: absolute; top: -5px; }
+.nav-toggle__bars::after  { position: absolute; top: 5px; }
+
+.js-nav .nav-toggle[aria-expanded="true"] .nav-toggle__bars { background: transparent; }
+.js-nav .nav-toggle[aria-expanded="true"] .nav-toggle__bars::before { transform: translateY(5px) rotate(45deg); }
+.js-nav .nav-toggle[aria-expanded="true"] .nav-toggle__bars::after  { transform: translateY(-5px) rotate(-45deg); }
+
+/* The drawer itself. */
+.js-nav .rail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(19rem, 84vw);
+  z-index: 115;
+  overflow-y: auto;
+  padding: var(--s8) var(--s5) var(--s5) var(--s5);
+  border-right: 1px solid var(--rule);
+  border-bottom: 0;
+  background: var(--paper);
+  transform: translateX(-102%);
+  visibility: hidden;
+  transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0.28s;
+}
+.js-nav .rail.is-open {
+  transform: none;
+  visibility: visible;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.18);
+}
+
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: rgba(0, 0, 0, 0.38);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s, visibility 0.28s;
+}
+.nav-backdrop.is-open { opacity: 1; visibility: visible; }
+
+/* With the rail out of the flow the sheet gets the full width, and needs a
+   little headroom so the first line clears the fixed menu button. */
+.js-nav .sheet { padding-top: var(--s7); }
+
+/* Inside the drawer the list is always vertical, at every width, and the
+   selected-page marker is the vertical bar rather than the underline. */
+.js-nav .rail__nav ul { flex-direction: column; gap: var(--s1); }
+.js-nav .rail__nav a { display: flex; }
+.js-nav .rail__nav a[aria-current]::after {
+  left: -0.65rem;
+  right: auto;
+  top: 15%;
+  bottom: 15%;
+  width: 3px;
+  height: auto;
+  border-radius: 0 3px 3px 0;
+  transform-origin: center top;
+  animation-name: nav-wipe-y;
+}
+
 .rail__nav { margin-top: var(--s5); }
 .rail__nav ul {
   margin: 0; padding: 0;
@@ -1262,6 +1366,10 @@ h1 {
     grid-template-columns: var(--rail-w) minmax(0, 1fr);
     align-items: start;
   }
+  /* With the drawer running, the rail is fixed and out of the flow, so the
+     two-column grid would leave an empty 15rem gutter down the left. */
+  .js-nav body { display: block; }
+  .js-nav .sheet { max-width: 64rem; margin: 0 auto; }
   .rail {
     position: sticky;
     top: 0;
