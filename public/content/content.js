@@ -95,7 +95,7 @@ window.SITE = {
       company: "Bangladesh University of Engineering and Technology",
       mark: "BUET",
       kind: "study",
-      role: "B.Sc. Electrical & Electronic Engineering",
+      role: "B.Sc. Electrical and Electronic Engineering",
       dates: "Apr 2002 — Jun 2007",
       from: "2002-04",
       to: "2007-06",
@@ -117,7 +117,7 @@ window.SITE = {
     {
       company: "Ericsson",
       mark: "ERICSSON",
-      role: "Services Engineer (RAN Planning & Optimization)",
+      role: "Services Engineer (RAN Planning and Optimization)",
       dates: "Oct 2011 — Nov 2013",
       from: "2011-10",
       to: "2013-11",
@@ -127,7 +127,7 @@ window.SITE = {
     {
       company: "Huawei Technologies",
       mark: "HUAWEI",
-      role: "Senior RNP & RNO Engineer, IBS Team Lead",
+      role: "Senior RNP and RNO Engineer, IBS Team Lead",
       dates: "Nov 2013 — Dec 2014",
       from: "2013-11",
       to: "2014-12",
@@ -137,7 +137,7 @@ window.SITE = {
     {
       company: "FlipNet (MTN Irancell)",
       mark: "FLIPNET",
-      role: "4G & 3G RF Consultant and Team Lead",
+      role: "4G and 3G RF Consultant and Team Lead",
       dates: "Dec 2014 — Jun 2018",
       from: "2014-12",
       to: "2018-06",
@@ -155,7 +155,7 @@ window.SITE = {
     },
 
     {
-      company: "Genwave Technology",
+      company: "Genwave Technologies",
       mark: "GENWAVE",
       role: "RF DAS Engineer",
       dates: "May 2025 — Present",
@@ -183,7 +183,7 @@ window.SITE = {
     // ── COPY FROM HERE ──
     {
       title: "RF DAS Engineer",
-      company: "Genwave Technology",
+      company: "Genwave Technologies",
       location: "Mississauga, ON",
       dates: "May 2025 — Present",
       current: true,
@@ -210,7 +210,7 @@ window.SITE = {
     },
 
     {
-      title: "4G & 3G RF Consultant and Team Lead",
+      title: "4G and 3G RF Consultant and Team Lead",
       company: "FlipNet (MTN Irancell)",
       location: "Tehran, Iran",
       dates: "Dec 2014 — Jun 2018",
@@ -223,7 +223,7 @@ window.SITE = {
     },
 
     {
-      title: "Senior RNP & RNO Engineer and IBS Team Lead",
+      title: "Senior RNP and RNO Engineer and IBS Team Lead",
       company: "Huawei Technologies",
       location: "Dhaka, Bangladesh",
       dates: "Nov 2013 — Dec 2014",
@@ -298,7 +298,7 @@ window.SITE = {
 
     // ── COPY FROM HERE ──
     {
-      group: "RF design & planning",
+      group: "RF Design and Planning",
       items: [
         "DAS / IBS",
         "Private 5G",
@@ -310,16 +310,16 @@ window.SITE = {
         "Atoll",
         "iBwave",
         "Mentum Planet",
-        "CW, PIM & walk testing",
+        "CW, PIM and walk testing",
         "EMF / Safety Code 6",
       ],
     },
     // ── TO HERE ──
 
     {
-      group: "RAN & vendor platforms",
+      group: "RAN and Vendor Platforms",
       items: [
-        "Nokia SRAN & AirScale",
+        "Nokia SRAN and AirScale",
         "Ericsson",
         "Huawei",
         "NetAct / NPM",
@@ -339,7 +339,7 @@ window.SITE = {
     },
 
     {
-      group: "Test & analysis",
+      group: "Test and Analysis",
       items: [
         "TEMS Investigation",
         "Nemo Analyzer",
@@ -349,12 +349,12 @@ window.SITE = {
         "Call trace (GPEH, UeTR, CTR)",
         "Layer 3 signaling analysis",
         "Worst-cell optimization",
-        "SSV & KPI acceptance",
+        "SSV and KPI acceptance",
       ],
     },
 
     {
-      group: "Data & automation",
+      group: "Data and Automation",
       items: [
         "Python",
         "SQL",
@@ -371,7 +371,7 @@ window.SITE = {
     },
 
     {
-      group: "Mapping & documentation",
+      group: "Mapping and Documentation",
       items: [
         "MapInfo",
         "QGIS",
@@ -397,7 +397,7 @@ window.SITE = {
 
     // ── COPY FROM HERE ──
     {
-      name: "RF measurement & reporting automation",
+      name: "RF measurement and reporting automation",
       featured: true,
       blurb: "Python tooling that turns raw walk-test and measurement data into finished survey reports, replacing manual document assembly.",
       detail: "Site survey reporting used to mean exporting measurement data, pasting it into a template, redrawing floorplan overlays by hand and reformatting everything for the client. This ingests the raw measurement files directly and produces the finished report. The point was never the tooling — it was that engineering time was going into document assembly instead of engineering. Cut analysis turnaround time by 90%.",
@@ -433,14 +433,14 @@ window.SITE = {
     },
 
     {
-      name: "Private 5G & Cisco URWB deployments",
+      name: "Private 5G and Cisco URWB deployments",
       blurb: "Design, commissioning and optimization of Private 5G and Cisco URWB networks for large Canadian venues, from link budget through to close-out documentation.",
       detail: "Private networks in venues bring constraints a public macro network doesn't: the coverage target is a specific floor plate, the interference environment is other tenants, and the client wants evidence rather than assurances. Work spans design packages and link budgets, head-end and remote integration across ADRF, Corning/BTI and Zinwave, CW, PIM and walk testing, EMF and Safety Code 6 validation, and the close-out pack.",
       tech: ["Private 5G", "Cisco URWB", "iBwave", "Walk testing"],
     },
 
     {
-      name: "5G SSV & KPI acceptance",
+      name: "5G SSV and KPI acceptance",
       blurb: "Prepared, verified and defended 5G system verification and KPI acceptance reports against contractual targets on domestic and overseas Nokia projects.",
       detail: "Acceptance is where a network stops being an engineering problem and becomes a contractual one. This meant running the verification, assembling the evidence, and then standing behind the numbers with the customer when a target was contested — including the multi-vendor counter and feature mapping needed to show that two different vendors' equipment were being measured on equivalent terms.",
       tech: ["5G NR", "Nokia NetAct", "KPI acceptance"],
@@ -458,7 +458,7 @@ window.SITE = {
 
     // ── COPY FROM HERE ──
     {
-      credential: "B.Sc. in Electrical & Electronic Engineering",
+      credential: "B.Sc. in Electrical and Electronic Engineering",
       institution: "Bangladesh University of Engineering and Technology (BUET)",
       location: "Dhaka, Bangladesh",
       dates: "Apr 2002 — Jun 2007",
@@ -482,10 +482,7 @@ window.SITE = {
       from: "1999-06",
       to: "2001-05",
       mark: "NDC",
-      /* Upload the crest to public/img/logos/notredame.svg, then delete the
-         // below. Left commented so the page makes no request for a file that
-         isn't there yet; until then the "NDC" tile is shown. */
-      // logo: "/img/logos/notredame.svg",
+      logo: "/img/logos/Notre_Dame_College_Dhaka.png",
     },
 
     {
@@ -496,15 +493,14 @@ window.SITE = {
       from: "1997-01",
       to: "1999-03",
       mark: "BLGHS",
-      // Same again: upload public/img/logos/bl-high-school.png, delete the //.
-      // logo: "/img/logos/bl-high-school.png",
+      logo: "/img/logos/BL_School_Logo.png",
     },
 
   ],
 
 
   /* ─────────────────────────────────────────────────────────────────────────
-     CERTIFICATIONS & AFFILIATIONS
+     CERTIFICATIONS and AFFILIATIONS
 
      If you ever have none, leave this as an empty list — like this:
      certifications: [],
@@ -525,7 +521,7 @@ window.SITE = {
     },
 
     {
-      name: "5G Algorithms & Parameters (22R3-SR)",
+      name: "5G Algorithms and Parameters (22R3-SR)",
       issuer: "Nokia",
     },
 
@@ -573,7 +569,7 @@ window.SITE = {
     // ── COPY FROM HERE ──
     {
       name: "Engineer-in-Training (EIT)",
-      issuer: "APEGS — Association of Professional Engineers & Geoscientists of Saskatchewan",
+      issuer: "APEGS — Association of Professional Engineers and Geoscientists of Saskatchewan",
       date: "Since 2018, working toward P.Eng.",
     },
     // ── TO HERE ──

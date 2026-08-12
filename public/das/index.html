@@ -96,7 +96,7 @@
 
 
   <section id="what" aria-labelledby="what-h">
-    <h2 id="what-h"><span class="mark">What is a DAS?</span></h2>
+    <h2 id="what-h"><span class="mark">What Is a DAS?</span></h2>
     <div class="prose">
       <p>A distributed antenna system replaces one distant, high-power signal source with many
       low-power antennas spread through a building. The macro network outside is designed to
@@ -119,7 +119,7 @@
 
 
   <section id="how" aria-labelledby="how-h">
-    <h2 id="how-h"><span class="mark">How does a DAS work?</span></h2>
+    <h2 id="how-h"><span class="mark">How Does a DAS Work?</span></h2>
     <div class="prose">
       <p>Every DAS has three stages: a signal source, a distribution backbone, and the antennas
       that finally radiate.</p>
@@ -145,6 +145,138 @@
       is usually the harder direction to engineer, because a handset transmits at a fraction of
       the power the network does, and uplink noise accumulated across every remote unit lands
       back at one receiver.</p>
+    </div>
+  </section>
+
+
+  <section id="signal-path" aria-labelledby="signal-path-h">
+    <h2 id="signal-path-h"><span class="mark">The Signal Path, End to End</span></h2>
+
+    <div class="diagram-row diagram-row--wide">
+      <figure class="diagram">
+        <!-- The image plus an animated signal-flow overlay. The overlay is
+             decorative — the description below is what a screen reader reads —
+             and its geometry is traced against the artwork's own 1000x1007 pixels,
+             so the two must keep the same aspect ratio to stay aligned. -->
+        <div class="das-stage">
+          <img class="ibs-diagram" src="/img/das-image.webp" alt="Distributed antenna system across three buildings: a BTS and head end feed remote units on every floor over fibre, a rooftop donor antenna feeds a BDA, and two neighbouring buildings are served from conversion units over the same fibre" width="1000" height="1007" loading="lazy" decoding="async">
+
+          <svg class="das-fx" viewBox="0 0 1000 1007" aria-hidden="true" focusable="false"
+               preserveAspectRatio="xMidYMid meet">
+            <defs>
+            <path id="dp-riserA" d="M279 733 L279 300" pathLength="1"/>
+            <path id="dp-riserB" d="M598 545 L598 252" pathLength="1"/>
+            <path id="dp-riserC" d="M859 780 L859 484" pathLength="1"/>
+            <path id="dp-euB" d="M428 567 L434 561 L523 505 L589 548" pathLength="1"/>
+            <path id="dp-euC" d="M429 575 L466 550 L760 730 L856 788" pathLength="1"/>
+            <path id="dp-donor" d="M413 30 L413 659 L387 675" pathLength="1"/>
+            <path id="dp-bdaHe" d="M341 702 L305 726" pathLength="1"/>
+            <path id="dp-btsHe" d="M146 718 L233 772 L261 753" pathLength="1"/>
+            <path id="dp-br0a" d="M250 277 L228 267 L207 277" pathLength="1"/>
+            <path id="dp-br0b" d="M228 267 L248 247" pathLength="1"/>
+            <path id="dp-br1a" d="M250 370 L228 360 L207 370" pathLength="1"/>
+            <path id="dp-br1b" d="M228 360 L248 340" pathLength="1"/>
+            <path id="dp-br2a" d="M250 439 L228 429 L207 439" pathLength="1"/>
+            <path id="dp-br2b" d="M228 429 L248 409" pathLength="1"/>
+            <path id="dp-br3a" d="M250 507 L228 497 L207 507" pathLength="1"/>
+            <path id="dp-br3b" d="M228 497 L248 477" pathLength="1"/>
+            <path id="dp-br4a" d="M250 575 L228 565 L207 575" pathLength="1"/>
+            <path id="dp-br4b" d="M228 565 L248 545" pathLength="1"/>
+            </defs>
+            <use href="#dp-riserA" class="dasf-base dasf-base--optic" style="stroke-width:6.5"/>
+            <use href="#dp-riserA" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.4s;--delay:0.00s"/>
+            <use href="#dp-riserA" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.4s;--delay:1.13s"/>
+            <use href="#dp-riserA" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.4s;--delay:2.27s"/>
+            <use href="#dp-riserB" class="dasf-base dasf-base--optic" style="stroke-width:6.5"/>
+            <use href="#dp-riserB" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.0s;--delay:0.90s"/>
+            <use href="#dp-riserB" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.0s;--delay:1.90s"/>
+            <use href="#dp-riserB" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.0s;--delay:2.90s"/>
+            <use href="#dp-riserC" class="dasf-base dasf-base--optic" style="stroke-width:6.5"/>
+            <use href="#dp-riserC" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.0s;--delay:1.30s"/>
+            <use href="#dp-riserC" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.0s;--delay:2.30s"/>
+            <use href="#dp-riserC" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.0s;--delay:3.30s"/>
+            <use href="#dp-euB" class="dasf-base dasf-base--optic" style="stroke-width:6.5"/>
+            <use href="#dp-euB" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.4s;--delay:0.40s"/>
+            <use href="#dp-euB" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.4s;--delay:1.53s"/>
+            <use href="#dp-euB" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.4s;--delay:2.67s"/>
+            <use href="#dp-euC" class="dasf-base dasf-base--optic" style="stroke-width:6.5"/>
+            <use href="#dp-euC" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.8s;--delay:0.60s"/>
+            <use href="#dp-euC" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.8s;--delay:1.87s"/>
+            <use href="#dp-euC" class="dasf dasf--optic" style="stroke-width:3.5;--dur:3.8s;--delay:3.13s"/>
+            <use href="#dp-donor" class="dasf-base dasf-base--rf" style="stroke-width:6.5"/>
+            <use href="#dp-donor" class="dasf dasf--rf" style="stroke-width:3.5;--dur:3.6s;--delay:0.00s"/>
+            <use href="#dp-donor" class="dasf dasf--rf" style="stroke-width:3.5;--dur:3.6s;--delay:1.20s"/>
+            <use href="#dp-donor" class="dasf dasf--rf" style="stroke-width:3.5;--dur:3.6s;--delay:2.40s"/>
+            <use href="#dp-bdaHe" class="dasf-base dasf-base--rf" style="stroke-width:6.5"/>
+            <use href="#dp-bdaHe" class="dasf dasf--rf" style="stroke-width:3.5;--dur:1.8s;--delay:0.50s"/>
+            <use href="#dp-bdaHe" class="dasf dasf--rf" style="stroke-width:3.5;--dur:1.8s;--delay:1.10s"/>
+            <use href="#dp-bdaHe" class="dasf dasf--rf" style="stroke-width:3.5;--dur:1.8s;--delay:1.70s"/>
+            <use href="#dp-btsHe" class="dasf-base dasf-base--rf" style="stroke-width:6.5"/>
+            <use href="#dp-btsHe" class="dasf dasf--rf" style="stroke-width:3.5;--dur:2.2s;--delay:0.20s"/>
+            <use href="#dp-btsHe" class="dasf dasf--rf" style="stroke-width:3.5;--dur:2.2s;--delay:0.93s"/>
+            <use href="#dp-btsHe" class="dasf dasf--rf" style="stroke-width:3.5;--dur:2.2s;--delay:1.67s"/>
+            <use href="#dp-br0a" class="dasf-base dasf-base--rf" style="stroke-width:5.4"/>
+            <use href="#dp-br0a" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.7s;--delay:0.00s"/>
+            <use href="#dp-br0a" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.7s;--delay:0.85s"/>
+            <use href="#dp-br0b" class="dasf-base dasf-base--rf" style="stroke-width:5.4"/>
+            <use href="#dp-br0b" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.5s;--delay:0.08s"/>
+            <use href="#dp-br0b" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.5s;--delay:0.83s"/>
+            <use href="#dp-br1a" class="dasf-base dasf-base--rf" style="stroke-width:5.4"/>
+            <use href="#dp-br1a" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.7s;--delay:0.16s"/>
+            <use href="#dp-br1a" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.7s;--delay:1.01s"/>
+            <use href="#dp-br1b" class="dasf-base dasf-base--rf" style="stroke-width:5.4"/>
+            <use href="#dp-br1b" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.5s;--delay:0.24s"/>
+            <use href="#dp-br1b" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.5s;--delay:0.99s"/>
+            <use href="#dp-br2a" class="dasf-base dasf-base--rf" style="stroke-width:5.4"/>
+            <use href="#dp-br2a" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.7s;--delay:0.32s"/>
+            <use href="#dp-br2a" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.7s;--delay:1.17s"/>
+            <use href="#dp-br2b" class="dasf-base dasf-base--rf" style="stroke-width:5.4"/>
+            <use href="#dp-br2b" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.5s;--delay:0.40s"/>
+            <use href="#dp-br2b" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.5s;--delay:1.15s"/>
+            <use href="#dp-br3a" class="dasf-base dasf-base--rf" style="stroke-width:5.4"/>
+            <use href="#dp-br3a" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.7s;--delay:0.48s"/>
+            <use href="#dp-br3a" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.7s;--delay:1.33s"/>
+            <use href="#dp-br3b" class="dasf-base dasf-base--rf" style="stroke-width:5.4"/>
+            <use href="#dp-br3b" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.5s;--delay:0.56s"/>
+            <use href="#dp-br3b" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.5s;--delay:1.31s"/>
+            <use href="#dp-br4a" class="dasf-base dasf-base--rf" style="stroke-width:5.4"/>
+            <use href="#dp-br4a" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.7s;--delay:0.64s"/>
+            <use href="#dp-br4a" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.7s;--delay:1.49s"/>
+            <use href="#dp-br4b" class="dasf-base dasf-base--rf" style="stroke-width:5.4"/>
+            <use href="#dp-br4b" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.5s;--delay:0.72s"/>
+            <use href="#dp-br4b" class="dasf dasf--rf" style="stroke-width:2.4;--dur:1.5s;--delay:1.47s"/>
+            <g class="das-blink" style="--delay:0.00s"><circle cx="413" cy="16" r="26" opacity="0.18"/><circle cx="413" cy="16" r="12" opacity="0.6"/></g>
+            <g class="das-blink" style="--delay:0.00s"><circle cx="201" cy="283" r="17" opacity="0.18"/><circle cx="201" cy="283" r="8" opacity="0.6"/></g>
+            <g class="das-blink" style="--delay:0.10s"><circle cx="253" cy="245" r="17" opacity="0.18"/><circle cx="253" cy="245" r="8" opacity="0.6"/></g>
+            <g class="das-blink" style="--delay:0.20s"><circle cx="201" cy="376" r="17" opacity="0.18"/><circle cx="201" cy="376" r="8" opacity="0.6"/></g>
+            <g class="das-blink" style="--delay:0.30s"><circle cx="253" cy="338" r="17" opacity="0.18"/><circle cx="253" cy="338" r="8" opacity="0.6"/></g>
+            <g class="das-blink" style="--delay:0.40s"><circle cx="201" cy="445" r="17" opacity="0.18"/><circle cx="201" cy="445" r="8" opacity="0.6"/></g>
+            <g class="das-blink" style="--delay:0.50s"><circle cx="253" cy="407" r="17" opacity="0.18"/><circle cx="253" cy="407" r="8" opacity="0.6"/></g>
+            <g class="das-blink" style="--delay:0.60s"><circle cx="201" cy="513" r="17" opacity="0.18"/><circle cx="201" cy="513" r="8" opacity="0.6"/></g>
+            <g class="das-blink" style="--delay:0.70s"><circle cx="253" cy="475" r="17" opacity="0.18"/><circle cx="253" cy="475" r="8" opacity="0.6"/></g>
+            <g class="das-blink" style="--delay:0.80s"><circle cx="201" cy="581" r="17" opacity="0.18"/><circle cx="201" cy="581" r="8" opacity="0.6"/></g>
+            <g class="das-blink" style="--delay:0.90s"><circle cx="253" cy="543" r="17" opacity="0.18"/><circle cx="253" cy="543" r="8" opacity="0.6"/></g>
+          </svg>
+        </div>
+
+        <figcaption class="diagram__cap">Distributed antenna system &mdash; a head end feeds remote units on every floor over fibre, with a donor antenna and BDA as the alternative signal source</figcaption>
+
+        <p class="diagram__alt">Diagram of a distributed antenna system serving three buildings.
+        In the main building a carrier BTS connects to a head end at ground level, and a rooftop
+        donor antenna feeds a bi-directional amplifier as an alternative signal source. Fibre
+        runs up a vertical riser to remote units on each floor, and each remote unit feeds
+        ceiling antennas across the floor plate. Two neighbouring buildings are served over the
+        same fibre through conversion units at their base, which drive their own stacks of
+        remote units. Red lines are fibre optic runs and black lines are RF coaxial runs.</p>
+      </figure>
+
+      <div class="diagram-explain">
+        <h3 class="diagram-explain__h">Distributed Antenna System (DAS)</h3>
+        <p>A DAS extends wireless coverage inside buildings where the outdoor macro network cannot reach. Instead of relying on one high-power source, it splits the signal across many low-power antennas spread through every floor.</p>
+        <p><strong>Where the signal comes from:</strong> either an on-site carrier base station (BTS) for a full off-air-independent system, or a rooftop donor antenna feeding a bi-directional amplifier (BDA) that repeats the macro network indoors. Both terminate at the head end.</p>
+        <p><strong>How it is distributed:</strong> the head end converts RF to optical and sends it up the riser on fibre. Remote units on each floor convert it back to RF and drive the ceiling antennas over coax. Because the backbone is fibre, the same head end can reach neighbouring buildings through conversion units at their base &mdash; which is how a campus is covered from one source.</p>
+        <p><strong>Why it matters:</strong> concrete cores, low-E glass and deep floor plates block most outdoor signal. A properly engineered DAS delivers reliable voice, data and emergency-service coverage everywhere in the venue, from the parking levels to the top floor.</p>
+      </div>
     </div>
   </section>
 
@@ -177,13 +309,13 @@
         on large multi-operator estates.</p>
       </div>
       <div class="cap">
-        <h3 class="cap__h">Off-air (repeater) DAS</h3>
+        <h3 class="cap__h">Off-Air (Repeater) DAS</h3>
         <p>Fed by a donor antenna and BDA rather than a base station. Fast and comparatively
         cheap, but it inherits the macro cell&rsquo;s capacity and needs careful isolation
         between donor and service antennas or it will oscillate.</p>
       </div>
       <div class="cap">
-        <h3 class="cap__h">Public safety DAS</h3>
+        <h3 class="cap__h">Public Safety DAS</h3>
         <p>A separate system for first-responder radio, on its own bands and to its own codes.
         Usually mandated by the local fire authority, with battery backup, survivable cabling
         and annual testing that commercial systems are not held to.</p>
@@ -193,7 +325,7 @@
 
 
   <section id="parts" aria-labelledby="parts-h">
-    <h2 id="parts-h"><span class="mark">The parts, and what each one does</span></h2>
+    <h2 id="parts-h"><span class="mark">The Parts, and What Each One Does</span></h2>
     <div class="prose">
       <ul>
         <li><strong>BTS</strong> &mdash; base transceiver station. The carrier&rsquo;s own radio
@@ -220,7 +352,7 @@
 
 
   <section id="when" aria-labelledby="when-h">
-    <h2 id="when-h"><span class="mark">When a building needs one</span></h2>
+    <h2 id="when-h"><span class="mark">When a Building Needs One</span></h2>
     <div class="prose">
       <p>The usual triggers are structural rather than electronic: large floor plates where the
       centre is far from any window, below-grade parking and plant rooms, concrete cores and
@@ -236,7 +368,7 @@
 
 
   <section id="design" aria-labelledby="design-h">
-    <h2 id="design-h"><span class="mark">Designing and proving one</span></h2>
+    <h2 id="design-h"><span class="mark">Designing and Proving One</span></h2>
     <div class="prose">
       <p>Design starts with a survey and a link budget. Every element between source and
       antenna &mdash; cable loss, splitter and coupler loss, connectors &mdash; is accounted
@@ -256,7 +388,7 @@
 
 
   <section id="refs" aria-labelledby="refs-h">
-    <h2 id="refs-h"><span class="mark">Reference links</span></h2>
+    <h2 id="refs-h"><span class="mark">Reference Links</span></h2>
     <p class="lede">Starting points rather than a reading list &mdash; standards bodies,
     regulators and the design tooling used in practice.</p>
     <ul class="contact">

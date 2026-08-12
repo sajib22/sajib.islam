@@ -234,6 +234,26 @@ body {
 }
 .nav-backdrop.is-open { opacity: 1; visibility: visible; }
 
+/* Where there is room, opening the drawer pushes the page across instead of
+   covering it, so nothing is hidden behind the menu. Below that width the
+   push would leave a sliver of unreadable content, so on a phone the drawer
+   stays an overlay and the backdrop does its job instead. */
+@media (min-width: 48rem) {
+  /* Padding on the body rather than a transform on the sheet: padding takes
+     width away from the content box, so the page reflows into the space that
+     is left. Translating it instead would slide the same full-width column
+     sideways and push the document wider than the viewport, which shows up
+     as horizontal scroll the moment the drawer opens. */
+  .js-nav body { transition: padding-left 0.28s cubic-bezier(0.22, 0.61, 0.36, 1); }
+  .js-nav.nav-open body { padding-left: min(19rem, 84vw); }
+
+  .js-nav .nav-toggle { transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), color 0.15s, border-color 0.15s; }
+  .js-nav.nav-open .nav-toggle { transform: translateX(min(19rem, 84vw)); }
+  /* The drawer no longer covers anything, so the dimming would only get in
+     the way of reading — and clicking the page should still close it. */
+  .js-nav.nav-open .nav-backdrop { background: transparent; }
+}
+
 /* With the rail out of the flow the sheet gets the full width, and needs a
    little headroom so the first line clears the fixed menu button. */
 .js-nav .sheet { padding-top: var(--s7); }
@@ -555,14 +575,19 @@ h1 {
 }
 
 .das-fx use { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.dasf-base { opacity: 0.16; }
+.dasf-base { opacity: 0.22; }
 .dasf {
   /* pathLength="1" on every path, so one dash unit is the whole route and
-     these numbers mean the same thing on a short branch and a long riser. */
-  stroke-dasharray: 0.075 0.925;
+     these numbers mean the same thing on a short branch and a long riser.
+     A longer dash and a glow make the pulse read at a glance rather than
+     needing to be hunted for against the busy artwork. */
+  stroke-dasharray: 0.14 0.86;
+  filter: drop-shadow(0 0 3px currentColor);
   animation: das-comet var(--dur, 3s) linear infinite;
   animation-delay: var(--delay, 0s);
 }
+.dasf--optic { color: var(--das-optic); }
+.dasf--rf    { color: var(--das-rf); }
 @keyframes das-comet {
   from { stroke-dashoffset: 1; }
   to   { stroke-dashoffset: 0; }
@@ -573,13 +598,27 @@ h1 {
 
 .das-blink circle { fill: var(--das-optic); }
 .das-blink {
-  animation: das-blink 1.7s ease-in-out infinite;
+  color: var(--das-optic);
+  filter: drop-shadow(0 0 4px currentColor);
+  animation: das-blink 1.5s ease-in-out infinite;
   animation-delay: var(--delay, 0s);
 }
 @keyframes das-blink {
-  0%, 100% { opacity: 0.25; }
+  0%, 100% { opacity: 0.2; }
   50%      { opacity: 1; }
 }
+
+/* On the DAS page the figure is the point of the section rather than a
+   thumbnail beside body copy, so it stacks full width at every size and the
+   explanation sits underneath it. */
+/* Written with the extra .diagram-row on the front deliberately: the 45%
+   column rule for the narrow layout lives in a later media query and ties on
+   specificity, so a two-class selector here would lose on source order. */
+.diagram-row.diagram-row--wide { flex-direction: column; }
+.diagram-row.diagram-row--wide .diagram { flex: 1 1 auto; max-width: 100%; margin: 0; }
+.diagram-row.diagram-row--wide .das-stage { max-width: 42rem; margin: 0 auto; }
+.diagram-row.diagram-row--wide .ibs-diagram { max-width: 42rem; }
+.diagram-row.diagram-row--wide .diagram__cap { text-align: center; }
 
 /* Motion is decoration here. Without it the routes still read as faint
    lines over the artwork, which is the same information standing still. */

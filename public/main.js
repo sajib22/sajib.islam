@@ -679,6 +679,9 @@
     function setOpen(open) {
       rail.classList.toggle("is-open", open);
       backdrop.classList.toggle("is-open", open);
+      /* On <html> as well: the stylesheet uses it to push the page across on
+         a wide screen, and .sheet is not a descendant of the rail. */
+      document.documentElement.classList.toggle("nav-open", open);
       button.setAttribute("aria-expanded", open ? "true" : "false");
 
       if (open) {
