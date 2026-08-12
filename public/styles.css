@@ -654,7 +654,8 @@ h1 {
 .edu__item,
 .cert,
 .skill,
-.links__group {
+.links__group,
+.diagram-explain {
   background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 4px;
@@ -662,16 +663,22 @@ h1 {
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
+/* The hover state: a lift, an accent border, and an accent bar down the
+   leading edge. The bar is an inset shadow rather than a border or a
+   pseudo-element — a left border would change the box width and shift the
+   text sideways on hover, and several of these cards already use their
+   pseudo-elements for something else. */
 .cap:hover,
 .proj:hover,
 .role:hover,
 .edu__item:hover,
 .cert:hover,
 .skill:hover,
-.links__group:hover {
+.links__group:hover,
+.diagram-explain:hover {
   transform: translateY(-3px);
   border-color: var(--accent);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+  box-shadow: inset 3px 0 0 0 var(--accent), 0 6px 20px rgba(0, 0, 0, 0.09);
 }
 
 /* ── A whole section as one card ────────────────────────────────────────────
@@ -696,7 +703,30 @@ h1 {
 .sheet > .card-section:hover {
   transform: translateY(-3px);
   border-color: var(--accent);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+  box-shadow: inset 3px 0 0 0 var(--accent), 0 6px 20px rgba(0, 0, 0, 0.09);
+}
+
+/* Reference Links is a card whose contents were already cards. Inside one,
+   the link groups drop back to plain columns so there is one box, not nine
+   nested in one. */
+.card-section .links__group {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+.card-section .links__group:hover {
+  transform: none;
+  box-shadow: none;
+}
+/* The last row's rule would otherwise sit a hair above the card's own border
+   and read as a doubled line. */
+.card-section .contact li:last-child { border-bottom: 0; padding-bottom: 0; }
+
+/* Without the card padding to separate them, the columns need a gutter. */
+.card-section .links { gap: var(--s5); }
+@media (min-width: 48rem) {
+  .card-section .links { grid-template-columns: repeat(2, 1fr); }
 }
 /* The heading sits at the top of the card, not below a section's worth of
    air, and the last paragraph does not need a gap under it either. */
@@ -1613,15 +1643,21 @@ h1 {
        page at the width this block switches on at. */
     width: 11rem;
     margin-bottom: var(--s2);
-    padding: var(--s3);
+    padding: var(--s2) var(--s3);
     transform: translateX(-50%);
-    background: var(--surface);
-    color: var(--ink);
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    /* The same solid label as the "I'm Here!" pin on the home timeline —
+       accent instead of green, and no pulse. Paper on accent rather than
+       white on accent: white is unreadable on the light cyan the accent
+       becomes in dark mode, where paper is nearly black. */
+    background: var(--accent);
+    color: var(--paper);
+    border: 0;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
     line-height: 1.5;
     text-align: center;
     /* main.js joins the role and the dates with a newline; pre-line is what
