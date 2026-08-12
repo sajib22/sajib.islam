@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Sajib Islam">
-  <title>Sajib Islam</title>
+  <title>Sajib Islam — RF engineer</title>
+  <!-- A signal: one sine cycle in the site's accent on the site's dark paper.
+       Kept to a single stroke because anything finer turns to mush at 16px,
+       which is the size this is actually seen at. -->
   <rect width="32" height="32" rx="6" fill="#0E1315"/>
-  <path d="M7 10 H13 V16 H19 V22 H25"
-        fill="none" stroke="#5CC7D8" stroke-width="3"
+  <path d="M3 16 C6 6, 10 6, 13 16 S20 26, 23 16 S27 8, 29 12"
+        fill="none" stroke="#5CC7D8" stroke-width="2.75"
         stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
