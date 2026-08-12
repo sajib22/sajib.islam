@@ -161,10 +161,7 @@ window.SITE = {
       dates: "Apr 2024 — May 2025",
       from: "2024-04",
       to: "2025-05",
-      /* Upload the wordmark to public/img/logos/wirelesswave.png, then delete
-         the // below. Until then the "WW" tile is shown and the page makes no
-         request for a file that isn't there. */
-      // logo: "/img/logos/wirelesswave.png",
+      logo: "/img/logos/wirelesswave.png",
     },
 
     {
@@ -213,7 +210,7 @@ window.SITE = {
       title: "Retail Sales Analyst",
       company: "WIRELESSWAVE / WAVE SANS FIL",
       location: "Toronto, Ontario, Canada",
-      dates: "Apr 2024 — May 2025 · Permanent Full-time",
+      dates: "Apr 2024 — May 2025",
       bullets: [
         "Increased overall sales by 127% YoY while consistently meeting personal sales targets over the final six months.",
         "Delivered customer-focused telecommunications solutions by understanding customer needs, providing tailored recommendations, and driving upselling and cross-selling opportunities.",

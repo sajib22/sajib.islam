@@ -68,4 +68,3 @@ objects, delete the file and the `logo:` line and the lettered tile comes back.
 
 Drop either file in at exactly that name and it appears — no code change needed.
 
-| `wirelesswave.png` | WIRELESSWAVE / WAVE SANS FIL | Named in `content.js` but commented out; shows the "WW" tile until the file is added. |
