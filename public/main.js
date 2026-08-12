@@ -520,6 +520,38 @@
 
   /* ─── Skills ─────────────────────────────────────────────────────────── */
 
+  /* ─── Signal-strength bars ────────────────────────────────────────────────
+
+     Five bars beside every skill, lit to the group's "level". Drawn from five
+     spans rather than an image or an SVG so they take the accent colour in
+     both themes and cost nothing to load.
+
+     The graphic is hidden from screen readers and the group says its rating
+     once in words instead: forty skills each announcing "four of five" is
+     noise, and the level is a property of the group, not of the item. */
+
+  function skillLevel(group) {
+    var raw = Number(group && group.level);
+    // Anything missing or nonsense shows a full set rather than an empty one:
+    // a typo should never quietly demote a skill.
+    if (!isFinite(raw)) return 5;
+    return Math.min(Math.max(Math.round(raw), 0), 5);
+  }
+
+  function signalBars(level) {
+    var sig = el("span", "sig");
+    sig.setAttribute("aria-hidden", "true");
+    for (var i = 1; i <= 5; i++) {
+      sig.appendChild(el("span", "sig__bar" + (i <= level ? " is-lit" : "")));
+    }
+    return sig;
+  }
+
+  function levelNote(level) {
+    return el("p", "sr-only",
+      "Every skill in this group is rated " + level + " out of 5.");
+  }
+
   section("skills", "skills", "Technical skills", function (groups) {
     if (!groups.length) return null;
     var wrap = el("div", "skills");
@@ -528,9 +560,15 @@
       var block = el("div", "skill");
       block.appendChild(el("h3", "skill__group", group.group || ""));
 
+      var level = skillLevel(group);
+      block.appendChild(levelNote(level));
+
       var ul = el("ul", "skill__items");
       list(group.items).forEach(function (item) {
-        ul.appendChild(el("li", null, item));
+        var li = el("li", "skill__item");
+        li.appendChild(el("span", "skill__name", item));
+        li.appendChild(signalBars(level));
+        ul.appendChild(li);
       });
       block.appendChild(ul);
 
@@ -678,9 +716,18 @@
       var block = el("div", "skill");
       block.appendChild(el("h3", "skill__group", group.group || ""));
 
+      var level = skillLevel(group);
+      block.appendChild(levelNote(level));
+
       var ul = el("ul", "skill__list");
       list(group.items).forEach(function (item) {
-        ul.appendChild(el("li", null, item));
+        /* Bars first here, unlike the chips above: these are sentences of
+           different lengths, and a leading bar gives the list one straight
+           edge to read down instead of a ragged trailing one. */
+        var li = el("li", "skill__row");
+        li.appendChild(signalBars(level));
+        li.appendChild(el("span", "skill__name", item));
+        ul.appendChild(li);
       });
       block.appendChild(ul);
       wrap.appendChild(block);

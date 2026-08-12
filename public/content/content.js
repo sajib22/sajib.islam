@@ -315,12 +315,22 @@ window.SITE = {
 
      Add a skill by adding "Its name", inside the right group's items list.
      Add a whole new group by copying a { } block.
+
+     "level"  draws the signal-strength bars beside every skill in the group.
+              5 = all five bars lit, for the core RF work.
+              4 = four bars lit and the fifth left empty, for the advanced and
+                  additional skills.
+              Change the one number to change the whole group. Leave the line
+              out entirely and the group shows five bars.
+              Nothing below 4 is used, on purpose: a three-bar group reads to
+              a recruiter as an admission rather than as a rating.
      ───────────────────────────────────────────────────────────────────────── */
   skills: [
 
     // ── COPY FROM HERE ──
     {
       group: "RF Design and Planning",
+      level: 5,
       items: [
         "DAS / IBS",
         "Private 5G",
@@ -340,6 +350,7 @@ window.SITE = {
 
     {
       group: "RAN and Vendor Platforms",
+      level: 5,
       items: [
         "Nokia SRAN and AirScale",
         "Ericsson",
@@ -362,6 +373,7 @@ window.SITE = {
 
     {
       group: "Test and Analysis",
+      level: 5,
       items: [
         "TEMS Investigation",
         "Nemo Analyzer",
@@ -377,6 +389,7 @@ window.SITE = {
 
     {
       group: "Data and Automation",
+      level: 4,
       items: [
         "Python",
         "SQL",
@@ -394,6 +407,7 @@ window.SITE = {
 
     {
       group: "Mapping and Documentation",
+      level: 4,
       items: [
         "MapInfo",
         "QGIS",
@@ -408,13 +422,15 @@ window.SITE = {
 
   /* ─────────────────────────────────────────────────────────────────────────
      SOFT SKILLS — the people side, shown on the Skills page beside the
-     technical groups above. Same shape: a "group" and its "items".
+     technical groups above. Same shape: a "group", its "level" and its
+     "items". "level" works exactly as it does for the skills above.
      ───────────────────────────────────────────────────────────────────────── */
   softSkills: [
 
     // ── COPY FROM HERE ──
     {
       group: "Leadership and Mentoring",
+      level: 5,
       items: [
         "Led teams of 3 to 5 engineers to KPI acceptance",
         "Mentoring and training in RF planning and optimization",
@@ -425,6 +441,7 @@ window.SITE = {
 
     {
       group: "Client and Stakeholder Communication",
+      level: 5,
       items: [
         "Presenting results and recommendations to senior management",
         "Defending acceptance reports against contractual targets",
@@ -435,6 +452,7 @@ window.SITE = {
 
     {
       group: "Project Delivery",
+      level: 5,
       items: [
         "End-to-end delivery from survey to close-out pack",
         "Multi-vendor and multi-entity coordination",
@@ -445,6 +463,7 @@ window.SITE = {
 
     {
       group: "Problem Solving",
+      level: 5,
       items: [
         "Root-cause analysis on live networks",
         "Reading an in-building problem as a network problem first",
@@ -454,6 +473,7 @@ window.SITE = {
 
     {
       group: "Working Across Cultures",
+      level: 4,
       items: [
         "Delivered in Bangladesh, Iran, Myanmar, Singapore and Canada",
         "Teams where English was nobody's first language",

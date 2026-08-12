@@ -834,7 +834,8 @@ h1 {
 
 /* ─── Skills ────────────────────────────────────────────────────────────── */
 
-.skills { margin: 0; }
+/* Clear of the section's intro line above it. */
+.skills { margin: var(--s5) 0 0; }
 .skill + .skill { margin-top: var(--s5); }
 
 .skill__group {
@@ -858,6 +859,65 @@ h1 {
   border: 1px solid var(--rule);
   border-radius: 2px;
 }
+/* The chip holds its name and its bars on one baseline. */
+.skill__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+/* ── Signal-strength bars ───────────────────────────────────────────────────
+   The staircase every phone draws in its status bar, at the size of a piece
+   of punctuation. Five spans rather than an icon font or an SVG file: it
+   takes the accent colour in both themes and adds no request.
+
+   align-items: flex-end is what makes it a staircase — each bar is a
+   different height and they all sit on the same floor. */
+
+.sig {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 1px;
+  height: 0.6875rem;
+  flex-shrink: 0;
+}
+.sig__bar {
+  width: 2px;
+  border-radius: 1px;
+  /* An unlit bar has to stay legible as an empty slot, or four-of-five just
+     looks like a shorter graphic. --rule is too close to the page ground at
+     2px wide, so this is the secondary text colour held well back. */
+  background: var(--steel);
+  opacity: 0.3;
+}
+.sig__bar.is-lit { opacity: 1; }
+.sig__bar.is-lit { background: var(--accent); }
+
+.sig__bar:nth-child(1) { height: 30%; }
+.sig__bar:nth-child(2) { height: 47%; }
+.sig__bar:nth-child(3) { height: 64%; }
+.sig__bar:nth-child(4) { height: 82%; }
+.sig__bar:nth-child(5) { height: 100%; }
+
+/* Soft skills are sentences, not chips: a plain list with the bars in a
+   fixed-width first column so every line starts at the same place. */
+.skill__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: var(--measure);
+}
+.skill__row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s3);
+  padding: var(--s1) 0;
+  font-size: 0.9375rem;
+  text-wrap: pretty;
+}
+/* Baseline alignment on a flex item that has no text of its own would hang
+   the bars off the bottom of the line, so they get their own nudge. */
+.skill__row .sig { align-self: center; }
 
 /* ─── Projects ──────────────────────────────────────────────────────────── */
 
