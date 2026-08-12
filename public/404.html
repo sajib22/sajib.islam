@@ -23,11 +23,17 @@
      stay in the <head>. */
   (function () {
     var d = document.documentElement;
-    d.classList.add("js-nav");
+    /* The drawer is for wide screens only. On a phone the rail stays an
+       ordinary block at the top of the page, where it can't cover anything,
+       so .js-nav is withheld and every drawer rule stops applying. Decided
+       here rather than in main.js so the choice is made before the first
+       paint and the layout never jumps. */
+    var wide = !window.matchMedia || window.matchMedia("(min-width: 48rem)").matches;
+    if (wide) d.classList.add("js-nav");
     try {
       var t = localStorage.getItem("theme");
       if (t === "light" || t === "dark") d.dataset.theme = t;
-      if (localStorage.getItem("nav") === "open") d.classList.add("nav-open");
+      if (wide && localStorage.getItem("nav") === "open") d.classList.add("nav-open");
     } catch (e) {}
   })();
 </script>

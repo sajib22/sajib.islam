@@ -756,6 +756,20 @@
        of. Restored without animating, so the page doesn't slide on arrival. */
     var wasOpen = document.documentElement.classList.contains("nav-open");
     setOpen(wasOpen, false);
+
+    /* The head script decided drawer-or-not from the viewport before paint.
+       Follow it across the breakpoint too, so rotating a tablet or dragging a
+       window narrow hands back the plain top navigation rather than leaving a
+       drawer with no way to open it. */
+    if (window.matchMedia) {
+      var wide = window.matchMedia("(min-width: 48rem)");
+      var apply = function () {
+        document.documentElement.classList.toggle("js-nav", wide.matches);
+        if (!wide.matches) document.documentElement.classList.remove("nav-open");
+      };
+      if (wide.addEventListener) wide.addEventListener("change", apply);
+      else if (wide.addListener) wide.addListener(apply);
+    }
   })();
 
   /* ─── Title entrances ─────────────────────────────────────────────────────
