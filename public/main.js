@@ -439,6 +439,14 @@
 
     jobs.forEach(function (job, i) {
       var col = el("li", "chart__col" + (job.current ? " is-current" : ""));
+
+      /* Hover detail: the exact dates the column covers, and the job title
+         that goes with them. Set as an attribute and drawn by CSS, so there
+         is no listener to run and nothing to clean up. Skipped when there is
+         nothing to say, which is what the [data-tip] selector keys off. */
+      var tip = [job.role, job.dates].filter(Boolean).join("\n");
+      if (tip) col.setAttribute("data-tip", tip);
+
       col.style.setProperty("--yrs", years[i].toFixed(2));
       col.style.setProperty("--i", String(i));   // stagger, newest column first
 
@@ -806,6 +814,55 @@
       title.classList.add("reveal");
       io.observe(title);
     });
+  })();
+
+  /* ─── Reading progress ────────────────────────────────────────────────────
+
+     A 2px accent hairline across the top of the window, tracking how far down
+     the page you have read. Built here rather than written into twelve page
+     files, and it occupies no space in the layout — if this never runs, the
+     pages are exactly as they were.
+
+     Nothing is drawn on a page short enough to need no scrolling, where a bar
+     that is either empty or full says nothing. */
+
+  (function readingProgress() {
+    var doc = document.documentElement;
+
+    var wrap = el("div", "progress");
+    wrap.setAttribute("aria-hidden", "true");
+    var bar = el("span", "progress__bar");
+    wrap.appendChild(bar);
+    document.body.appendChild(wrap);
+
+    var queued = false;
+
+    function paint() {
+      queued = false;
+      var scrollable = doc.scrollHeight - window.innerHeight;
+      // A few pixels of slack, so rounding on a barely-scrolling page does
+      // not leave a sliver of bar sitting there permanently.
+      if (scrollable < 8) {
+        wrap.style.display = "none";
+        return;
+      }
+      wrap.style.display = "";
+      var ratio = (window.pageYOffset || doc.scrollTop || 0) / scrollable;
+      bar.style.transform = "scaleX(" + Math.min(Math.max(ratio, 0), 1).toFixed(4) + ")";
+    }
+
+    function schedule() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(paint);
+    }
+
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    /* The charts and lists are rendered by this same file and change the page
+       height after it runs, so measure again once that has settled. */
+    window.addEventListener("load", schedule);
+    paint();
   })();
 
   /* ─── Theme toggle ───────────────────────────────────────────────────── */

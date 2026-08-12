@@ -59,6 +59,12 @@
   --s1: 0.25rem;  --s2: 0.5rem;   --s3: 0.75rem;  --s4: 1rem;
   --s5: 1.5rem;   --s6: 2rem;     --s7: 3rem;     --s8: 4.5rem;
 
+  /* Air between the major sections of a page. Deliberately its own token
+     rather than one of the steps above: this is the one number to change if
+     the page ever feels crowded, and it must not drag the smaller gaps with
+     it. Widened again in the 64rem block, where there is room for it. */
+  --sec: 3.5rem;
+
   --rail-w: 15rem;
   --measure: 68ch;
 }
@@ -434,9 +440,13 @@ body {
 }
 
 .sheet > section {
-  padding-top: var(--s7);
+  padding-top: var(--sec);
+  /* Matching space underneath, so the dividing rule sits in the middle of the
+     gap rather than tight against the end of the section above it. */
+  padding-bottom: var(--sec);
   scroll-margin-top: var(--s5);
 }
+.sheet > section:last-of-type { padding-bottom: 0; }
 .sheet > section + section { border-top: 1px solid var(--rule); }
 
 h2 {
@@ -490,6 +500,97 @@ h3 {
 /* ─── Hero ──────────────────────────────────────────────────────────────── */
 
 .hero { padding-top: var(--s7); }
+
+/* ── The signal field ───────────────────────────────────────────────────────
+   The one piece of decoration on this site that could not belong to anyone
+   else's: a dot lattice with a ring propagating out through it from the lower
+   left, which is what a coverage plot looks like before anything is measured.
+
+   Two pseudo-elements on the page's own first section, so it costs no markup
+   and no request, and it is inherited by all twelve pages without touching
+   twelve files. Both are absolutely positioned, which keeps them out of the
+   grid that .has-portrait turns this section into. */
+
+.hero,
+.page-head {
+  position: relative;
+  /* Clips the ring, which is deliberately larger than the section and grows
+     past its edges. Without this it would spill over the section below. */
+  overflow: hidden;
+}
+/* Real content sits above the field. */
+.hero > *,
+.page-head > * { position: relative; z-index: 1; }
+
+.hero::before,
+.page-head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Capped rather than inset:0 — on the home page this section also holds the
+     career timeline and runs the height of the screen, and a lattice that
+     went all the way down would sit behind the chart instead of behind the
+     name. The field belongs to the headline. */
+  bottom: auto;
+  height: min(100%, 26rem);
+  background-image: radial-gradient(circle, var(--steel) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  opacity: 0.13;
+  /* Dissolves down and to the right, away from the source of the ring. */
+  -webkit-mask-image: linear-gradient(to bottom right, #000, transparent 68%);
+  mask-image: linear-gradient(to bottom right, #000, transparent 68%);
+}
+
+.hero::after,
+.page-head::after {
+  content: "";
+  position: absolute;
+  /* Centred just off the top-left corner, so the wavefront crosses the name
+     and the tagline on its way out. */
+  left: -14rem;
+  top: -13rem;
+  width: 34rem;
+  height: 34rem;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  /* Concentric hairlines: scaling the element moves every ring outward at
+     once, which reads as one wavefront rather than a spinning graphic. */
+  background-image: repeating-radial-gradient(
+    circle at center,
+    var(--accent) 0 1px,
+    transparent 1px 2.75rem
+  );
+  -webkit-mask-image: radial-gradient(circle at center, #000 22%, transparent 70%);
+  mask-image: radial-gradient(circle at center, #000 22%, transparent 70%);
+  opacity: 0.18;
+  animation: signal-ping 9s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+@keyframes signal-ping {
+  0%   { transform: scale(0.7); opacity: 0.04; }
+  40%  { opacity: 0.2; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* On a phone the portrait sits where the source is, and the wavefront would
+   cross the face. Pushing the origin further off-canvas leaves only the outer
+   arcs, which read as background rather than as marks on the photo. */
+@media (max-width: 44.9375rem) {
+  .hero::before,
+  .page-head::before { opacity: 0.1; }
+  .hero::after,
+  .page-head::after { left: -20rem; top: -19rem; }
+}
+
+/* Left standing rather than removed for a reader who asked for no motion:
+   the rings are the graphic, the travel is only how it arrives. */
+@media (prefers-reduced-motion: reduce) {
+  .hero::after,
+  .page-head::after { animation: none; opacity: 0.16; }
+}
 
 .eyebrow {
   margin: 0;
@@ -766,10 +867,18 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: var(--s3);
-  padding: var(--s4);
+  padding: var(--s5);
   background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 2px;
+  border-radius: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+/* Lift on hover. The border change carries the effect in dark mode, where a
+   black shadow on a near-black ground is invisible. */
+.proj:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
 }
 .proj__blurb { margin: 0; font-size: 0.9375rem; color: var(--steel); text-wrap: pretty; }
 .proj__outcome {
@@ -1341,6 +1450,58 @@ h1 {
   transition-delay: calc(var(--i, 0) * 80ms);
 }
 
+/* ── Column tooltip ─────────────────────────────────────────────────────────
+   The bar already says how long; hovering says exactly when, and what the job
+   was. Only where there is a real pointer and room for the panel — on a phone
+   there is neither, and a nowrap panel off the last column would push the
+   page sideways. The chart is aria-hidden and the full table underneath it
+   carries the same facts for a screen reader, so nothing is lost. */
+
+@media (hover: hover) and (min-width: 60rem) {
+  .chart__col[data-tip] { position: relative; }
+  .chart__col[data-tip]::after {
+    content: attr(data-tip);
+    /* display, not opacity or visibility: a hidden-but-laid-out panel over
+       the last column still counts as overflow and puts a horizontal
+       scrollbar on the page. It must be absent until it is wanted. The fade
+       is an animation for the same reason — there is no from-state to
+       transition out of. */
+    display: none;
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    z-index: 5;
+    /* Narrow enough that the panel over the last column stays inside the
+       page at the width this block switches on at. */
+    width: 11rem;
+    margin-bottom: var(--s2);
+    padding: var(--s3);
+    transform: translateX(-50%);
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    text-align: center;
+    /* main.js joins the role and the dates with a newline; pre-line is what
+       makes that a line break while still wrapping a long job title. */
+    white-space: pre-line;
+    text-wrap: pretty;
+  }
+  .chart__col[data-tip]:hover::after {
+    display: block;
+    animation: tip-in 0.16s ease-out both;
+  }
+}
+
+@keyframes tip-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 .chart__mark {
   display: flex;
   align-items: center;
@@ -1392,8 +1553,23 @@ h1 {
 
 .caps {
   display: grid;
-  gap: var(--s5);
+  gap: var(--s4);
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+/* Given a real surface rather than left as text on the page ground: four
+   headings and four paragraphs with nothing around them read as a list, and
+   the padding is what stops them reading as crowded. */
+.cap {
+  padding: var(--s5);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.cap:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
 }
 .cap__h {
   margin: 0 0 var(--s2);
@@ -1536,10 +1712,47 @@ h1 {
 .page-head { padding-top: var(--s7); }
 .page-head h1 { font-size: clamp(1.875rem, 5.5vw, 2.75rem); }
 
+/* The three numerals in the Experience headline, and nowhere else. A gradient
+   is a signature when it appears once and decoration when it appears often.
+   The flat accent colour is the base, so a browser without background-clip
+   still gets a readable, coloured number. */
 .stat-num {
   font-size: 1.25em;
   color: var(--accent);
   font-weight: 750;
+  background-image: linear-gradient(105deg, var(--accent) 15%, var(--green) 95%);
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .stat-num {
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
+/* ─── Reading progress ──────────────────────────────────────────────────────
+   A hairline across the top of the window showing how far down the page you
+   are. Fixed, 2px, and added by main.js — it takes no space in the layout and
+   is simply absent if the script does not run. */
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 130;
+  pointer-events: none;
+  background: transparent;
+}
+.progress__bar {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
 }
 
 /* ─── Next/previous page links at the foot of each page ─────────────────── */
@@ -1564,6 +1777,9 @@ h1 {
 /* ═══ Wide screens: the rail becomes a sticky title block ═══════════════════ */
 
 @media (min-width: 64rem) {
+  /* More room, so more air between sections. */
+  :root { --sec: 4.75rem; }
+
   body {
     display: grid;
     grid-template-columns: var(--rail-w) minmax(0, 1fr);
