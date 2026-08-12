@@ -581,14 +581,25 @@
     items.forEach(function (item) {
       var li = el("li", "edu__item");
 
-      if (item.dates) li.appendChild(el("p", "edu__dates", item.dates));
-      li.appendChild(el("h3", "edu__cred", item.credential || ""));
+      /* Same crest as the timeline plot above, on the same terms: a local
+         file under /img/logos/, falling back to the lettered tile. badge()
+         reads .company, so the institution is passed under that name. */
+      li.appendChild(badge({
+        company: item.institution,
+        mark: item.mark,
+        logo: item.logo,
+      }, "edu__logo"));
+
+      var body = el("div", "edu__body");
+      if (item.dates) body.appendChild(el("p", "edu__dates", item.dates));
+      body.appendChild(el("h3", "edu__cred", item.credential || ""));
 
       var org = [item.institution, item.location].filter(Boolean).join(" · ");
-      if (org) li.appendChild(el("p", "edu__org", org));
+      if (org) body.appendChild(el("p", "edu__org", org));
 
-      if (item.note) li.appendChild(el("p", "edu__note", item.note));
+      if (item.note) body.appendChild(el("p", "edu__note", item.note));
 
+      li.appendChild(body);
       ul.appendChild(li);
     });
 
@@ -632,6 +643,28 @@
       ul.appendChild(li);
     });
     wrap.appendChild(ul);
+
+    return wrap;
+  });
+
+  /* ─── Soft skills ────────────────────────────────────────────────────────
+     Same shape and same renderer style as the technical groups. */
+
+  section("soft-skills", "softSkills", "Soft skills", function (groups) {
+    if (!groups.length) return null;
+    var wrap = el("div", "skills");
+
+    groups.forEach(function (group) {
+      var block = el("div", "skill");
+      block.appendChild(el("h3", "skill__group", group.group || ""));
+
+      var ul = el("ul", "skill__list");
+      list(group.items).forEach(function (item) {
+        ul.appendChild(el("li", null, item));
+      });
+      block.appendChild(ul);
+      wrap.appendChild(block);
+    });
 
     return wrap;
   });

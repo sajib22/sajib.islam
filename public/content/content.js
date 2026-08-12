@@ -385,6 +385,65 @@ window.SITE = {
 
 
   /* ─────────────────────────────────────────────────────────────────────────
+     SOFT SKILLS — the people side, shown on the Skills page beside the
+     technical groups above. Same shape: a "group" and its "items".
+     ───────────────────────────────────────────────────────────────────────── */
+  softSkills: [
+
+    // ── COPY FROM HERE ──
+    {
+      group: "Leadership and Mentoring",
+      items: [
+        "Led teams of 3 to 5 engineers to KPI acceptance",
+        "Mentoring and training in RF planning and optimization",
+        "Building the working process a technology division runs on",
+      ],
+    },
+    // ── TO HERE ──
+
+    {
+      group: "Client and Stakeholder Communication",
+      items: [
+        "Presenting results and recommendations to senior management",
+        "Defending acceptance reports against contractual targets",
+        "Carrier and OEM coordination — Bell, Rogers, Telus",
+        "Turning measurement data into decisions non-specialists can act on",
+      ],
+    },
+
+    {
+      group: "Project Delivery",
+      items: [
+        "End-to-end delivery from survey to close-out pack",
+        "Multi-vendor and multi-entity coordination",
+        "Working to SLA under deadline pressure",
+        "Scope, risk and progress reporting",
+      ],
+    },
+
+    {
+      group: "Problem Solving",
+      items: [
+        "Root-cause analysis on live networks",
+        "Reading an in-building problem as a network problem first",
+        "Proposing cost-effective alternatives to the obvious fix",
+      ],
+    },
+
+    {
+      group: "Working Across Cultures",
+      items: [
+        "Delivered in Bangladesh, Iran, Myanmar, Singapore and Canada",
+        "Teams where English was nobody's first language",
+        "English — full professional proficiency",
+        "Bengali — native or bilingual proficiency",
+      ],
+    },
+
+  ],
+
+
+  /* ─────────────────────────────────────────────────────────────────────────
      PROJECTS — three of these show on the home page, all of them on /projects/.
 
      "blurb"  is the short version, used on the cards.
@@ -397,7 +456,7 @@ window.SITE = {
 
     // ── COPY FROM HERE ──
     {
-      name: "RF measurement and reporting automation",
+      name: "RF Measurement and Reporting Automation",
       featured: true,
       blurb: "Python tooling that turns raw walk-test and measurement data into finished survey reports, replacing manual document assembly.",
       detail: "Site survey reporting used to mean exporting measurement data, pasting it into a template, redrawing floorplan overlays by hand and reformatting everything for the client. This ingests the raw measurement files directly and produces the finished report. The point was never the tooling — it was that engineering time was going into document assembly instead of engineering. Cut analysis turnaround time by 90%.",
@@ -407,7 +466,7 @@ window.SITE = {
     // ── TO HERE ──
 
     {
-      name: "Pre-swap / post-swap KPI analytics",
+      name: "Pre-swap / Post-swap KPI Analytics",
       featured: true,
       blurb: "Power BI model comparing network KPIs before and after vendor swaps across a large RAN estate, turning raw counter data into ranked optimization actions.",
       detail: "After an OEM swap, the question senior stakeholders ask is simply whether the network still performs. Answering it properly means comparing hundreds of counters across thousands of cells, in a form somebody can act on. This model pulled from SQL Server, SharePoint and CSV exports into one data model, applied row-level security so each team saw only its own estate, and produced a ranked list of what regressed and by how much — not a wall of charts.",
@@ -416,7 +475,7 @@ window.SITE = {
     },
 
     {
-      name: "IBS vendor swap — 250+ sites",
+      name: "IBS Vendor Swap — 250+ Sites",
       featured: true,
       blurb: "Planned and executed an in-building system swap from Ericsson to Huawei across more than 250 sites for the largest mobile operator in Bangladesh.",
       detail: "A vendor swap on in-building systems is unforgiving: the sites are venues with real occupants, the cutover windows are short, and the acceptance criterion is that nobody notices. This covered planning, sequencing and post-swap KPI optimization across more than 250 sites, holding performance parity through cutover.",
@@ -425,7 +484,7 @@ window.SITE = {
     },
 
     {
-      name: "2,000-site network transition",
+      name: "2,000-site Network Transition",
       blurb: "Planned, implemented and optimized a 4G/3G network transition covering more than 2,000 sites for MTN Irancell, delivered inside an eighteen-month target.",
       detail: "End-to-end RF planning and optimization at national scale in Atoll — coverage and capacity plans, link budgets, PCI and neighbour planning, and new-site candidate evaluation — while monitoring network, city and cluster level KPIs throughout and driving corrective action when clusters fell behind target.",
       tech: ["Atoll", "RF planning", "KPI optimization"],
@@ -433,14 +492,14 @@ window.SITE = {
     },
 
     {
-      name: "Private 5G and Cisco URWB deployments",
+      name: "Private 5G and Cisco URWB Deployments",
       blurb: "Design, commissioning and optimization of Private 5G and Cisco URWB networks for large Canadian venues, from link budget through to close-out documentation.",
       detail: "Private networks in venues bring constraints a public macro network doesn't: the coverage target is a specific floor plate, the interference environment is other tenants, and the client wants evidence rather than assurances. Work spans design packages and link budgets, head-end and remote integration across ADRF, Corning/BTI and Zinwave, CW, PIM and walk testing, EMF and Safety Code 6 validation, and the close-out pack.",
       tech: ["Private 5G", "Cisco URWB", "iBwave", "Walk testing"],
     },
 
     {
-      name: "5G SSV and KPI acceptance",
+      name: "5G SSV and KPI Acceptance",
       blurb: "Prepared, verified and defended 5G system verification and KPI acceptance reports against contractual targets on domestic and overseas Nokia projects.",
       detail: "Acceptance is where a network stops being an engineering problem and becomes a contractual one. This meant running the verification, assembling the evidence, and then standing behind the numbers with the customer when a target was contested — including the multi-vendor counter and feature mapping needed to show that two different vendors' equipment were being measured on equivalent terms.",
       tech: ["5G NR", "Nokia NetAct", "KPI acceptance"],
