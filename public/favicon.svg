@@ -1,10 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Sajib Islam">
   <title>Sajib Islam — RF engineer</title>
-  <!-- A signal: one sine cycle in the site's accent on the site's dark paper.
-       Kept to a single stroke because anything finer turns to mush at 16px,
-       which is the size this is actually seen at. -->
+  <!-- The same five-bar signal staircase that rates every skill on the Skills
+       page. Five bars at 16px is about three pixels each, so they are drawn
+       square-ended and widely spaced — rounded caps and tight gaps turn to
+       mush at the size this is actually seen at. All five are lit: the empty
+       fifth bar only means something next to a full one. -->
   <rect width="32" height="32" rx="6" fill="#0E1315"/>
-  <path d="M3 16 C6 6, 10 6, 13 16 S20 26, 23 16 S27 8, 29 12"
-        fill="none" stroke="#5CC7D8" stroke-width="2.75"
-        stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#5CC7D8">
+    <rect x="5"  y="20" width="3.6" height="6"  rx="1"/>
+    <rect x="10" y="17" width="3.6" height="9"  rx="1"/>
+    <rect x="15" y="14" width="3.6" height="12" rx="1"/>
+    <rect x="20" y="11" width="3.6" height="15" rx="1"/>
+    <rect x="25" y="8"  width="3.6" height="18" rx="1"/>
+  </g>
 </svg>

@@ -508,13 +508,13 @@ h3 {
 
 /* ── The signal field ───────────────────────────────────────────────────────
    The one piece of decoration on this site that could not belong to anyone
-   else's: a dot lattice with a ring propagating out through it from the lower
-   left, which is what a coverage plot looks like before anything is measured.
+   else's: concentric rings propagating out from behind the page title, which
+   is what a coverage plot looks like before anything is measured.
 
-   Two pseudo-elements on the page's own first section, so it costs no markup
+   One pseudo-element on the page's own first section, so it costs no markup
    and no request, and it is inherited by all twelve pages without touching
-   twelve files. Both are absolutely positioned, which keeps them out of the
-   grid that .has-portrait turns this section into. */
+   twelve files. It is absolutely positioned, which keeps it out of the grid
+   that .has-portrait turns this section into. */
 
 .hero,
 .page-head {
@@ -526,27 +526,6 @@ h3 {
 /* Real content sits above the field. */
 .hero > *,
 .page-head > * { position: relative; z-index: 1; }
-
-.hero::before,
-.page-head::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  /* Capped rather than inset:0 — on the home page this section also holds the
-     career timeline and runs the height of the screen, and a lattice that
-     went all the way down would sit behind the chart instead of behind the
-     name. The field belongs to the headline. */
-  bottom: auto;
-  height: min(100%, 26rem);
-  background-image: radial-gradient(circle, var(--steel) 1px, transparent 1.5px);
-  background-size: 22px 22px;
-  opacity: 0.13;
-  /* Dissolves down and to the right, away from the source of the ring. */
-  -webkit-mask-image: linear-gradient(to bottom right, #000, transparent 68%);
-  mask-image: linear-gradient(to bottom right, #000, transparent 68%);
-}
 
 .hero::after,
 .page-head::after {
@@ -584,8 +563,6 @@ h3 {
    cross the face. Pushing the origin further off-canvas leaves only the outer
    arcs, which read as background rather than as marks on the photo. */
 @media (max-width: 44.9375rem) {
-  .hero::before,
-  .page-head::before { opacity: 0.1; }
   .hero::after,
   .page-head::after { left: -20rem; top: -19rem; }
 }
@@ -696,6 +673,35 @@ h1 {
   border-color: var(--accent);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
 }
+
+/* ── A whole section as one card ────────────────────────────────────────────
+   Used on All About DAS and Tools, where the unit worth boxing is the section
+   itself: an explanation, or one calculator. Only on sections whose content
+   is not already cards — a card inside a card is a box inside a box.
+
+   The section's own vertical padding becomes the card's padding, and the gap
+   between cards moves to a margin, or the border would be drawn around the
+   section's whitespace instead of around its content. */
+
+.sheet > .card-section {
+  padding: var(--s5);
+  margin-top: var(--sec);
+  background: var(--surface);
+  /* Beats the divider rule between plain sections, which would otherwise draw
+     a second line directly above each card. */
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.sheet > .card-section:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+}
+/* The heading sits at the top of the card, not below a section's worth of
+   air, and the last paragraph does not need a gap under it either. */
+.sheet > .card-section > :first-child { margin-top: 0; }
+.sheet > .card-section > :last-child { margin-bottom: 0; }
 
 /* Cards sit in their own grid, so the margin that used to separate them as
    plain blocks would now double up with the grid gap. */
@@ -1033,7 +1039,8 @@ h1 {
   list-style: none;
   display: grid;
   gap: var(--s4);
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  /* One card per row, by request. */
+  grid-template-columns: 1fr;
 }
 .edu__item {
   display: grid;
@@ -1078,7 +1085,8 @@ h1 {
   list-style: none;
   display: grid;
   gap: var(--s4);
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  /* One card per row, by request. */
+  grid-template-columns: 1fr;
 }
 .certs__h {
   margin: 0 0 var(--s3);
@@ -1698,6 +1706,12 @@ h1 {
 @media (min-width: 60rem) {
   .caps { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* One card per row, whatever the width — used on All About DAS, where each
+   type of system is a thing to read rather than a tile to scan. Written last
+   so it beats the column counts above at every breakpoint. */
+.caps--stack { grid-template-columns: 1fr; }
+.caps--stack > :last-child:nth-child(odd) { grid-column: auto; }
 .cap { padding: var(--s5); }
 .cap__h {
   margin: 0 0 var(--s2);
