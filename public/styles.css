@@ -1139,8 +1139,10 @@ h1 {
 .tl__plot.is-armed { --grow: 0; }
 .tl__plot.is-armed .tl__bar { transition: none; }
 .tl__row.is-current .tl__bar { background: var(--green); }
-/* Room underneath for the pin that hangs off the current bar. */
-.tl__row.is-current { padding-bottom: 2.25rem; }
+/* The pin sits above the current bar, which is also where this row's company
+   and dates line is. Pushing the label up clears a lane for it rather than
+   letting the two land on each other. */
+.tl__row.is-current .tl__label { margin-bottom: 2.5rem; }   /* pin is 32px tall */
 
 /* ── "I'm Here!" ────────────────────────────────────────────────────────────
    A dropped pin at the live end of the current role's bar: a pulsing dot with
@@ -1152,7 +1154,7 @@ h1 {
   right: 0;
   /* Hangs below the bar, not above it: above, it lands on this row's own
      company-and-dates label. The row reserves the space underneath. */
-  top: 100%;
+  bottom: 100%;
   /* The current bar runs to the right-hand end of the axis, so the flag has
      to grow leftwards from the pin rather than being centred on it —
      centred, it hangs outside the plot. */
@@ -1162,8 +1164,10 @@ h1 {
   align-items: flex-end;
   pointer-events: none;
 }
+/* Flag on top, beacon underneath it, sitting on the bar. */
 .tl__pin-text {
-  margin-top: 3px;
+  order: -1;
+  margin-bottom: 3px;
   padding: 2px 7px;
   white-space: nowrap;
   font-family: var(--font-mono);
