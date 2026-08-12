@@ -223,16 +223,33 @@ body {
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.18);
 }
 
+/* A dim only. Clicking it does not close the drawer — the button is the only
+   control — so it must not swallow clicks, or a reader on a phone would be
+   stuck unable to touch the page behind it. */
 .nav-backdrop {
   position: fixed;
   inset: 0;
   z-index: 110;
+  pointer-events: none;
   background: rgba(0, 0, 0, 0.38);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.28s, visibility 0.28s;
 }
 .nav-backdrop.is-open { opacity: 1; visibility: visible; }
+/* The drawer pushes the page aside at this width, so nothing is covered and
+   dimming would just make the page harder to read. */
+@media (min-width: 48rem) {
+  .nav-backdrop.is-open { opacity: 0; }
+}
+
+/* Used for one frame while the saved state is restored on load, so a drawer
+   that was left open doesn't slide in on every single page. */
+.no-anim,
+.no-anim .rail,
+.no-anim .sheet,
+.no-anim .nav-toggle,
+.no-anim .nav-backdrop { transition: none !important; }
 
 /* Where there is room, opening the drawer pushes the page across instead of
    covering it, so nothing is hidden behind the menu. Below that width the

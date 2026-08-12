@@ -676,41 +676,54 @@
 
     var lastFocus = null;
 
-    function setOpen(open) {
+    function setOpen(open, byUser) {
       rail.classList.toggle("is-open", open);
       backdrop.classList.toggle("is-open", open);
       /* On <html> as well: the stylesheet uses it to push the page across on
          a wide screen, and .sheet is not a descendant of the rail. */
       document.documentElement.classList.toggle("nav-open", open);
       button.setAttribute("aria-expanded", open ? "true" : "false");
+      button.setAttribute("aria-label", open ? "Close menu" : "Open menu");
 
-      if (open) {
-        lastFocus = document.activeElement;
-        var first = rail.querySelector(".rail__nav a");
-        if (first) first.focus();
-      } else if (lastFocus && lastFocus.focus) {
-        lastFocus.focus();
+      /* Only move focus when the reader actually pressed the button. On a
+         restore at page load, stealing focus would fight the browser and
+         throw away the reading position. */
+      if (byUser) {
+        if (open) {
+          lastFocus = document.activeElement;
+          var first = rail.querySelector(".rail__nav a");
+          if (first) first.focus();
+        } else if (lastFocus && lastFocus.focus) {
+          lastFocus.focus();
+        }
       }
+
+      try { localStorage.setItem("nav", open ? "open" : "closed"); } catch (e) {}
     }
 
+    /* The button is the only thing that closes the drawer, by request. There
+       is deliberately no dismiss on the backdrop, on Escape, or on following
+       a link — it stays open until the X is pressed. */
     button.addEventListener("click", function () {
-      setOpen(button.getAttribute("aria-expanded") !== "true");
+      setOpen(button.getAttribute("aria-expanded") !== "true", true);
     });
 
-    backdrop.addEventListener("click", function () { setOpen(false); });
+    /* Every navigation is a full page load, so without remembering the state
+       the drawer would shut itself the moment a link inside it was used —
+       which is exactly the collapse the button is supposed to be in charge
+       of. Restored without animating, so the page doesn't slide on arrival. */
+    var wasOpen = false;
+    try { wasOpen = localStorage.getItem("nav") === "open"; } catch (e) {}
 
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && rail.classList.contains("is-open")) setOpen(false);
+    rail.classList.add("no-anim");
+    document.documentElement.classList.add("no-anim");
+    setOpen(wasOpen, false);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        rail.classList.remove("no-anim");
+        document.documentElement.classList.remove("no-anim");
+      });
     });
-
-    /* Following a link inside the drawer navigates away, but same-page
-       anchors do not — close up so the reader can see what they picked. */
-    rail.addEventListener("click", function (e) {
-      var link = e.target.closest ? e.target.closest("a") : null;
-      if (link) setOpen(false);
-    });
-
-    setOpen(false);
   })();
 
   /* ─── Title entrances ─────────────────────────────────────────────────────
