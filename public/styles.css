@@ -661,9 +661,58 @@ h1 {
 .prose p { margin: 0 0 var(--s4); text-wrap: pretty; }
 .prose p:last-child { margin-bottom: 0; }
 
+/* ═══ The card ══════════════════════════════════════════════════════════════
+   One surface used by every collection on the site: capabilities, projects,
+   roles, education, certifications, awards, memberships, skill groups and the
+   link groups on Tools. Defined once here and joined by name below, so the
+   look cannot drift apart section by section — change these six declarations
+   and every card on the site changes with them.
+
+   The hover border turns accent as well as lifting: a black shadow on a
+   near-black ground is invisible, so in dark mode the border carries it. */
+
+.cap,
+.proj,
+.role,
+.edu__item,
+.cert,
+.skill,
+.links__group {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: var(--s4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.cap:hover,
+.proj:hover,
+.role:hover,
+.edu__item:hover,
+.cert:hover,
+.skill:hover,
+.links__group:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+}
+
+/* Cards sit in their own grid, so the margin that used to separate them as
+   plain blocks would now double up with the grid gap. */
+.role + .role,
+.edu__item + .edu__item,
+.cert + .cert,
+.skill + .skill { margin-top: 0; }
+
 /* ─── Experience ────────────────────────────────────────────────────────── */
 
-.roles { margin: 0; padding: 0; list-style: none; }
+.roles {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--s4);
+}
 .role + .role { margin-top: var(--s6); }
 
 .role__dates {
@@ -834,8 +883,14 @@ h1 {
 
 /* ─── Skills ────────────────────────────────────────────────────────────── */
 
-/* Clear of the section's intro line above it. */
-.skills { margin: var(--s5) 0 0; }
+/* Clear of the section's intro line above it. Groups stack full width
+   rather than sitting side by side — the chip rows inside want the whole
+   measure to wrap across. */
+.skills {
+  margin: var(--s5) 0 0;
+  display: grid;
+  gap: var(--s4);
+}
 .skill + .skill { margin-top: var(--s5); }
 
 .skill__group {
@@ -935,17 +990,6 @@ h1 {
   /* The full write-ups on /projects/ take var(--s5) from .projects--full
      below; the three cards on the home page stay tighter. */
   padding: var(--s4);
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-/* Lift on hover. The border change carries the effect in dark mode, where a
-   black shadow on a near-black ground is invisible. */
-.proj:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
 }
 .proj__blurb { margin: 0; font-size: 0.9375rem; color: var(--steel); text-wrap: pretty; }
 .proj__outcome {
@@ -983,7 +1027,14 @@ h1 {
 
 /* ─── Education & certifications ────────────────────────────────────────── */
 
-.edu { margin: 0; padding: 0; list-style: none; }
+.edu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--s4);
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
 .edu__item {
   display: grid;
   grid-template-columns: 3rem minmax(0, 1fr);
@@ -1021,7 +1072,14 @@ h1 {
 .edu__note { margin: var(--s2) 0 0; font-size: 0.9375rem; max-width: var(--measure); }
 
 .certs__block { margin-top: var(--s6); padding-top: var(--s5); border-top: 1px solid var(--rule); }
-.certs { margin: 0; padding: 0; list-style: none; }
+.certs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--s4);
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
 .certs__h {
   margin: 0 0 var(--s3);
   font-family: var(--font-mono);
@@ -1244,10 +1302,15 @@ h1 {
 
 /* ─── Useful links (tools page) ─────────────────────────────────────────── */
 
+/* Two columns, not auto-fit: there are four link groups, and three-across
+   leaves one stranded on a row of its own. */
 .links {
   display: grid;
-  gap: var(--s6);
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--s4);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 48rem) {
+  .links { grid-template-columns: repeat(2, 1fr); }
 }
 .links__h {
   margin: 0 0 var(--s3);
@@ -1618,26 +1681,24 @@ h1 {
 
 /* ─── Capability blocks ─────────────────────────────────────────────────── */
 
+/* Explicit column counts rather than auto-fit. Every .caps grid on the site
+   holds three or six cards, so fixed thirds always fill their rows — auto-fit
+   was free to drop a 4-across row and leave a hole at the end. */
 .caps {
   display: grid;
   gap: var(--s4);
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: 1fr;
 }
-/* Given a real surface rather than left as text on the page ground: four
-   headings and four paragraphs with nothing around them read as a list, and
-   the padding is what stops them reading as crowded. */
-.cap {
-  padding: var(--s5);
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+@media (min-width: 34rem) and (max-width: 59.9375rem) {
+  .caps { grid-template-columns: repeat(2, 1fr); }
+  /* Two columns can't divide three cards. The odd one out takes the whole
+     last row rather than sitting beside a hole. */
+  .caps > :last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
-.cap:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+@media (min-width: 60rem) {
+  .caps { grid-template-columns: repeat(3, 1fr); }
 }
+.cap { padding: var(--s5); }
 .cap__h {
   margin: 0 0 var(--s2);
   font-family: var(--font-mono);
