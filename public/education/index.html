@@ -30,10 +30,21 @@
 
 <link rel="stylesheet" href="/styles.css">
 <script>
-  try {
-    var t = localStorage.getItem("theme");
-    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
-  } catch (e) {}
+  /* Runs before the first paint. The theme is applied here so there is no
+     flash of the wrong colours, and the navigation state is applied here for
+     the same reason: main.js runs at the end of the body, and by then the
+     rail has already been laid out as a full-height block, so switching it to
+     a drawer down there makes the whole page jump. Must stay inline and must
+     stay in the <head>. */
+  (function () {
+    var d = document.documentElement;
+    d.classList.add("js-nav");
+    try {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") d.dataset.theme = t;
+      if (localStorage.getItem("nav") === "open") d.classList.add("nav-open");
+    } catch (e) {}
+  })();
 </script>
 </head>
 

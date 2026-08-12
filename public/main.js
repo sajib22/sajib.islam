@@ -331,6 +331,18 @@
       /* The final width lives in --w; styles.css multiplies it by --grow so
          the bar can be animated out from its start date. */
       bar.style.setProperty("--w", Math.max(pct(to) - pct(from), 0.8).toFixed(2) + "%");
+
+      /* A dropped pin on the job being done right now, sitting at the live
+         end of its bar. Marked aria-hidden because the row already says the
+         company, the role and "Present" in text. */
+      if (entry.current) {
+        var pin = el("span", "tl__pin");
+        pin.setAttribute("aria-hidden", "true");
+        pin.appendChild(el("span", "tl__pin-dot"));
+        pin.appendChild(el("span", "tl__pin-text", "I'm Here!"));
+        bar.appendChild(pin);
+      }
+
       track.appendChild(bar);
       main.appendChild(track);
 
@@ -702,18 +714,15 @@
     var button = document.getElementById("nav-toggle");
     if (!rail || !button) return;
 
-    document.documentElement.classList.add("js-nav");
-
     var backdrop = el("div", "nav-backdrop");
     document.body.appendChild(backdrop);
 
     var lastFocus = null;
 
     function setOpen(open, byUser) {
-      rail.classList.toggle("is-open", open);
-      backdrop.classList.toggle("is-open", open);
-      /* On <html> as well: the stylesheet uses it to push the page across on
-         a wide screen, and .sheet is not a descendant of the rail. */
+      /* One flag, on <html>: the stylesheet drives the drawer, the backdrop
+         and the page push from it, and the inline head script can set it
+         before the first paint so a restored drawer never causes a jump. */
       document.documentElement.classList.toggle("nav-open", open);
       button.setAttribute("aria-expanded", open ? "true" : "false");
       button.setAttribute("aria-label", open ? "Close menu" : "Open menu");
@@ -745,18 +754,8 @@
        the drawer would shut itself the moment a link inside it was used —
        which is exactly the collapse the button is supposed to be in charge
        of. Restored without animating, so the page doesn't slide on arrival. */
-    var wasOpen = false;
-    try { wasOpen = localStorage.getItem("nav") === "open"; } catch (e) {}
-
-    rail.classList.add("no-anim");
-    document.documentElement.classList.add("no-anim");
+    var wasOpen = document.documentElement.classList.contains("nav-open");
     setOpen(wasOpen, false);
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        rail.classList.remove("no-anim");
-        document.documentElement.classList.remove("no-anim");
-      });
-    });
   })();
 
   /* ─── Title entrances ─────────────────────────────────────────────────────

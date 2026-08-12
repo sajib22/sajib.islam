@@ -37,10 +37,21 @@
 <!-- Applies the saved theme before the page paints, so there is no flash of
      the wrong colours. Must stay inline and must stay in the <head>. -->
 <script>
-  try {
-    var t = localStorage.getItem("theme");
-    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
-  } catch (e) {}
+  /* Runs before the first paint. The theme is applied here so there is no
+     flash of the wrong colours, and the navigation state is applied here for
+     the same reason: main.js runs at the end of the body, and by then the
+     rail has already been laid out as a full-height block, so switching it to
+     a drawer down there makes the whole page jump. Must stay inline and must
+     stay in the <head>. */
+  (function () {
+    var d = document.documentElement;
+    d.classList.add("js-nav");
+    try {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") d.dataset.theme = t;
+      if (localStorage.getItem("nav") === "open") d.classList.add("nav-open");
+    } catch (e) {}
+  })();
 </script>
 
 <!-- Structured data. Google reads this to build the knowledge panel.
@@ -183,7 +194,7 @@
   <section id="projects" aria-labelledby="projects-h">
     <h2 id="projects-h"><span class="mark">Selected Work</span></h2>
     <div data-render="projects-featured"></div>
-    <p class="onward"><a href="/projects/">All projects &rarr;</a></p>
+    <p class="onward"><a href="/projects/">Featured Projects &rarr;</a></p>
   </section>
 
 

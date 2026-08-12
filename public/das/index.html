@@ -30,10 +30,21 @@
 
 <link rel="stylesheet" href="/styles.css">
 <script>
-  try {
-    var t = localStorage.getItem("theme");
-    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
-  } catch (e) {}
+  /* Runs before the first paint. The theme is applied here so there is no
+     flash of the wrong colours, and the navigation state is applied here for
+     the same reason: main.js runs at the end of the body, and by then the
+     rail has already been laid out as a full-height block, so switching it to
+     a drawer down there makes the whole page jump. Must stay inline and must
+     stay in the <head>. */
+  (function () {
+    var d = document.documentElement;
+    d.classList.add("js-nav");
+    try {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") d.dataset.theme = t;
+      if (localStorage.getItem("nav") === "open") d.classList.add("nav-open");
+    } catch (e) {}
+  })();
 </script>
 </head>
 
@@ -93,60 +104,6 @@
     <p class="lede">A distributed antenna system is what you build when a building defeats the
     network outside it. This is the working explanation I give clients &mdash; what a DAS is,
     how the signal actually gets to a phone on the eleventh floor, and which type to use when.</p>
-  </section>
-
-
-  <section id="what" aria-labelledby="what-h">
-    <h2 id="what-h"><span class="mark">What Is a DAS?</span></h2>
-    <div class="prose">
-      <p>A distributed antenna system replaces one distant, high-power signal source with many
-      low-power antennas spread through a building. The macro network outside is designed to
-      cover streets and open ground. Once that signal has to pass through a concrete core, a
-      basement wall or modern low-emissivity glass, it arrives too weak and too noisy to carry
-      a call &mdash; coated glass alone can cost 25&nbsp;dB or more.</p>
-
-      <p>A DAS solves that by moving the antenna closer to the user. Instead of asking one
-      signal to punch through the building envelope, the system carries it inside over cable
-      or fibre and re-radiates it floor by floor. The result is even coverage at low power,
-      which also means less interference back into the macro network and better battery life
-      on every device connected to it.</p>
-
-      <p>The distinction worth holding on to: a DAS is a <em>distribution</em> system, not a
-      source of capacity. It takes signal from somewhere &mdash; a base station or the macro
-      network &mdash; and spreads it. What it cannot do is create capacity that the source
-      never had.</p>
-    </div>
-  </section>
-
-
-  <section id="how" aria-labelledby="how-h">
-    <h2 id="how-h"><span class="mark">How Does a DAS Work?</span></h2>
-    <div class="prose">
-      <p>Every DAS has three stages: a signal source, a distribution backbone, and the antennas
-      that finally radiate.</p>
-
-      <p><strong>1. The source.</strong> Either an on-site base station (BTS or small cell) fed
-      from the carrier&rsquo;s network, or a rooftop <em>donor antenna</em> pointed at a nearby
-      macro site. The donor route feeds a bi-directional amplifier (BDA) that repeats the
-      outdoor network indoors. An on-site base station gives dedicated capacity; a donor and
-      BDA share whatever the macro cell already has, which is cheaper but caps what the
-      building can carry.</p>
-
-      <p><strong>2. The head end.</strong> Sources are combined here, and in an active system
-      the RF is converted to optical. Fibre is what makes reach practical &mdash; it runs
-      hundreds of metres with negligible loss, where coax of the same length would lose most of
-      the signal to cable attenuation.</p>
-
-      <p><strong>3. Distribution and radiation.</strong> The backbone runs up a riser to remote
-      units on each floor, which convert back to RF and drive ceiling antennas over short coax
-      tails. In a passive system there is no conversion at all: couplers and splitters divide
-      one source across the antennas, losing a predictable amount at each split.</p>
-
-      <p>A DAS is bi-directional throughout. The uplink &mdash; the phone talking back &mdash;
-      is usually the harder direction to engineer, because a handset transmits at a fraction of
-      the power the network does, and uplink noise accumulated across every remote unit lands
-      back at one receiver.</p>
-    </div>
   </section>
 
 
@@ -280,6 +237,60 @@
       </div>
     </div>
   </section>
+
+  <section id="what" aria-labelledby="what-h">
+    <h2 id="what-h"><span class="mark">What Is a DAS?</span></h2>
+    <div class="prose">
+      <p>A distributed antenna system replaces one distant, high-power signal source with many
+      low-power antennas spread through a building. The macro network outside is designed to
+      cover streets and open ground. Once that signal has to pass through a concrete core, a
+      basement wall or modern low-emissivity glass, it arrives too weak and too noisy to carry
+      a call &mdash; coated glass alone can cost 25&nbsp;dB or more.</p>
+
+      <p>A DAS solves that by moving the antenna closer to the user. Instead of asking one
+      signal to punch through the building envelope, the system carries it inside over cable
+      or fibre and re-radiates it floor by floor. The result is even coverage at low power,
+      which also means less interference back into the macro network and better battery life
+      on every device connected to it.</p>
+
+      <p>The distinction worth holding on to: a DAS is a <em>distribution</em> system, not a
+      source of capacity. It takes signal from somewhere &mdash; a base station or the macro
+      network &mdash; and spreads it. What it cannot do is create capacity that the source
+      never had.</p>
+    </div>
+  </section>
+
+
+  <section id="how" aria-labelledby="how-h">
+    <h2 id="how-h"><span class="mark">How Does a DAS Work?</span></h2>
+    <div class="prose">
+      <p>Every DAS has three stages: a signal source, a distribution backbone, and the antennas
+      that finally radiate.</p>
+
+      <p><strong>1. The source.</strong> Either an on-site base station (BTS or small cell) fed
+      from the carrier&rsquo;s network, or a rooftop <em>donor antenna</em> pointed at a nearby
+      macro site. The donor route feeds a bi-directional amplifier (BDA) that repeats the
+      outdoor network indoors. An on-site base station gives dedicated capacity; a donor and
+      BDA share whatever the macro cell already has, which is cheaper but caps what the
+      building can carry.</p>
+
+      <p><strong>2. The head end.</strong> Sources are combined here, and in an active system
+      the RF is converted to optical. Fibre is what makes reach practical &mdash; it runs
+      hundreds of metres with negligible loss, where coax of the same length would lose most of
+      the signal to cable attenuation.</p>
+
+      <p><strong>3. Distribution and radiation.</strong> The backbone runs up a riser to remote
+      units on each floor, which convert back to RF and drive ceiling antennas over short coax
+      tails. In a passive system there is no conversion at all: couplers and splitters divide
+      one source across the antennas, losing a predictable amount at each split.</p>
+
+      <p>A DAS is bi-directional throughout. The uplink &mdash; the phone talking back &mdash;
+      is usually the harder direction to engineer, because a handset transmits at a fraction of
+      the power the network does, and uplink noise accumulated across every remote unit lands
+      back at one receiver.</p>
+    </div>
+  </section>
+
 
 
   <section id="types" aria-labelledby="types-h">
