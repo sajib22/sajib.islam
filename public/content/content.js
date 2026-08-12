@@ -155,6 +155,19 @@ window.SITE = {
     },
 
     {
+      company: "WIRELESSWAVE",
+      mark: "WW",
+      role: "Retail Sales Analyst",
+      dates: "Apr 2024 — May 2025",
+      from: "2024-04",
+      to: "2025-05",
+      /* Upload the wordmark to public/img/logos/wirelesswave.png, then delete
+         the // below. Until then the "WW" tile is shown and the page makes no
+         request for a file that isn't there. */
+      // logo: "/img/logos/wirelesswave.png",
+    },
+
+    {
       company: "Genwave Technologies",
       mark: "GENWAVE",
       role: "RF DAS Engineer",
@@ -195,6 +208,18 @@ window.SITE = {
       ],
     },
     // ── TO HERE ──
+
+    {
+      title: "Retail Sales Analyst",
+      company: "WIRELESSWAVE / WAVE SANS FIL",
+      location: "Toronto, Ontario, Canada",
+      dates: "Apr 2024 — May 2025 · Permanent Full-time",
+      bullets: [
+        "Increased overall sales by 127% YoY while consistently meeting personal sales targets over the final six months.",
+        "Delivered customer-focused telecommunications solutions by understanding customer needs, providing tailored recommendations, and driving upselling and cross-selling opportunities.",
+        "Provided end-to-end customer support, including product demonstrations, installations, troubleshooting, and issue resolution, while collaborating with technical and support teams to ensure a seamless customer experience.",
+      ],
+    },
 
     {
       title: "Senior NPO Engineer (5G/4G/3G/2G Expert and Data Analyst)",
