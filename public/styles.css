@@ -20,12 +20,6 @@
      printed inside the artwork itself. */
   --das-optic: #E5231B;
   --das-rf:    #111827;
-
-  /* Company logo tiles. Brand marks are drawn for white, so the tile stays
-     light in both themes — see the dark block for why it isn't pure white
-     there. */
-  --logo-tile: #FFFFFF;
-  --logo-dim:  none;
 }
 
 :root[data-theme="dark"] {
@@ -39,8 +33,6 @@
   --rule:    #242D31;
   --das-optic: #FF6A5C;
   --das-rf:    #9FB0B6;
-  --logo-tile: #E9EEEE;
-  --logo-dim:  saturate(0.92) brightness(0.94);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -55,11 +47,6 @@
     --rule:    #242D31;
     --das-optic: #FF6A5C;
     --das-rf:    #9FB0B6;
-    /* Eight pure-white tiles on a near-black page read as light leaks and
-       pull the eye off the bars they label. Knocked back just far enough to
-       settle, on a ground still light enough that no mark vanishes. */
-    --logo-tile: #E9EEEE;
-    --logo-dim:  saturate(0.92) brightness(0.94);
   }
 }
 
@@ -454,7 +441,7 @@ body {
 .sheet {
   max-width: 64rem;
   margin: 0 auto;
-  padding: 0 var(--s5) var(--s8);
+  padding: 0 var(--s5) var(--s6);
 }
 
 .sheet > section {
@@ -650,39 +637,90 @@ h1 {
 .hero__contact { margin: var(--s5) 0 0; font-size: 0.9375rem; }
 
 /* ─── Headline figures ──────────────────────────────────────────────────────
-   The four numbers that are already written elsewhere on the site, moved to
-   where the eye lands first. Nothing here is a new claim — every figure comes
-   from a project card, the timeline or the Experience headline. */
+   Five numbers directly under the hero. Separate cards rather than cells in
+   one ruled block: they are meant to read as five claims, and a card can lift
+   on its own.
+
+   Five items divide badly. Two columns take the odd one out across the full
+   width rather than leaving a hole, and the five-across row only appears
+   where each card still has room for its label. */
 
 .stats {
   margin: var(--s6) 0 0;
   padding: 0;
   list-style: none;
   display: grid;
-  /* 1px gaps over a ruled ground: one hairline between cells instead of two
-     touching borders, at every breakpoint. */
-  gap: 1px;
-  background: var(--rule);
+  gap: var(--s3);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 34rem) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stats > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 68rem) {
+  .stats { grid-template-columns: repeat(5, 1fr); }
+  .stats > :last-child:nth-child(odd) { grid-column: auto; }
+}
+
+.stat {
+  position: relative;
+  overflow: hidden;
+  padding: var(--s4) var(--s3);
+  background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 4px;
-  overflow: hidden;
-  grid-template-columns: repeat(2, 1fr);
+  text-align: center;
+  transition: transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1),
+              box-shadow 0.22s ease, border-color 0.22s ease;
+  /* Rises into place on load, one after another. The strip sits above the
+     fold, so this plays on arrival rather than waiting for a scroll. */
+  animation: stat-in 520ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
 }
-@media (min-width: 40rem) {
-  .stats { grid-template-columns: repeat(4, 1fr); }
+.stat:nth-child(1) { --i: 0; }
+.stat:nth-child(2) { --i: 1; }
+.stat:nth-child(3) { --i: 2; }
+.stat:nth-child(4) { --i: 3; }
+.stat:nth-child(5) { --i: 4; }
+
+@keyframes stat-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
 }
-.stat { background: var(--surface); padding: var(--s4) var(--s3); }
+
+/* A wash of accent that sweeps up from the floor of the card on hover. Kept
+   under the text with z-index, and behind a very low alpha — this is meant to
+   warm the card, not colour it in. */
+.stat::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(to top, var(--accent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+.stat > * { position: relative; z-index: 1; }
+
+.stat:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: inset 3px 0 0 0 var(--accent), 0 10px 26px rgba(0, 0, 0, 0.12);
+}
+.stat:hover::before { opacity: 0.07; }
+
 .stat__n {
   display: block;
-  font-size: 1.75rem;
+  font-size: clamp(1.75rem, 4.5vw, 2.125rem);
   font-weight: 750;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
   /* Same gradient as the Experience headline, and the same fallback: the flat
      accent shows through anywhere background-clip is unsupported. */
   color: var(--accent);
   background-image: linear-gradient(105deg, var(--accent) 15%, var(--green) 95%);
+  transition: transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .stat__n {
@@ -692,6 +730,8 @@ h1 {
     color: transparent;
   }
 }
+.stat:hover .stat__n { transform: scale(1.05); }
+
 .stat__k {
   display: block;
   margin-top: var(--s2);
@@ -701,6 +741,28 @@ h1 {
   text-transform: uppercase;
   color: var(--steel);
   text-wrap: pretty;
+  transition: color 0.22s ease;
+}
+.stat:hover .stat__k { color: var(--ink); }
+
+/* Five across a 64rem sheet leaves each card about 116px of usable width, and
+   "3000+" at the two-column size is 118px of glyphs before it is scaled. The
+   number is sized by the card it sits in rather than by the viewport, which is
+   why this is a breakpoint and not a clamp().
+
+   It has to sit below .stat__n rather than up with the other five-column
+   rules: same specificity, so source order decides. */
+@media (min-width: 68rem) {
+  .stat { padding: var(--s4) var(--s2); }
+  .stat__n { font-size: 1.5rem; }
+}
+
+/* The entrance is arrival, not information — a reader who asked for no motion
+   still gets all five numbers, immediately. */
+@media (prefers-reduced-motion: reduce) {
+  .stat { animation: none; }
+  .stat:hover { transform: none; }
+  .stat:hover .stat__n { transform: none; }
 }
 
 /* ─── Acronyms ──────────────────────────────────────────────────────────────
@@ -953,8 +1015,7 @@ abbr[data-def]:focus-visible::after {
   height: 3rem;
   flex-shrink: 0;
   object-fit: contain;
-  background: var(--logo-tile);
-  filter: var(--logo-dim);
+  background: #FFFFFF;
   padding: 3px;
   border: 1px solid var(--rule);
   border-radius: 4px;
@@ -1312,7 +1373,7 @@ abbr[data-def]:focus-visible::after {
 /* ─── Footer, noscript, render failures ─────────────────────────────────── */
 
 .foot {
-  margin-top: var(--s8);
+  margin-top: var(--s6);
   padding-top: var(--s4);
   border-top: 1px solid var(--rule);
   font-size: 0.75rem;
@@ -1341,16 +1402,13 @@ abbr[data-def]:focus-visible::after {
   object-fit: contain;
 }
 
-/* Logo tiles keep a light ground in both themes. Brand marks are drawn for
+/* Logo tiles keep a white ground in both themes. Brand marks are drawn for
    light backgrounds — Huawei's wordmark is black, Nokia's is blue — so
-   letting the dark theme show through would make several of them vanish.
-   How light is a token, because pure white is right in one theme and too
-   loud in the other. */
+   letting the dark theme show through would make several of them vanish. */
 .has-logo {
-  background: var(--logo-tile);
+  background: #FFFFFF;
   padding: 3px 4px;
 }
-.logo-img { filter: var(--logo-dim); }
 .logo-text {
   font-family: var(--font-mono);
   font-size: 0.5625rem;
@@ -1535,7 +1593,7 @@ abbr[data-def]:focus-visible::after {
    One row per phase on a shared year axis: studies first, then every job.
    Gaps between bars are real gaps in the record and are meant to show. */
 
-.tl { margin: var(--s7) 0 0; }
+.tl { margin: var(--s6) 0 0; }
 
 /* Headroom for the "I'm Here!" pin, which rides above the newest bar and so
    above the first row. Applied to the whole list rather than to that one row,
@@ -1708,7 +1766,7 @@ abbr[data-def]:focus-visible::after {
    Vertical columns at every width. Built from divs, not an SVG, so a real
    logo <img> can sit under each column and the labels never shrink. */
 
-.chart { margin: var(--s6) 0 0; }
+.chart { margin: var(--s5) 0 0; }
 
 .chart__plot { --max: 5; padding-top: var(--s5); }
 
@@ -1929,7 +1987,7 @@ abbr[data-def]:focus-visible::after {
 
 /* ─── Hand-drawn technical diagrams ─────────────────────────────────────── */
 
-.diagram { margin: var(--s6) 0 0; }
+.diagram { margin: var(--s5) 0 0; }
 .diagram svg { display: block; width: 100%; height: auto; overflow: visible; }
 .diagram__cap {
   margin-top: var(--s4);
@@ -2011,7 +2069,7 @@ abbr[data-def]:focus-visible::after {
    from a row of steps into a stacked list on a phone. */
 
 .flow {
-  margin: var(--s6) 0 0;
+  margin: var(--s5) 0 0;
   padding: 0;
   list-style: none;
   display: grid;
@@ -2103,8 +2161,8 @@ abbr[data-def]:focus-visible::after {
 /* ─── Next/previous page links at the foot of each page ─────────────────── */
 
 .onward {
-  margin-top: var(--s7);
-  padding-top: var(--s5);
+  margin-top: var(--s5);
+  padding-top: var(--s4);
   border-top: 1px solid var(--rule);
   display: flex;
   flex-wrap: wrap;
@@ -2123,7 +2181,7 @@ abbr[data-def]:focus-visible::after {
 
 @media (min-width: 64rem) {
   /* A little more room, so a little more air between sections. */
-  :root { --sec: 2.75rem; }
+  :root { --sec: 2.5rem; }
 
   body {
     display: grid;
@@ -2221,8 +2279,6 @@ abbr[data-def]:focus-visible::after {
     --amber: #333333;
     --rule: #BBBBBB;
     --sec: 1.25rem;
-    --logo-tile: #FFFFFF;
-    --logo-dim: none;
   }
 
   @page {

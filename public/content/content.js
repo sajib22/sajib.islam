@@ -185,8 +185,9 @@ window.SITE = {
      "current" puts the amber "current" marker next to the role.
                Set it to true on exactly ONE job, and delete the line from
                every other job.
-     "bullets" is a list of what you did. Two to four is the right number.
-               Write scope and outcome, not responsibilities.
+     "bullets" is a list of what you did. Write scope and outcome rather than
+               a job description. Six to ten suits a recent role; older roles
+               can be shorter.
      ───────────────────────────────────────────────────────────────────────── */
   experience: [
 
@@ -198,10 +199,16 @@ window.SITE = {
       dates: "May 2025 — Present",
       current: true,
       bullets: [
+        "Design and optimize 4G and 5G Distributed Antenna System solutions for commercial, healthcare, enterprise and public safety environments in iBwave, covering buildings up to 1.5M+ sq ft and improving indoor coverage by up to 25 dB.",
         "Plan, design, commission and optimize multi-band 5G/LTE in-building systems and Private 5G / Cisco URWB networks for major Canadian venues, validating coverage, capacity and quality against engineered targets.",
+        "Conduct RF site surveys, walk tests and post-installation validation, analysing LTE and 5G KPIs including RSRP, SINR, throughput, VoLTE quality and packet loss to lift network performance by 20%+.",
+        "Develop DAS prediction models and perform RF optimization for coverage, quality and capacity, holding carrier acceptance above 98% across multi-operator deployments.",
         "Integrate and tune multi-vendor head-end and remote equipment — ADRF, Corning/BTI, Zinwave — with CW, PIM and walk testing, EMF and Safety Code 6 validation, and root-cause troubleshooting.",
-        "Built Python automation for measurement-data processing and report generation that cut analysis turnaround time by 90%.",
-        "Produce link budgets, design packages and stakeholder performance reports, coordinating with internal teams and OEM partners through delivery and close-out.",
+        "Run pre-sales and post-installation surveys for DAS and in-building wireless, identifying coverage gaps, interference and capacity limits, and preparing the technical RF analysis and client reports.",
+        "Design and optimize indoor Wi-Fi for enterprise and commercial facilities, completing survey analysis, reporting and predictive design across 20+ sites.",
+        "Build automation for RF engineering workflows — PCTel survey report automation, floor-area calculators, ROM estimators, Ekahau ESX parsers and iBwave test-sheet generators — saving around six man-hours per project.",
+        "Develop Power BI dashboards for PCTel RF survey data and ISED site information, improving reporting efficiency and RF performance visualisation.",
+        "Collaborate with engineering, construction and carrier teams at Bell, Rogers and Telus on neutral-host LTE/5G DAS and Public Safety DAS compliant with ISED standards.",
       ],
     },
     // ── TO HERE ──
@@ -213,8 +220,12 @@ window.SITE = {
       dates: "Apr 2024 — May 2025",
       bullets: [
         "Increased overall sales by 127% YoY while consistently meeting personal sales targets over the final six months.",
-        "Delivered customer-focused telecommunications solutions by understanding customer needs, providing tailored recommendations, and driving upselling and cross-selling opportunities.",
-        "Provided end-to-end customer support, including product demonstrations, installations, troubleshooting, and issue resolution, while collaborating with technical and support teams to ensure a seamless customer experience.",
+        "Engaged customers to understand their needs, provide tailored solutions, and explain telecommunications products, services and promotions.",
+        "Delivered customer-focused telecommunications solutions, driving upselling and cross-selling opportunities against target.",
+        "Addressed inquiries, concerns and complaints promptly and professionally to reach satisfactory resolutions and hold long-term relationships.",
+        "Provided end-to-end customer support, including product demonstrations, installations, troubleshooting, and issue resolution.",
+        "Collaborated with technical support, retail support, billing and marketing to deliver a cohesive customer experience and meet sales targets.",
+        "Stayed current on industry trends, new products and technology advances to sharpen product knowledge and sales effectiveness.",
       ],
     },
 
@@ -224,10 +235,17 @@ window.SITE = {
       location: "Dhaka, Bangladesh",
       dates: "Feb 2019 — Jan 2024",
       bullets: [
+        "Led a team of 3 engineers to customer acceptance on more than 20 target KPIs, improving the network by 10% month over month.",
         "Led LTE and 5G RAN optimization on domestic and overseas projects, preparing and defending 5G SSV and KPI acceptance reports against contractual targets.",
+        "Led end-to-end cluster optimization of 2G, 3G and 4G after the swap from Huawei to Nokia, holding KPIs through to final acceptance.",
+        "Prepared SSV (Single Site Verification) and PAC (Preliminary Acceptance Certificate) reports after 5G NR deployment for the shared RAN networks of M1 and StarHub in Singapore.",
+        "Diagnosed poor 5G NR performance from drive test — SS-RSRP, SS-SNR, downlink and uplink throughput, and serving SSB beam — and resolved each with written justification.",
+        "Prepared planning and configuration data for the 2G, 3G and 4G swap and Nokia SRAN deployment, and radio network design data for LTE-TDD planning, deployment and acceptance.",
         "Performed multi-vendor KPI, counter, parameter and feature mapping across Nokia, Ericsson and Huawei to certify equivalent network behaviour after swaps and feature introductions.",
+        "Executed parameter optimization, antenna tuning and transmission fault resolution to lift RRC and ERAB setup success, handover success, CQI, throughput, latency, SRVCC and VoLTE call setup and drop rates, and PRB utilisation.",
         "Resolved coverage (RSRP/RSCP), quality (RSRQ/SINR), mobility and handover problems through worst-cell parameter and Layer-1 optimization driven by drive-test and device-log analysis.",
-        "Built Power BI pre-swap versus post-swap analytics that turned large KPI datasets into specific optimization recommendations for senior stakeholders.",
+        "Balanced traffic across LTE layers and tuned layering parameters, raising 10th-percentile throughput.",
+        "Built Power BI, Tableau and Looker Studio analytics — including pre-swap versus post-swap comparison — that turned large KPI datasets into specific optimization recommendations for senior stakeholders.",
       ],
     },
 
@@ -237,10 +255,17 @@ window.SITE = {
       location: "Tehran, Iran",
       dates: "Dec 2014 — Jun 2018",
       bullets: [
-        "Owned end-to-end RF planning and optimization of 4G and 3G in Atoll — coverage and capacity planning, link budgets, PCI and neighbour planning, and new-site candidate evaluation.",
         "Planned, implemented and optimized a network transition covering more than 2,000 sites, delivered inside an eighteen-month target.",
+        "Led the LTE-FDD, LTE-TDD and 3G radio planning and optimization team at FlipNet, service provider to MTN Irancell.",
+        "Owned end-to-end RF planning and optimization of 4G and 3G in Atoll — coverage and capacity planning, link budgets, PCI and neighbour planning, and new-site candidate evaluation.",
+        "Planned and designed LTE-FDD, LTE-TDD and 3G cell design data, PCI, PRACH, PSC and neighbour relations, plus the core network definition for the customer network.",
+        "Ran drive tests and log-file analysis against poor RSRP/RSCP, Ec/No, RSRQ and pilot pollution, then executed the physical and parameter optimization to correct it.",
+        "Tuned 3G (U900 and WCDMA F1/F2/F3) for accessibility (RRC and RAB), integrity (HS and EUL throughput), retainability (CS and HS drop), mobility (IRAT and soft handover), and power, code and CE congestion.",
+        "Tuned LTE-FDD and LTE-TDD for accessibility (RRC, ERAB, S1), retainability (ERAB and UE context drop), integrity (throughput and latency), mobility, and PUSCH/PUCCH interference.",
+        "Proposed and planned configuration for VoLTE, 4x4 MIMO, Carrier Aggregation, LTE900, LTE-TDD, LTE-FDD, UMTS900 and multi-layer WCDMA, and ran feature trials with reports to stakeholders.",
+        "Prepared scripts for parameter baselines and new configurations including MIMO, Carrier Aggregation and RET (Remote Electrical Tilt).",
         "Troubleshot parameter mismatch, high uplink interference, TX faults, capacity bottlenecks, MIMO configuration and Carrier Aggregation issues.",
-        "Mentored and trained team members in RF design and optimization methodology.",
+        "Mentored and trained team members in RF planning and optimization methodology.",
       ],
     },
 
@@ -250,9 +275,15 @@ window.SITE = {
       location: "Dhaka, Bangladesh",
       dates: "Nov 2013 — Dec 2014",
       bullets: [
+        "Managed a team of 5 engineers delivering network services, hitting a network modernisation target within four months.",
         "Led the IBS team executing a 250+ site in-building vendor swap from Ericsson to Huawei for the largest mobile operator in Bangladesh, holding KPI parity through every cutover.",
+        "Designed and planned 3G radio networks including IBS and small cell for operators to meet target KPIs inside the deadline.",
+        "Analysed 3G KPIs daily — call drop, HS drop, R99 drop, RAB and RRC success, soft and IRAT handover success, and HS, EUL and R99 throughput — to drive optimization of the worst-performing cells.",
+        "Prepared Active and Passive DAS designs to upgrade existing 2G IBS sites to 3G in the iBwave design tool, achieving target RSCP and Ec/Io.",
+        "Compared walk and drive test results before and after NodeB integration, then executed physical and parameter optimization to meet the KPIs.",
+        "Rectified parameter inconsistencies and missing neighbours after NodeB integration across a cluster, and resolved 3G service complaints inside SLA.",
         "Delivered multi-vendor RAN planning, design and optimization for operators across Bangladesh and Myanmar (Telenor, Ooredoo).",
-        "Coordinated multi-entity delivery, presented daily progress to senior management, and trained stakeholder and vendor teams through deployment cycles.",
+        "Coordinated multi-entity delivery, presented regular reports and dashboards to senior management, and mentored the IBS team through deployment cycles.",
       ],
     },
 
@@ -263,7 +294,14 @@ window.SITE = {
       dates: "Oct 2011 — Nov 2013",
       bullets: [
         "Designed and deployed 100+ in-building (IBS/DAS) systems and 200+ repeater sites for Grameenphone, the largest mobile operator in Bangladesh.",
+        "Maintained RF network performance against pre-defined KPIs and project timelines, analysing daily cell-level and network-level performance and acting on the worst-performing cells.",
         "Performed RF planning, design and optimization for 2G, 3G and LTE networks, including coverage prediction, link budgets and neighbour planning.",
+        "Ran routine drive tests to find coverage and quality black spots, then executed soft parameter optimization and hard tuning, reporting results to stakeholders.",
+        "Reviewed IBS and repeater designs as a consultant and fed back the modifications needed before build.",
+        "Raised change requests for network improvement through parameter tuning, neighbour optimization, and feature activation or deactivation.",
+        "Performed pre- and post-KPI analysis and parameter audit after critical activity — network swap, BSC re-homing, network-level frequency change, and BSC migration.",
+        "Checked cell-level utilisation and recommended capacity augmentation to the radio design team, and completed benchmarking against competing networks.",
+        "Resolved customer complaints inside SLA, coordinating with other departments on hardware faults through trouble tickets to closure.",
         "Produced design packages, close-out documentation and performance reports for multi-site deployments.",
       ],
     },
@@ -274,10 +312,13 @@ window.SITE = {
       location: "Dhaka, Bangladesh",
       dates: "Feb 2011 — Oct 2011",
       bullets: [
-        "Specialised in RF planning, design and optimization for in-building solutions, covering both active and passive DAS.",
+        "Specialised in RF planning, design and optimization for In-Building Solutions (IBS), covering both active and passive DAS.",
         "Delivered the IBS for Jamuna Future Park, the largest shopping centre in Bangladesh, and the Old Dhaka optimization programme combining IBS with macro sites.",
         "Led an IBS network swap from Ericsson to Huawei across more than 200 in-building sites, and deployed femto and pico small cells.",
         "Designed Wi-Fi hotspots integrated with the IBS system and built repeater solutions for corporate and VIP clients.",
+        "Ran preliminary 3G network planning, and repeater site planning for both indoor and outdoor coverage.",
+        "Monitored site performance, post-processed results, and generated regular optimization and performance reports.",
+        "Held radio network service through major events as a member of the Event Management team.",
       ],
     },
 
@@ -289,8 +330,11 @@ window.SITE = {
       bullets: [
         "Planned, designed and dimensioned outdoor and in-building coverage, capacity and quality as a member of the IBS team.",
         "Designed and dimensioned the first active DAS (fibre) system ever deployed for IBS in Bangladesh, at Grameenphone's corporate headquarters.",
+        "Delivered Project Sting Ray, a cost-effective radio network solution for corporate and VIP customers, alongside the Old Dhaka optimization project.",
+        "Built repeater solutions for corporate, VIP and strategic clients in response to customer complaints.",
+        "Designed Wi-Fi network coverage integrated with IBS, and dimensioned voice and data service to hold predefined KPIs.",
         "Ran drive testing with TEMS, log-file analysis and post-processing, publishing performance reports with resolutions.",
-        "Held radio network service through major events as a member of the Event Management team.",
+        "Held radio network service with optimum resource utilisation through major events as a member of the Event Management team.",
       ],
     },
 
@@ -304,6 +348,8 @@ window.SITE = {
         "Built indoor and outdoor repeater solutions, and designed Wi-Fi hotspots integrated with IBS.",
         "Designed and planned active and passive DAS for in-building systems, including customised solutions for VIP and corporate locations.",
         "Monitored site performance, ran regular voice and data dimensioning, and resolved poor-performing cells.",
+        "Produced cost-effective and customised radio network solutions, with post-processing and regular report generation.",
+        "Supported radio network coverage through major events as a member of the Event Management team.",
       ],
     },
 
