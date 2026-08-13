@@ -1467,24 +1467,118 @@ abbr[data-def]:focus-visible::after {
    Live-updating conversion cards. Numbers are monospaced with tabular figures
    so digits line up as they change. */
 
+/* ── Jump tiles ─────────────────────────────────────────────────────────────
+   Six cards at the top of Tools, one per calculator. They used to be small
+   mono chips, which read as filter pills rather than as the way into the
+   page, and sat oddly beside everything else on the site being a card.
+
+   Six divides into two and three, so the column counts never leave a hole. */
+
 .tools-nav {
   margin-top: var(--s5);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s2);
+  display: grid;
+  gap: var(--s3);
+  grid-template-columns: 1fr;
 }
+@media (min-width: 30rem) {
+  .tools-nav { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 52rem) {
+  .tools-nav { grid-template-columns: repeat(3, 1fr); }
+}
+
 .tools-nav a {
-  padding: var(--s1) var(--s3);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  /* Icon in its own column, the two lines of text stacked beside it. */
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0 var(--s3);
+  padding: var(--s4);
+  background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 2px;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--steel);
+  border-radius: 4px;
   text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1),
+              box-shadow 0.22s ease, border-color 0.22s ease;
+  animation: stat-in 520ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
 }
-.tools-nav a:hover { color: var(--ink); border-color: var(--steel); }
+.tools-nav a:nth-child(1) { --i: 0; }
+.tools-nav a:nth-child(2) { --i: 1; }
+.tools-nav a:nth-child(3) { --i: 2; }
+.tools-nav a:nth-child(4) { --i: 3; }
+.tools-nav a:nth-child(5) { --i: 4; }
+.tools-nav a:nth-child(6) { --i: 5; }
+
+/* The same accent wash as the headline figures, sweeping up from the floor. */
+.tools-nav a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(to top, var(--accent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+.tools-nav a > * { position: relative; z-index: 1; }
+
+.tools-nav a:hover,
+.tools-nav a:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: inset 3px 0 0 0 var(--accent), 0 10px 26px rgba(0, 0, 0, 0.11);
+}
+.tools-nav a:hover::before,
+.tools-nav a:focus-visible::before { opacity: 0.07; }
+
+.toolcard__icon {
+  grid-row: 1 / span 2;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--accent);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.toolcard__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.tools-nav a:hover .toolcard__icon,
+.tools-nav a:focus-visible .toolcard__icon { transform: scale(1.15); }
+
+.toolcard__name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.toolcard__units {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  color: var(--steel);
+  transition: color 0.22s ease;
+  text-wrap: pretty;
+}
+.tools-nav a:hover .toolcard__units,
+.tools-nav a:focus-visible .toolcard__units { color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .tools-nav a { animation: none; }
+  .tools-nav a:hover,
+  .tools-nav a:focus-visible { transform: none; }
+  .tools-nav a:hover .toolcard__icon { transform: none; }
+}
 
 .tool__intro { margin: 0 0 var(--s5); max-width: var(--measure); color: var(--steel); text-wrap: pretty; }
 

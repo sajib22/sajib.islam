@@ -112,13 +112,40 @@
     Everything here runs in your browser &mdash; nothing you type is sent anywhere, because
     there is nowhere to send it. Edit any field and the rest update as you type.</p>
 
+    <!-- ── JUMP TILES — one per calculator below. The second line names the
+         units each one converts between, so a tile says what the tool does
+         rather than only what it is called. ── -->
     <nav class="tools-nav" aria-label="Calculators">
-      <a href="#power">Power</a>
-      <a href="#earfcn">EARFCN</a>
-      <a href="#fspl">Path loss</a>
-      <a href="#vswr">VSWR</a>
-      <a href="#wavelength">Wavelength</a>
-      <a href="#links">Links</a>
+      <a href="#power">
+        <span class="toolcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+        <span class="toolcard__name">Power</span>
+        <span class="toolcard__units">W &middot; mW &middot; dBm &middot; dBW</span>
+      </a>
+      <a href="#earfcn">
+        <span class="toolcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></span>
+        <span class="toolcard__name">LTE EARFCN</span>
+        <span class="toolcard__units">Channel &#8646; MHz</span>
+      </a>
+      <a href="#fspl">
+        <span class="toolcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="4" cy="20" r="1.5"/><path d="M4 14a6 6 0 016 6"/><path d="M4 8a12 12 0 0112 12"/><path d="M4 2a18 18 0 0118 18"/></svg></span>
+        <span class="toolcard__name">Path Loss</span>
+        <span class="toolcard__units">Free space &middot; dB</span>
+      </a>
+      <a href="#vswr">
+        <span class="toolcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 12h3l3-8 4 16 3-8h7"/></svg></span>
+        <span class="toolcard__name">VSWR</span>
+        <span class="toolcard__units">Ratio &middot; Return loss</span>
+      </a>
+      <a href="#wavelength">
+        <span class="toolcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 12c2.5-7 5.5-7 8 0s5.5 7 8 0 3.5-4 4-2"/></svg></span>
+        <span class="toolcard__name">Wavelength</span>
+        <span class="toolcard__units">&#955; &#8646; MHz</span>
+      </a>
+      <a href="#links">
+        <span class="toolcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></span>
+        <span class="toolcard__name">Useful Links</span>
+        <span class="toolcard__units">Standards &middot; tools</span>
+      </a>
     </nav>
   </section>
 
