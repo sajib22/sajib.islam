@@ -578,7 +578,7 @@ window.SITE = {
       name: "RF Measurement and Reporting Automation",
       featured: true,
       blurb: "Python tooling that turns raw walk-test and measurement data into finished survey reports, replacing manual document assembly.",
-      detail: "Site survey reporting used to mean exporting measurement data, pasting it into a template, redrawing floorplan overlays by hand and reformatting everything for the client. This ingests the raw measurement files directly and produces the finished report. The point was never the tooling — it was that engineering time was going into document assembly instead of engineering. Cut analysis turnaround time by 90%.",
+      detail: "Site survey reporting used to mean exporting measurement data, pasting it into a template, redrawing floorplan overlays by hand and reformatting everything for the client. This reads the raw measurement files directly and produces the finished report. The problem it solves is not the tooling: engineering time was going into document assembly. Cut analysis turnaround time by 90%.",
       tech: ["Python", "Pandas", "Excel"],
       outcome: "90% faster turnaround",
     },
@@ -588,7 +588,7 @@ window.SITE = {
       name: "Pre-swap / Post-swap KPI Analytics",
       featured: true,
       blurb: "Power BI model comparing network KPIs before and after vendor swaps across a large RAN estate, turning raw counter data into ranked optimization actions.",
-      detail: "After an OEM swap, the question senior stakeholders ask is simply whether the network still performs. Answering it properly means comparing hundreds of counters across thousands of cells, in a form somebody can act on. This model pulled from SQL Server, SharePoint and CSV exports into one data model, applied row-level security so each team saw only its own estate, and produced a ranked list of what regressed and by how much — not a wall of charts.",
+      detail: "After an OEM swap, the question senior stakeholders ask is simply whether the network still performs. Answering it properly means comparing hundreds of counters across thousands of cells, in a form somebody can act on. This model pulled SQL Server, SharePoint and CSV exports into one data model, with row-level security so each team saw only its own estate. The output is a ranked list of what regressed and by how much, rather than a wall of charts.",
       tech: ["Power BI", "DAX", "Power Query", "SQL"],
       outcome: "Adopted for stakeholder reporting",
     },
@@ -605,7 +605,7 @@ window.SITE = {
     {
       name: "2,000-site Network Transition",
       blurb: "Planned, implemented and optimized a 4G/3G network transition covering more than 2,000 sites for MTN Irancell, delivered inside an eighteen-month target.",
-      detail: "End-to-end RF planning and optimization at national scale in Atoll — coverage and capacity plans, link budgets, PCI and neighbour planning, and new-site candidate evaluation — while monitoring network, city and cluster level KPIs throughout and driving corrective action when clusters fell behind target.",
+      detail: "RF planning and optimization at national scale in Atoll: coverage and capacity plans, link budgets, PCI and neighbour planning, and new-site candidate evaluation. Network, city and cluster KPIs were monitored throughout, with corrective action wherever a cluster fell behind target.",
       tech: ["Atoll", "RF planning", "KPI optimization"],
       outcome: "2,000+ sites in 18 months",
     },
@@ -620,7 +620,7 @@ window.SITE = {
     {
       name: "5G SSV and KPI Acceptance",
       blurb: "Prepared, verified and defended 5G system verification and KPI acceptance reports against contractual targets on domestic and overseas Nokia projects.",
-      detail: "Acceptance is where a network stops being an engineering problem and becomes a contractual one. This meant running the verification, assembling the evidence, and then standing behind the numbers with the customer when a target was contested — including the multi-vendor counter and feature mapping needed to show that two different vendors' equipment were being measured on equivalent terms.",
+      detail: "Acceptance is where a network stops being an engineering problem and becomes a contractual one. That meant running the verification, assembling the evidence, and defending the numbers with the customer when a target was contested. It also meant the multi-vendor counter and feature mapping needed to show that two vendors' equipment were measured on equivalent terms.",
       tech: ["5G NR", "Nokia NetAct", "KPI acceptance"],
     },
 
