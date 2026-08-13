@@ -486,6 +486,37 @@ window.SITE = {
 
 
   /* ─────────────────────────────────────────────────────────────────────────
+     GLOSSARY — what the acronyms mean.
+
+     Any term listed here gets a dotted underline the first time it appears in
+     a paragraph of explanation, and shows its definition on hover or when
+     tabbed to. Written once here, defined everywhere it is used, on every
+     page — you never mark anything up in the page files.
+
+     Add one by copying a line. Keep the definition to a sentence or two; it
+     is read in a small box, not on a page of its own.
+
+     Only whole words are matched, so "CW" will never be found inside a word
+     like "network". A term that appears inside a link or a heading is left
+     alone.
+     ───────────────────────────────────────────────────────────────────────── */
+  glossary: {
+    "DAS": "Distributed Antenna System — one signal source shared across many low-power antennas spread through a building, instead of one distant high-power source.",
+    "IBS": "In-Building Solution — the general term for any system built to deliver mobile coverage inside a structure the outdoor network cannot reach.",
+    "BDA": "Bi-Directional Amplifier — amplifies both the downlink and the uplink of an off-air feed. Its usable gain is limited by isolation from the donor antenna.",
+    "BTS": "Base Transceiver Station — the carrier's own radio equipment installed on site, giving the building dedicated capacity rather than borrowing the macro cell's.",
+    "PIM": "Passive Intermodulation — unwanted mixing products from a corroded joint or a bad connector, which show up as unexplained noise on the uplink.",
+    "CW": "Continuous Wave — a single unmodulated tone injected into the system to measure real path loss against the design prediction.",
+    "EMF": "Electromagnetic Field — the radiated exposure a system produces, validated against a legal limit. In Canada that limit is Safety Code 6.",
+    "RAN": "Radio Access Network — the radio side of a mobile network: the base stations and antennas between the handset and the core.",
+    "KPI": "Key Performance Indicator — the measured numbers a network is judged by, such as accessibility, retainability and throughput.",
+    "URWB": "Ultra-Reliable Wireless Backhaul — Cisco's wireless system for links that must stay up while moving, used for vehicles, cranes and trackside equipment.",
+    "EIRP": "Effective Isotropic Radiated Power — the power actually leaving an antenna once gain and every cable and connector loss are accounted for.",
+    "VSWR": "Voltage Standing Wave Ratio — how much power is reflected back down a feeder instead of radiating. A high figure means a fault in the line or the antenna.",
+  },
+
+
+  /* ─────────────────────────────────────────────────────────────────────────
      PROJECTS — three of these show on the home page, all of them on /projects/.
 
      "blurb"  is the short version, used on the cards.

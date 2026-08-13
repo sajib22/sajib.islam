@@ -912,6 +912,168 @@
     paint();
   })();
 
+  /* ─── External links open in a new tab ───────────────────────────────────
+
+     Done here rather than by hand in twelve page files: every link, including
+     the ones rendered from content.js, and nothing to remember the next time
+     a link is added from a phone.
+
+     Anything pointing at another host gets it. Same-site links, mailto: and
+     in-page anchors are left alone — a new tab for those is just a lost back
+     button. rel="noopener" is not optional with target="_blank": without it
+     the opened page gets a handle on this one through window.opener. */
+
+  (function externalLinks() {
+    var links = document.querySelectorAll('a[href^="http"]');
+
+    Array.prototype.forEach.call(links, function (a) {
+      if (a.hostname === window.location.hostname) return;
+      a.target = "_blank";
+
+      /* Keep any rel already written into the page — several links carry
+         rel="me", which is what tells other sites the profile is really his. */
+      var rel = (a.getAttribute("rel") || "").split(/\s+/).filter(Boolean);
+      ["noopener", "noreferrer"].forEach(function (token) {
+        if (rel.indexOf(token) === -1) rel.push(token);
+      });
+      a.setAttribute("rel", rel.join(" "));
+
+      /* Says out loud what the icon-free link cannot: this leaves the site. */
+      if (!a.querySelector(".sr-only") && !/opens in a new tab/i.test(a.getAttribute("aria-label") || "")) {
+        var note = el("span", "sr-only", " (opens in a new tab)");
+        a.appendChild(note);
+      }
+    });
+  })();
+
+  /* ─── Acronyms ────────────────────────────────────────────────────────────
+
+     Wraps the first mention of each glossary term, per block of explanation,
+     in an <abbr> carrying its definition. The copy in the page files and in
+     content.js stays plain text: a term is defined once in the glossary and
+     is then defined everywhere it appears.
+
+     Text nodes only, and built with createElement and splitText rather than
+     innerHTML — the same rule the rest of this file follows. Headings, links
+     and anything already marked up are skipped: a definition inside a link
+     would be unreachable, and a heading is not where you stop to read one. */
+
+  (function acronyms() {
+    if (!haveContent) return;
+
+    var glossary = window.SITE.glossary;
+    if (!glossary || typeof glossary !== "object") return;
+
+    var terms = Object.keys(glossary).filter(function (t) {
+      return /^[A-Za-z0-9./-]{2,12}$/.test(t);
+    });
+    if (!terms.length) return;
+
+    /* Longest first, so "URWB" is matched before a shorter term that happens
+       to be a prefix of it. \b on both ends keeps "CW" out of the middle of
+       a word. */
+    terms.sort(function (a, b) { return b.length - a.length; });
+    var pattern = new RegExp("\\b(" + terms.join("|") + ")\\b");
+
+    var SKIP = "a, h1, h2, h3, h4, abbr, code, .eyebrow, .chart, .tl, .secrail";
+
+    Array.prototype.forEach.call(
+      document.querySelectorAll(".prose, .diagram-explain"),
+      function (block) {
+        var seen = {};
+        var walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, null);
+        var nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+
+        nodes.forEach(function (node) {
+          if (node.parentElement && node.parentElement.closest(SKIP)) return;
+
+          var match = pattern.exec(node.nodeValue);
+          if (!match) return;
+
+          var term = match[1];
+          // Case has to match the glossary key, or "das" in prose would be
+          // marked up as the acronym.
+          if (!Object.prototype.hasOwnProperty.call(glossary, term)) return;
+          if (seen[term]) return;
+          seen[term] = true;
+
+          var rest = node.splitText(match.index);
+          rest.splitText(term.length);
+
+          var abbr = el("abbr", null, term);
+          abbr.setAttribute("data-def", String(glossary[term]));
+          abbr.setAttribute("title", String(glossary[term]));
+          abbr.tabIndex = 0;
+          rest.parentNode.replaceChild(abbr, rest);
+        });
+      }
+    );
+  })();
+
+  /* ─── Section rail ────────────────────────────────────────────────────────
+
+     A page opts in with data-rail on its <main>. The rail is built from the
+     page's own section headings, so it can never fall out of step with them,
+     and it marks the section you are currently reading.
+
+     The stylesheet only shows it where there is room beside the reading
+     column; it is harmless everywhere else. */
+
+  (function sectionRail() {
+    var main = document.querySelector("[data-rail]");
+    if (!main || typeof IntersectionObserver !== "function") return;
+
+    var sections = Array.prototype.filter.call(
+      main.querySelectorAll("section[id]"),
+      function (sec) { return sec.querySelector("h2"); }
+    );
+    if (sections.length < 4) return;
+
+    var nav = el("nav", "secrail");
+    nav.setAttribute("aria-label", "On this page");
+
+    var links = sections.map(function (sec) {
+      var heading = sec.querySelector("h2");
+      var a = el("a", null, (heading.textContent || "").trim());
+      a.href = "#" + sec.id;
+      nav.appendChild(a);
+      return a;
+    });
+
+    document.body.appendChild(nav);
+
+    function mark(index) {
+      links.forEach(function (a, i) {
+        if (i === index) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+    }
+    mark(0);
+
+    /* The topmost section still touching the upper third of the viewport is
+       the one being read. Tracking visibility ratios instead would flicker
+       between two sections whenever a short one sits beside a long one. */
+    var io = new IntersectionObserver(function () {
+      var line = window.innerHeight / 3;
+      var current = 0;
+      sections.forEach(function (sec, i) {
+        if (sec.getBoundingClientRect().top <= line) current = i;
+      });
+      mark(current);
+    }, { rootMargin: "-33% 0px -66% 0px", threshold: 0 });
+
+    sections.forEach(function (sec) { io.observe(sec); });
+    window.addEventListener("scroll", function () {
+      var line = window.innerHeight / 3;
+      var current = 0;
+      sections.forEach(function (sec, i) {
+        if (sec.getBoundingClientRect().top <= line) current = i;
+      });
+      mark(current);
+    }, { passive: true });
+  })();
+
   /* ─── Theme toggle ───────────────────────────────────────────────────── */
 
   (function theme() {

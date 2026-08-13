@@ -20,6 +20,12 @@
      printed inside the artwork itself. */
   --das-optic: #E5231B;
   --das-rf:    #111827;
+
+  /* Company logo tiles. Brand marks are drawn for white, so the tile stays
+     light in both themes — see the dark block for why it isn't pure white
+     there. */
+  --logo-tile: #FFFFFF;
+  --logo-dim:  none;
 }
 
 :root[data-theme="dark"] {
@@ -33,6 +39,8 @@
   --rule:    #242D31;
   --das-optic: #FF6A5C;
   --das-rf:    #9FB0B6;
+  --logo-tile: #E9EEEE;
+  --logo-dim:  saturate(0.92) brightness(0.94);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,6 +55,11 @@
     --rule:    #242D31;
     --das-optic: #FF6A5C;
     --das-rf:    #9FB0B6;
+    /* Eight pure-white tiles on a near-black page read as light leaks and
+       pull the eye off the bars they label. Knocked back just far enough to
+       settle, on a ground still light enough that no mark vanishes. */
+    --logo-tile: #E9EEEE;
+    --logo-dim:  saturate(0.92) brightness(0.94);
   }
 }
 
@@ -636,6 +649,152 @@ h1 {
 
 .hero__contact { margin: var(--s5) 0 0; font-size: 0.9375rem; }
 
+/* ─── Headline figures ──────────────────────────────────────────────────────
+   The four numbers that are already written elsewhere on the site, moved to
+   where the eye lands first. Nothing here is a new claim — every figure comes
+   from a project card, the timeline or the Experience headline. */
+
+.stats {
+  margin: var(--s6) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  /* 1px gaps over a ruled ground: one hairline between cells instead of two
+     touching borders, at every breakpoint. */
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 40rem) {
+  .stats { grid-template-columns: repeat(4, 1fr); }
+}
+.stat { background: var(--surface); padding: var(--s4) var(--s3); }
+.stat__n {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  /* Same gradient as the Experience headline, and the same fallback: the flat
+     accent shows through anywhere background-clip is unsupported. */
+  color: var(--accent);
+  background-image: linear-gradient(105deg, var(--accent) 15%, var(--green) 95%);
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .stat__n {
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+.stat__k {
+  display: block;
+  margin-top: var(--s2);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--steel);
+  text-wrap: pretty;
+}
+
+/* ─── Acronyms ──────────────────────────────────────────────────────────────
+   Marked up by main.js from the glossary in content.js, so the copy stays
+   plain text and a term defined once is defined everywhere it appears.
+
+   A dotted underline rather than a solid one: this is a definition, not a
+   link, and it must not look clickable. */
+
+abbr[data-def] {
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent);
+  cursor: help;
+  position: relative;
+}
+/* Focusable, so the definition is reachable from a keyboard and not only
+   from a mouse that has somewhere to hover. */
+abbr[data-def]:hover::after,
+abbr[data-def]:focus-visible::after {
+  content: attr(data-def);
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 7px);
+  z-index: 20;
+  width: 15rem;
+  max-width: 60vw;
+  padding: var(--s2) var(--s3);
+  /* The same solid label as the chart tooltip and the timeline pin. */
+  background: var(--accent);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  text-wrap: pretty;
+  white-space: normal;
+}
+
+/* ─── Section rail (long pages only) ────────────────────────────────────────
+   Built by main.js from the page's own headings, on pages that ask for it
+   with data-rail. Fixed rather than in the flow, so it cannot narrow the
+   reading column, and only at widths where there is genuinely room beside a
+   64rem sheet — below that it is not rendered at all. */
+
+.secrail { display: none; }
+
+/* 88rem, not 84: the rail is fixed at half the viewport plus half the sheet
+   plus a gutter, so it needs 32 + 1.5 + 9.5rem of room on each side of the
+   centre line. Below about 86rem its right edge lands past the window and a
+   fixed element will put a horizontal scrollbar on the page just as readily
+   as one in the flow. */
+@media (min-width: 88rem) {
+  .secrail {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Half the viewport, out past the sheet's own half-width, plus a gutter.
+       Ties the rail to the reading column rather than to the window edge. */
+    left: calc(50% + 32rem + var(--s5));
+    width: 9.5rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 90;
+  }
+  /* The drawer pushes the sheet sideways, but a fixed element measures from
+     the viewport and would end up sitting on the text. It has served its
+     purpose once the reader has opened the navigation anyway. */
+  .nav-open .secrail { display: none; }
+}
+
+.secrail a {
+  padding: var(--s1) var(--s3);
+  border-left: 2px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  color: var(--steel);
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+.secrail a:hover { color: var(--ink); }
+.secrail a[aria-current] {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: var(--surface);
+}
+
 /* ─── Prose ─────────────────────────────────────────────────────────────── */
 
 .prose { max-width: var(--measure); }
@@ -794,7 +953,8 @@ h1 {
   height: 3rem;
   flex-shrink: 0;
   object-fit: contain;
-  background: #FFFFFF;
+  background: var(--logo-tile);
+  filter: var(--logo-dim);
   padding: 3px;
   border: 1px solid var(--rule);
   border-radius: 4px;
@@ -1181,13 +1341,16 @@ h1 {
   object-fit: contain;
 }
 
-/* Logo tiles keep a white ground in both themes. Brand marks are drawn for
+/* Logo tiles keep a light ground in both themes. Brand marks are drawn for
    light backgrounds — Huawei's wordmark is black, Nokia's is blue — so
-   letting the dark theme show through would make several of them vanish. */
+   letting the dark theme show through would make several of them vanish.
+   How light is a token, because pure white is right in one theme and too
+   loud in the other. */
 .has-logo {
-  background: #FFFFFF;
+  background: var(--logo-tile);
   padding: 3px 4px;
 }
+.logo-img { filter: var(--logo-dim); }
 .logo-text {
   font-family: var(--font-mono);
   font-size: 0.5625rem;
@@ -2033,3 +2196,171 @@ h1 {
   .tl__badge .logo-text { font-size: 0.5rem; letter-spacing: 0; }
 }
 
+
+
+/* ═══ PRINT ════════════════════════════════════════════════════════════════
+   Cmd-P on /experience/ is the CV export. Nothing here affects the screen.
+
+   The header is the real title block rather than a string invented in CSS:
+   the rail already carries the name, the discipline and the location, so it
+   is re-flowed into a heading instead of being hidden and retyped. That way
+   the printed document can never disagree with the site.
+
+   Everything that is navigation, decoration, or a chart that depends on
+   colour and hover is dropped. What is left is the text a recruiter asked
+   for, on white, in black. */
+
+@media print {
+  :root {
+    --paper: #FFFFFF;
+    --surface: #FFFFFF;
+    --ink: #000000;
+    --steel: #333333;
+    --accent: #000000;
+    --green: #000000;
+    --amber: #333333;
+    --rule: #BBBBBB;
+    --sec: 1.25rem;
+    --logo-tile: #FFFFFF;
+    --logo-dim: none;
+  }
+
+  @page {
+    margin: 14mm 12mm;
+  }
+
+  html, body {
+    background: #FFFFFF;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  /* Interface, not document. */
+  .nav-toggle,
+  .toggle,
+  .rail__nav,
+  .nav-backdrop,
+  .progress,
+  .onward,
+  .tools-nav,
+  .skip,
+  .noscript,
+  .secrail,
+  .calc,
+  .out,
+  .field,
+  .sig,
+  .tl,
+  .chart,
+  .diagram,
+  .das-stage,
+  .das-fx,
+  .flow,
+  .portrait,
+  .render-error { display: none !important; }
+
+  /* The rail becomes the letterhead. */
+  .rail {
+    position: static !important;
+    width: auto !important;
+    min-height: 0 !important;
+    padding: 0 0 var(--s3) !important;
+    margin: 0 0 var(--s5);
+    border: 0 !important;
+    border-bottom: 1.5pt solid #000000 !important;
+    transform: none !important;
+    visibility: visible !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+  }
+  .rail__name { font-size: 20pt; letter-spacing: -0.02em; }
+  .rail__disc, .rail__loc { display: inline; font-size: 9pt; }
+  .rail__disc::after { content: " · "; }
+
+  /* The two-column layout and the drawer's page offset both go. */
+  body,
+  .js-nav body,
+  .js-nav.nav-open body { display: block !important; padding-left: 0 !important; }
+  .sheet,
+  .js-nav .sheet {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    animation: none !important;
+  }
+
+  /* Cards print as text with a rule, not as boxes with a fill. */
+  .cap, .proj, .role, .edu__item, .cert, .skill, .links__group,
+  .diagram-explain, .sheet > .card-section {
+    background: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    border: 0 !important;
+    border-top: 0.5pt solid var(--rule) !important;
+    border-radius: 0 !important;
+    padding: var(--s3) 0 !important;
+    margin: 0 !important;
+  }
+  .sheet > section { padding: var(--s4) 0 !important; border: 0 !important; }
+  .roles, .edu, .certs, .caps, .links, .skills { gap: 0 !important; }
+
+  /* A role is the unit that must not be split across a page. */
+  .role, .edu__item, .cert, .proj, .cap { break-inside: avoid; }
+  h1, h2, h3 { break-after: avoid; }
+  h2 { font-size: 12pt; margin-bottom: var(--s3); }
+  h3 { font-size: 11pt; }
+  .mark::before { display: none; }
+  .lede, .hero__lede { font-size: 10.5pt; color: #000000; }
+
+  /* A section whose whole content is a chart is left as a stranded heading
+     once the chart goes. The hero is excluded by name: it holds the home
+     page's timeline, but also the name and the opening paragraph. */
+  section:not(.hero):has(> [data-render="timeline"]),
+  section:not(.hero):has(> [data-render="education-timeline"]) { display: none !important; }
+
+  /* Gradient numerals are text with a transparent fill and a background
+     clipped to its shape. Printers default to dropping backgrounds, which
+     would drop the number with it — so they print as plain black text. */
+  .stat-num, .stat__n {
+    background-image: none !important;
+    -webkit-text-fill-color: currentColor !important;
+    color: #000000 !important;
+  }
+  /* The strip's hairlines are a ruled background showing through 1px gaps,
+     which is another thing that disappears with backgrounds off. */
+  .stats {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: var(--s5) !important;
+    background: none !important;
+    border: 0 !important;
+    border-top: 0.5pt solid var(--rule) !important;
+    border-bottom: 0.5pt solid var(--rule) !important;
+    padding: var(--s3) 0 !important;
+  }
+  .stat { padding: 0 !important; background: none !important; }
+  .stat__n { font-size: 15pt; }
+
+  /* An icon in front of a CV headline reads as clip art. */
+  .page-icon, .nav-icon { display: none !important; }
+
+  /* Entrance animations leave elements at opacity 0 if the observer has not
+     fired for a section still below the fold — which, when printing, is most
+     of them. */
+  .reveal { opacity: 1 !important; transform: none !important; }
+  /* The ring field is ink on a page with no purpose. */
+  .hero::after, .page-head::after { display: none !important; }
+
+  /* A printed link is only useful if you can read where it goes. Skipped for
+     mailto: and for internal anchors, where the text already says it. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-family: var(--font-mono);
+    font-size: 8pt;
+    color: #444444;
+    word-break: break-all;
+  }
+  a { color: #000000 !important; text-decoration: underline; }
+
+  .foot { margin-top: var(--s5); border-top: 0.5pt solid var(--rule); }
+}
