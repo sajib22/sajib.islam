@@ -664,46 +664,55 @@
     return ul;
   });
 
-  /* ─── Certifications (block disappears entirely when the list is empty) ── */
+  /* ─── Certifications, recognition and memberships ────────────────────────
 
-  section("certifications", "certifications", "Certifications", function (certs) {
-    if (!certs.length) return null;
-    var wrap = el("div", "certs__block");
-    wrap.appendChild(el("h3", "certs__h", "Certifications & affiliations"));
+     All three are the same card: an issuer logo in front, then the name and a
+     line of detail. Built once here rather than three times, so the crest sits
+     in the same place on all three pages.
 
-    var ul = el("ul", "certs");
-    certs.forEach(function (cert) {
-      var li = el("li", "cert");
-      li.appendChild(el("p", "cert__name", cert.name || ""));
+     The logo is on the same terms as everywhere else on the site — a local
+     file under /img/logos/, falling back to a lettered tile. badge() reads
+     .company, so whoever issued the thing is passed under that name. */
 
-      var meta = [cert.issuer, cert.date].filter(Boolean).join(" · ");
-      if (meta) li.appendChild(el("p", "cert__meta", meta));
+  function creditCard(item, metaText) {
+    var li = el("li", "cert");
 
-      ul.appendChild(li);
+    li.appendChild(badge({
+      company: item.issuer || item.name,
+      mark: item.mark,
+      logo: item.logo,
+    }, "cert__logo"));
+
+    var body = el("div", "cert__body");
+    body.appendChild(el("p", "cert__name", item.name || ""));
+    if (metaText) body.appendChild(el("p", "cert__meta", metaText));
+    li.appendChild(body);
+
+    return li;
+  }
+
+  function creditList(mountName, dataKey, label, heading, metaOf) {
+    section(mountName, dataKey, label, function (items) {
+      if (!items.length) return null;
+      var wrap = el("div", "certs__block");
+      wrap.appendChild(el("h3", "certs__h", heading));
+
+      var ul = el("ul", "certs");
+      items.forEach(function (item) { ul.appendChild(creditCard(item, metaOf(item))); });
+      wrap.appendChild(ul);
+
+      return wrap;
     });
-    wrap.appendChild(ul);
+  }
 
-    return wrap;
-  });
+  /* Each block disappears entirely when its list is empty. */
+  creditList("certifications", "certifications", "Certifications",
+    "Certifications & affiliations",
+    function (c) { return [c.issuer, c.date].filter(Boolean).join(" · "); });
 
-  /* ─── Recognition ────────────────────────────────────────────────────── */
-
-  section("recognition", "recognition", "Recognition", function (items) {
-    if (!items.length) return null;
-    var wrap = el("div", "certs__block");
-    wrap.appendChild(el("h3", "certs__h", "Recognition"));
-
-    var ul = el("ul", "certs");
-    items.forEach(function (item) {
-      var li = el("li", "cert");
-      li.appendChild(el("p", "cert__name", item.name || ""));
-      if (item.detail) li.appendChild(el("p", "cert__meta", item.detail));
-      ul.appendChild(li);
-    });
-    wrap.appendChild(ul);
-
-    return wrap;
-  });
+  creditList("recognition", "recognition", "Recognition",
+    "Recognition",
+    function (r) { return r.detail || ""; });
 
   /* ─── Soft skills ────────────────────────────────────────────────────────
      Same shape and same renderer style as the technical groups. */
@@ -738,25 +747,9 @@
 
   /* ─── Organisations ──────────────────────────────────────────────────── */
 
-  section("organizations", "organizations", "Organisations", function (items) {
-    if (!items.length) return null;
-    var wrap = el("div", "certs__block");
-    wrap.appendChild(el("h3", "certs__h", "Professional bodies"));
-
-    var ul = el("ul", "certs");
-    items.forEach(function (item) {
-      var li = el("li", "cert");
-      li.appendChild(el("p", "cert__name", item.name || ""));
-
-      var meta = [item.issuer, item.date].filter(Boolean).join(" · ");
-      if (meta) li.appendChild(el("p", "cert__meta", meta));
-
-      ul.appendChild(li);
-    });
-    wrap.appendChild(ul);
-
-    return wrap;
-  });
+  creditList("organizations", "organizations", "Organisations",
+    "Professional bodies",
+    function (o) { return [o.issuer, o.date].filter(Boolean).join(" · "); });
 
   /* ─── Hamburger menu ──────────────────────────────────────────────────────
 

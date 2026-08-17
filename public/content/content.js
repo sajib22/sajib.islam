@@ -690,47 +690,65 @@ window.SITE = {
     {
       name: "Nokia Certified Solution Associate (NCSA) — SRAN 22Rx Solution",
       issuer: "Nokia",
+      logo: "/img/logos/nokia.webp",
+      mark: "NOKIA",
     },
     // ── TO HERE ──
 
     {
       name: "5G Radio Planning — Advanced (RA57210-V-22R3)",
       issuer: "Nokia",
+      logo: "/img/logos/nokia.webp",
+      mark: "NOKIA",
     },
 
     {
       name: "5G Algorithms and Parameters (22R3-SR)",
       issuer: "Nokia",
+      logo: "/img/logos/nokia.webp",
+      mark: "NOKIA",
     },
 
     {
       name: "5G System Fundamentals (3GPP Rel 16)",
       issuer: "Nokia",
+      logo: "/img/logos/nokia.webp",
+      mark: "NOKIA",
     },
 
     {
       name: "Learning Data Analytics Part 1: Foundations",
       issuer: "LinkedIn Learning",
+      logo: "/img/logos/linkedin_logo.png",
+      mark: "LINKEDIN",
     },
 
     {
       name: "Learning Data Analytics Part 2: Extending and Applying Core Knowledge",
       issuer: "LinkedIn Learning",
+      logo: "/img/logos/linkedin_logo.png",
+      mark: "LINKEDIN",
     },
 
     {
       name: "Excel for Business Analysts",
       issuer: "LinkedIn Learning",
+      logo: "/img/logos/linkedin_logo.png",
+      mark: "LINKEDIN",
     },
 
     {
       name: "Quick Start Guide to SQL",
       issuer: "LinkedIn Learning",
+      logo: "/img/logos/linkedin_logo.png",
+      mark: "LINKEDIN",
     },
 
     {
       name: "MySQL Essential Training",
       issuer: "LinkedIn Learning",
+      logo: "/img/logos/linkedin_logo.png",
+      mark: "LINKEDIN",
     },
 
   ],
@@ -749,6 +767,8 @@ window.SITE = {
       name: "Engineer-in-Training (EIT)",
       issuer: "APEGS — Association of Professional Engineers and Geoscientists of Saskatchewan",
       date: "Since 2018, working toward P.Eng.",
+      logo: "/img/logos/apegs_logo.png",
+      mark: "APEGS",
     },
     // ── TO HERE ──
 
@@ -756,6 +776,8 @@ window.SITE = {
       name: "Member, Institution of Engineers, Bangladesh (IEB)",
       issuer: "IEB",
       date: "Since 2012",
+      logo: "/img/logos/ieb_logo.webp",
+      mark: "IEB",
     },
 
   ],
@@ -769,13 +791,17 @@ window.SITE = {
     // ── COPY FROM HERE ──
     {
       name: "Appreciate Excellence Award: Open",
-      detail: "Nokia / Ericsson — outstanding support on the TDD LTE2300 project.",
+      detail: "Nokia — outstanding support on the TDD LTE2300 project.",
+      logo: "/img/logos/nokia.webp",
+      mark: "NOKIA",
     },
     // ── TO HERE ──
 
     {
       name: "Appreciate Excellence Award: Empowered",
-      detail: "Nokia / Ericsson — sustained effort through an OEM network swap.",
+      detail: "Nokia — sustained effort through an OEM network swap.",
+      logo: "/img/logos/nokia.webp",
+      mark: "NOKIA",
     },
 
   ],

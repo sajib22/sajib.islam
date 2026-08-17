@@ -1334,6 +1334,39 @@ abbr[data-def]:focus-visible::after {
 .edu__note { margin: var(--s2) 0 0; font-size: 0.9375rem; max-width: var(--measure); }
 
 .certs__block { margin-top: var(--s6); padding-top: var(--s5); border-top: 1px solid var(--rule); }
+
+/* A certification, an award or a membership carries its issuer's mark in
+   front of it, in the same 3rem tile and the same column as the crests on
+   the education page and the company logos in the roles list. */
+.cert {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--s4);
+  align-items: start;
+}
+.cert__body { min-width: 0; }
+.cert__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  padding: 3px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+.cert__logo .logo-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.cert__logo .logo-text {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--steel);
+  line-height: 1.1;
+  overflow: hidden;
+}
 .certs {
   margin: 0;
   padding: 0;
