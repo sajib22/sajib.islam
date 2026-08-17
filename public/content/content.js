@@ -565,6 +565,10 @@ window.SITE = {
   /* ─────────────────────────────────────────────────────────────────────────
      PROJECTS — three of these show on the home page, all of them on /projects/.
 
+     "company" / "logo" / "mark" / "dates"
+              where the project was executed and when. The logo works exactly
+              as it does in the career list above — a file under /img/logos/,
+              with the lettered tile as the fallback. "dates" is free text.
      "blurb"  is the short version, used on the cards.
      "detail" is the longer version, used only on the Projects page.
               Delete the line if you don't want a longer version.
@@ -577,6 +581,10 @@ window.SITE = {
     {
       name: "RF Measurement and Reporting Automation",
       featured: true,
+      company: "Genwave Technologies",
+      mark: "GENWAVE",
+      logo: "/img/logos/genwave.webp",
+      dates: "May 2025 — Present",
       blurb: "Python tooling that turns raw walk-test and measurement data into finished survey reports, replacing manual document assembly.",
       detail: "Site survey reporting used to mean exporting measurement data, pasting it into a template, redrawing floorplan overlays by hand and reformatting everything for the client. This reads the raw measurement files directly and produces the finished report. The problem it solves is not the tooling: engineering time was going into document assembly. Cut analysis turnaround time by 90%.",
       tech: ["Python", "Pandas", "Excel"],
@@ -587,6 +595,10 @@ window.SITE = {
     {
       name: "Pre-swap / Post-swap KPI Analytics",
       featured: true,
+      company: "Nokia",
+      mark: "NOKIA",
+      logo: "/img/logos/nokia.webp",
+      dates: "Feb 2019 — Jan 2024",
       blurb: "Power BI model comparing network KPIs before and after vendor swaps across a large RAN estate, turning raw counter data into ranked optimization actions.",
       detail: "After an OEM swap, the question senior stakeholders ask is simply whether the network still performs. Answering it properly means comparing hundreds of counters across thousands of cells, in a form somebody can act on. This model pulled SQL Server, SharePoint and CSV exports into one data model, with row-level security so each team saw only its own estate. The output is a ranked list of what regressed and by how much, rather than a wall of charts.",
       tech: ["Power BI", "DAX", "Power Query", "SQL"],
@@ -596,6 +608,10 @@ window.SITE = {
     {
       name: "IBS Vendor Swap — 250+ Sites",
       featured: true,
+      company: "Huawei Technologies",
+      mark: "HUAWEI",
+      logo: "/img/logos/huawei.webp",
+      dates: "Nov 2013 — Dec 2014",
       blurb: "Planned and executed an in-building system swap from Ericsson to Huawei across more than 250 sites for the largest mobile operator in Bangladesh.",
       detail: "A vendor swap on in-building systems is unforgiving: the sites are venues with real occupants, the cutover windows are short, and the acceptance criterion is that nobody notices. This covered planning, sequencing and post-swap KPI optimization across more than 250 sites, holding performance parity through cutover.",
       tech: ["IBS / DAS", "Multi-vendor KPI mapping", "Huawei", "Ericsson"],
@@ -604,6 +620,10 @@ window.SITE = {
 
     {
       name: "2,000-site Network Transition",
+      company: "FlipNet (MTN Irancell)",
+      mark: "FLIPNET",
+      logo: "/img/logos/flipnet.webp",
+      dates: "Dec 2014 — Jun 2018",
       blurb: "Planned, implemented and optimized a 4G/3G network transition covering more than 2,000 sites for MTN Irancell, delivered inside an eighteen-month target.",
       detail: "RF planning and optimization at national scale in Atoll: coverage and capacity plans, link budgets, PCI and neighbour planning, and new-site candidate evaluation. Network, city and cluster KPIs were monitored throughout, with corrective action wherever a cluster fell behind target.",
       tech: ["Atoll", "RF planning", "KPI optimization"],
@@ -612,6 +632,10 @@ window.SITE = {
 
     {
       name: "Private 5G and Cisco URWB Deployments",
+      company: "Genwave Technologies",
+      mark: "GENWAVE",
+      logo: "/img/logos/genwave.webp",
+      dates: "May 2025 — Present",
       blurb: "Design, commissioning and optimization of Private 5G and Cisco URWB networks for large Canadian venues, from link budget through to close-out documentation.",
       detail: "Private networks in venues bring constraints a public macro network doesn't: the coverage target is a specific floor plate, the interference environment is other tenants, and the client wants evidence rather than assurances. Work spans design packages and link budgets, head-end and remote integration across ADRF, Corning/BTI and Zinwave, CW, PIM and walk testing, EMF and Safety Code 6 validation, and the close-out pack.",
       tech: ["Private 5G", "Cisco URWB", "iBwave", "Walk testing"],
@@ -619,6 +643,10 @@ window.SITE = {
 
     {
       name: "5G SSV and KPI Acceptance",
+      company: "Nokia",
+      mark: "NOKIA",
+      logo: "/img/logos/nokia.webp",
+      dates: "Feb 2019 — Jan 2024",
       blurb: "Prepared, verified and defended 5G system verification and KPI acceptance reports against contractual targets on domestic and overseas Nokia projects.",
       detail: "Acceptance is where a network stops being an engineering problem and becomes a contractual one. That meant running the verification, assembling the evidence, and defending the numbers with the customer when a target was contested. It also meant the multi-vendor counter and feature mapping needed to show that two vendors' equipment were measured on equivalent terms.",
       tech: ["5G NR", "Nokia NetAct", "KPI acceptance"],

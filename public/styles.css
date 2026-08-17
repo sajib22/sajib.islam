@@ -1252,6 +1252,54 @@ abbr[data-def]:focus-visible::after {
      below; the three cards on the home page stay tighter. */
   padding: var(--s4);
 }
+/* Where the project was done, above its name. Wraps on the narrow home-page
+   cards rather than squeezing the company name. */
+.proj__meta {
+  margin: 0;
+  /* A grid, not a flex row: on the three narrow cards of the home page the
+     dates wrapped under the company on some cards and not others, so the
+     project titles started at different heights. Logo in its own column,
+     company over dates beside it — the same on every card and both views. */
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 var(--s2);
+  align-items: center;
+}
+.proj__logo { grid-row: 1 / span 2; }
+.proj__co { grid-column: 2; align-self: end; }
+.proj__dates { grid-column: 2; align-self: start; }
+.proj__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  padding: 2px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+.proj__logo .logo-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.proj__logo .logo-text {
+  font-family: var(--font-mono);
+  font-size: 0.4375rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--steel);
+  line-height: 1.1;
+  overflow: hidden;
+}
+.proj__co { font-size: 0.8125rem; color: var(--ink); }
+.proj__dates {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.6875rem;
+  color: var(--steel);
+}
+
 .proj__blurb { margin: 0; font-size: 0.9375rem; color: var(--steel); text-wrap: pretty; }
 .proj__outcome {
   margin: 0;

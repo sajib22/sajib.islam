@@ -585,6 +585,23 @@
   function projectCard(project, useDetail) {
     var li = el("li", "proj");
 
+    /* Where the work was done and when, above the project's own name — the
+       same order the roles list uses. The row is skipped entirely when a
+       project has neither, so an entry without them looks as it did. */
+    if (project.company || project.dates) {
+      var meta = el("p", "proj__meta");
+      if (project.company || project.logo) {
+        meta.appendChild(badge({
+          company: project.company,
+          mark: project.mark,
+          logo: project.logo,
+        }, "proj__logo"));
+      }
+      if (project.company) meta.appendChild(el("span", "proj__co", project.company));
+      if (project.dates) meta.appendChild(el("span", "proj__dates", project.dates));
+      li.appendChild(meta);
+    }
+
     li.appendChild(el("h3", "proj__name", project.name || ""));
 
     if (project.outcome) li.appendChild(el("p", "proj__outcome", project.outcome));
