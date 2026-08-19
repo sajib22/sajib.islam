@@ -1193,11 +1193,21 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       }).then(function (res) {
-        if (!res.ok) throw new Error("no endpoint");
-        setStatus("Thanks — your message is on its way. I usually reply within a day or two.", "good");
-        form.reset();
-      }).catch(function () {
-        setStatus("Opening your email app to send this — press send there and it reaches me.", null);
+        if (res.ok) {
+          setStatus("Thanks — your message is on its way. I usually reply within a day or two.", "good");
+          form.reset();
+          return;
+        }
+        /* Carry the server's own reason forward rather than swallowing it.
+           Without this every failure looks identical from the page, and the
+           difference between "the route is not deployed", "the key is not
+           set" and "the mail provider refused it" is invisible. */
+        return res.json().catch(function () { return {}; }).then(function (payload) {
+          throw new Error((payload && payload.error) || ("The server answered " + res.status + "."));
+        });
+      }).catch(function (err) {
+        var reason = err && err.message ? err.message + " " : "";
+        setStatus(reason + "Opening your email app instead — press send there and it reaches me.", "bad");
         handToMailApp(data);
       }).then(function () {
         button.disabled = false;
