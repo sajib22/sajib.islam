@@ -1711,7 +1711,8 @@ abbr[data-def]:focus-visible::after {
    the status line. */
 
 .msg {
-  margin: var(--s4) 0 0;
+  /* No top margin: the section's own h2 already sets the gap above it. */
+  margin: 0;
   display: grid;
   gap: var(--s4);
   max-width: var(--measure);
