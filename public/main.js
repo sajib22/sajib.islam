@@ -1084,6 +1084,136 @@
     }, { passive: true });
   })();
 
+  /* ─── Send me a message ───────────────────────────────────────────────────
+
+     Checking is done here rather than left to the browser, so the wording is
+     ours and reads the same everywhere. The form carries novalidate for that
+     reason; every field is still marked required, so a reader without
+     JavaScript gets the browser's own checking instead of none.
+
+     WHERE THE MESSAGE GOES is the one line below. The form posts JSON to the
+     Worker route in ROADMAP.md item 1. Until that route exists the post comes
+     back 404, and rather than lose what somebody typed, the message is handed
+     to their mail app with every field already filled in. */
+
+  var CONTACT_ENDPOINT = "/api/contact";
+  var CONTACT_ADDRESS = "contact@sajibislam.com";
+
+  (function messageForm() {
+    var form = document.getElementById("msg-form");
+    if (!form) return;
+
+    var status = form.querySelector(".msg__status");
+    var button = form.querySelector("button[type=submit]");
+
+    function field(id) { return document.getElementById(id); }
+
+    function say(node, text) {
+      var slot = form.querySelector('.field__status[data-for="' + node.id + '"]');
+      if (slot) slot.textContent = text || "";
+      var wrap = node.closest(".field");
+      if (wrap) wrap.classList.toggle("is-wrong", !!text);
+    }
+
+    /* An address needs an @, something on both sides of it, and a dot in the
+       domain with at least two letters after it — which is what rules out
+       "sajib@gmail" and "sajib@gmail." while still allowing .co.uk and any
+       country domain. Deliberately not the full RFC pattern: that one accepts
+       addresses no mail server would take, and rejecting a real address is
+       worse than accepting a fake one the reply will simply bounce off. */
+    var EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[A-Za-z]{2,}$/;
+
+    function check() {
+      var ok = true;
+
+      [["msg-first", "Your first name, please."],
+       ["msg-last",  "Your last name, please."]].forEach(function (pair) {
+        var node = field(pair[0]);
+        if (!node.value.trim()) { say(node, pair[1]); ok = false; }
+        else say(node, "");
+      });
+
+      var email = field("msg-email");
+      var value = email.value.trim();
+      if (!value) { say(email, "An email address, so I can reply."); ok = false; }
+      else if (value.indexOf("@") === -1) { say(email, "That is missing an @."); ok = false; }
+      else if (!EMAIL.test(value)) {
+        say(email, "That does not look complete — check the part after the @, like .com or .ca.");
+        ok = false;
+      } else say(email, "");
+
+      var body = field("msg-body");
+      if (body.value.trim().length < 10) {
+        say(body, "A line or two about what you need.");
+        ok = false;
+      } else say(body, "");
+
+      return ok;
+    }
+
+    function setStatus(text, kind) {
+      status.textContent = text;
+      status.classList.toggle("is-bad", kind === "bad");
+      status.classList.toggle("is-good", kind === "good");
+    }
+
+    /* Everything typed, handed to the reader's mail app. Used when the Worker
+       route is not there — the message is never silently dropped. */
+    function handToMailApp(data) {
+      var body = "From: " + data.first + " " + data.last +
+        "\nEmail: " + data.email + "\n\n" + data.message + "\n";
+      window.location.href = "mailto:" + CONTACT_ADDRESS +
+        "?subject=" + encodeURIComponent("Website message from " + data.first + " " + data.last) +
+        "&body=" + encodeURIComponent(body);
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // A bot filled the hidden field. Say nothing useful and stop.
+      if (field("msg-website").value) { setStatus("Thanks — message sent.", "good"); return; }
+
+      if (!check()) {
+        setStatus("Please check the fields marked above.", "bad");
+        return;
+      }
+
+      var data = {
+        first: field("msg-first").value.trim(),
+        last: field("msg-last").value.trim(),
+        email: field("msg-email").value.trim(),
+        message: field("msg-body").value.trim(),
+      };
+
+      button.disabled = true;
+      setStatus("Sending…", null);
+
+      fetch(CONTACT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      }).then(function (res) {
+        if (!res.ok) throw new Error("no endpoint");
+        setStatus("Thanks — your message is on its way. I usually reply within a day or two.", "good");
+        form.reset();
+      }).catch(function () {
+        setStatus("Opening your email app to send this — press send there and it reaches me.", null);
+        handToMailApp(data);
+      }).then(function () {
+        button.disabled = false;
+      });
+    });
+
+    /* Clears a complaint as soon as the reader fixes it, rather than making
+       them press the button again to find out. */
+    ["msg-first", "msg-last", "msg-email", "msg-body"].forEach(function (id) {
+      var node = field(id);
+      node.addEventListener("input", function () {
+        if (node.closest(".field").classList.contains("is-wrong")) check();
+      });
+    });
+  })();
+
   /* ─── Theme toggle ───────────────────────────────────────────────────── */
 
   (function theme() {

@@ -1705,6 +1705,105 @@ abbr[data-def]:focus-visible::after {
   color: var(--steel);
   min-width: 2.25rem;
 }
+/* ─── Send me a message ─────────────────────────────────────────────────────
+   Reuses .field from the calculators, so the inputs already match the site.
+   What is added here is the two-up name row, the textarea, the button and
+   the status line. */
+
+.msg {
+  margin: var(--s4) 0 0;
+  display: grid;
+  gap: var(--s4);
+  max-width: var(--measure);
+}
+.msg__pair { display: grid; gap: var(--s4); }
+@media (min-width: 34rem) {
+  .msg__pair { grid-template-columns: 1fr 1fr; }
+}
+
+/* The textarea is not a .field input, so it needs the same treatment. */
+.msg textarea {
+  width: 100%;
+  padding: var(--s2) var(--s3);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  resize: vertical;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.msg textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+/* A field the reader got wrong. Colour is not the only signal — the message
+   underneath says what is wrong in words. */
+.msg .is-wrong input,
+.msg .is-wrong textarea { border-color: var(--amber); }
+
+/* The honeypot. Off-screen rather than display:none, because a bot filling
+   the form reads the CSS as rarely as it reads the label. */
+.msg__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.msg__foot {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s3) var(--s4);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s3) var(--s5);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.4, 0.64, 1),
+              box-shadow 0.2s ease, opacity 0.2s ease;
+}
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+}
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.btn:disabled { opacity: 0.55; cursor: default; }
+
+.msg__status {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: var(--steel);
+  text-wrap: pretty;
+}
+.msg__status.is-bad { color: var(--amber); }
+.msg__status.is-good { color: var(--green); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover:not(:disabled) { transform: none; }
+}
+
 .field__status {
   font-family: var(--font-mono);
   font-size: 0.6875rem;

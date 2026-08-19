@@ -253,6 +253,53 @@
         <a class="link" href="https://github.com/sajib22" rel="me noopener">github.com/sajib22</a>
       </li>
     </ul>
+
+    <!-- ── SEND ME A MESSAGE ─────────────────────────────────────────────────
+         The fields are ordinary HTML with novalidate on the form, so the
+         checking below is ours and reads the same in every browser rather
+         than as a native bubble. Where the message is delivered is decided in
+         main.js, in one place. ── -->
+    <h3 class="links__h">Send Me a Message</h3>
+    <form class="msg" id="msg-form" novalidate>
+      <div class="msg__pair">
+        <p class="field">
+          <label for="msg-first">First name</label>
+          <span class="control"><input id="msg-first" name="first" type="text" autocomplete="given-name" required></span>
+          <span class="field__status" data-for="msg-first"></span>
+        </p>
+        <p class="field">
+          <label for="msg-last">Last name</label>
+          <span class="control"><input id="msg-last" name="last" type="text" autocomplete="family-name" required></span>
+          <span class="field__status" data-for="msg-last"></span>
+        </p>
+      </div>
+
+      <p class="field">
+        <label for="msg-email">Email</label>
+        <span class="control"><input id="msg-email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" required></span>
+        <span class="field__status" data-for="msg-email"></span>
+      </p>
+
+      <p class="field">
+        <label for="msg-body">Message</label>
+        <textarea id="msg-body" name="message" rows="6" required></textarea>
+        <span class="field__status" data-for="msg-body"></span>
+      </p>
+
+      <!-- A honeypot. Real people never see it, so anything typed here is a
+           bot and the message is dropped. Hidden in CSS, not with
+           type="hidden", which bots read as a field to leave alone. -->
+      <p class="msg__trap" aria-hidden="true">
+        <label for="msg-website">Leave this field empty</label>
+        <input id="msg-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </p>
+
+      <div class="msg__foot">
+        <button class="btn" type="submit">Send Message</button>
+        <p class="msg__status" id="msg-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+
   </section>
 
   <noscript>
