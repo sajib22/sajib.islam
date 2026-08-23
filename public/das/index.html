@@ -220,10 +220,126 @@
             <g class="das-blink" style="--delay:0.70s"><circle cx="253" cy="475" r="17" opacity="0.18"/><circle cx="253" cy="475" r="8" opacity="0.6"/></g>
             <g class="das-blink" style="--delay:0.80s"><circle cx="201" cy="581" r="17" opacity="0.18"/><circle cx="201" cy="581" r="8" opacity="0.6"/></g>
             <g class="das-blink" style="--delay:0.90s"><circle cx="253" cy="543" r="17" opacity="0.18"/><circle cx="253" cy="543" r="8" opacity="0.6"/></g>
+            <!-- The artwork labels the two expansion units "CBU". The current
+                 term is EU, Expansion Unit, so the front face of each box is
+                 repainted in its own flat colour and relabelled here rather
+                 than in the raster file. Geometry and both greys are sampled
+                 from das-image.webp; the shear matches the isometric plane. -->
+            <g class="das-relabel">
+              <polygon points="581,542 601,552 601,572 581,562"/>
+              <text transform="matrix(1 .5 0 1 0 0)" x="591" y="261.5">EU</text>
+              <polygon points="842,785 862,795 862,815 842,805"/>
+              <text transform="matrix(1 .5 0 1 0 0)" x="852" y="374">EU</text>
+            </g>
           </svg>
+
+      <div class="das-nodes">
+        <div class="das-node das-node--below" aria-hidden="true" data-name="Donor Antenna" data-tip="Rooftop antenna aimed at a nearby macro cell. It picks up the outdoor network and hands it to the BDA, so the building borrows coverage instead of hosting its own base station."
+             style="--x:38.3%;--y:0.0%;--w:13.4%;--h:10.328%"></div>
+        <div class="das-node das-node--left" aria-hidden="true" data-name="BTS &mdash; Base Transceiver Station" data-tip="The carrier&rsquo;s own radio equipment on site. It gives the building dedicated capacity rather than sharing whatever the macro cell already carries."
+             style="--x:9.4%;--y:67.527%;--w:5.8%;--h:5.66%"></div>
+        <div class="das-node" aria-hidden="true" data-name="HE &mdash; Head End" data-tip="Where every source is combined and RF is converted to optical. Everything downstream of this point travels on fibre."
+             style="--x:25.2%;--y:71.5%;--w:6.0%;--h:5.859%"></div>
+        <div class="das-node" aria-hidden="true" data-name="BDA &mdash; Bi-Directional Amplifier" data-tip="Amplifies the donor signal both ways, uplink and downlink, and repeats the macro network indoors. Cheaper than a base station, but it shares the donor cell&rsquo;s capacity."
+             style="--x:32.8%;--y:66.435%;--w:6.4%;--h:5.76%"></div>
+        <div class="das-node das-node--below" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:26.2%;--y:26.018%;--w:5.3%;--h:5.164%"></div>
+        <div class="das-node" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:26.2%;--y:35.253%;--w:5.3%;--h:5.164%"></div>
+        <div class="das-node" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:26.2%;--y:42.105%;--w:5.3%;--h:5.164%"></div>
+        <div class="das-node" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:26.2%;--y:48.858%;--w:5.3%;--h:5.164%"></div>
+        <div class="das-node" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:26.2%;--y:55.611%;--w:5.3%;--h:5.164%"></div>
+        <div class="das-node das-node--below" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:57.0%;--y:22.046%;--w:4.2%;--h:4.767%"></div>
+        <div class="das-node das-node--below" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:57.0%;--y:28.203%;--w:4.2%;--h:4.767%"></div>
+        <div class="das-node" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:57.0%;--y:32.87%;--w:4.2%;--h:4.767%"></div>
+        <div class="das-node" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:57.0%;--y:37.339%;--w:4.2%;--h:4.767%"></div>
+        <div class="das-node" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:57.0%;--y:41.807%;--w:4.2%;--h:4.767%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:83.2%;--y:45.978%;--w:4.2%;--h:4.767%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:83.2%;--y:52.135%;--w:4.2%;--h:4.767%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:83.2%;--y:56.802%;--w:4.2%;--h:4.767%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:83.2%;--y:61.271%;--w:4.2%;--h:4.767%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="RU &mdash; Remote Unit" data-tip="Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate."
+             style="--x:83.2%;--y:65.839%;--w:4.2%;--h:4.767%"></div>
+        <div class="das-node" aria-hidden="true" data-name="EU &mdash; Expansion Unit" data-tip="Extends the head end&rsquo;s fibre into a neighbouring building and drives that building&rsquo;s own stack of remote units. This is how one head end covers a whole campus."
+             style="--x:57.5%;--y:51.936%;--w:4.8%;--h:6.058%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="EU &mdash; Expansion Unit" data-tip="Extends the head end&rsquo;s fibre into a neighbouring building and drives that building&rsquo;s own stack of remote units. This is how one head end covers a whole campus."
+             style="--x:83.6%;--y:76.068%;--w:4.8%;--h:6.058%"></div>
+        <div class="das-node das-node--below" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:17.6%;--y:26.713%;--w:3.0%;--h:2.781%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:17.6%;--y:35.948%;--w:3.0%;--h:2.781%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:17.6%;--y:42.8%;--w:3.0%;--h:2.781%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:17.6%;--y:49.553%;--w:3.0%;--h:2.781%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:17.6%;--y:56.306%;--w:3.0%;--h:2.781%"></div>
+        <div class="das-node das-node--below" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:24.7%;--y:22.443%;--w:3.0%;--h:2.781%"></div>
+        <div class="das-node das-node--below" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:24.7%;--y:31.678%;--w:3.0%;--h:2.781%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:24.7%;--y:38.53%;--w:3.0%;--h:2.781%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:24.7%;--y:45.283%;--w:3.0%;--h:2.781%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:24.7%;--y:52.036%;--w:3.0%;--h:2.781%"></div>
+        <div class="das-node das-node--below" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:59.8%;--y:20.258%;--w:2.1%;--h:2.185%"></div>
+        <div class="das-node das-node--below" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:64.6%;--y:22.84%;--w:2.1%;--h:2.582%"></div>
+        <div class="das-node das-node--below" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:64.6%;--y:29.096%;--w:2.1%;--h:2.582%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:64.6%;--y:33.664%;--w:2.1%;--h:2.582%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:64.6%;--y:38.232%;--w:2.1%;--h:2.582%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:64.6%;--y:42.701%;--w:2.1%;--h:2.582%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:86.0%;--y:44.191%;--w:2.1%;--h:2.185%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:90.7%;--y:46.872%;--w:2.1%;--h:2.582%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:90.7%;--y:53.029%;--w:2.1%;--h:2.582%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:90.7%;--y:57.597%;--w:2.1%;--h:2.582%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:90.7%;--y:62.165%;--w:2.1%;--h:2.582%"></div>
+        <div class="das-node das-node--right" aria-hidden="true" data-name="Ceiling Antenna" data-tip="The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life."
+             style="--x:90.7%;--y:66.634%;--w:2.1%;--h:2.582%"></div>
+        <div class="das-node" aria-hidden="true" data-name="Optic Line" data-tip="Fibre from the head end to every remote unit. It runs hundreds of metres with negligible loss, which is what makes the reach practical."
+             style="--x:15.0%;--y:92.552%;--w:26.0%;--h:3.774%"></div>
+        <div class="das-node" aria-hidden="true" data-name="RF Line" data-tip="Coaxial cable carrying radio frequency directly. Short runs only &mdash; coax loses signal quickly as distance and frequency go up."
+             style="--x:15.0%;--y:96.326%;--w:26.0%;--h:3.376%"></div>
+      </div>
         </div>
 
         <figcaption class="diagram__cap">Distributed antenna system &mdash; a head end feeds remote units on every floor over fibre, with a donor antenna and BDA as the alternative signal source</figcaption>
+
+      <dl class="das-key">
+        <div class="das-key__row"><dt>Donor Antenna</dt><dd>Rooftop antenna aimed at a nearby macro cell. It picks up the outdoor network and hands it to the BDA, so the building borrows coverage instead of hosting its own base station.</dd></div>
+        <div class="das-key__row"><dt>BTS &mdash; Base Transceiver Station</dt><dd>The carrier&rsquo;s own radio equipment on site. It gives the building dedicated capacity rather than sharing whatever the macro cell already carries.</dd></div>
+        <div class="das-key__row"><dt>BDA &mdash; Bi-Directional Amplifier</dt><dd>Amplifies the donor signal both ways, uplink and downlink, and repeats the macro network indoors. Cheaper than a base station, but it shares the donor cell&rsquo;s capacity.</dd></div>
+        <div class="das-key__row"><dt>HE &mdash; Head End</dt><dd>Where every source is combined and RF is converted to optical. Everything downstream of this point travels on fibre.</dd></div>
+        <div class="das-key__row"><dt>RU &mdash; Remote Unit</dt><dd>Converts the optical signal back to RF on its own floor and drives the ceiling antennas over short coax tails. One per floor, or more across a large floor plate.</dd></div>
+        <div class="das-key__row"><dt>EU &mdash; Expansion Unit</dt><dd>Extends the head end&rsquo;s fibre into a neighbouring building and drives that building&rsquo;s own stack of remote units. This is how one head end covers a whole campus.</dd></div>
+        <div class="das-key__row"><dt>Ceiling Antenna</dt><dd>The last few metres. A low-power antenna radiating into the floor plate. Many of these at low power beat one at high power: even coverage, less interference, better handset battery life.</dd></div>
+        <div class="das-key__row"><dt>Optic Line</dt><dd>Fibre from the head end to every remote unit. It runs hundreds of metres with negligible loss, which is what makes the reach practical.</dd></div>
+        <div class="das-key__row"><dt>RF Line</dt><dd>Coaxial cable carrying radio frequency directly. Short runs only &mdash; coax loses signal quickly as distance and frequency go up.</dd></div>
+      </dl>
 
         <p class="diagram__alt">Diagram of a Distributed Antenna System serving three buildings.
         In the main building a carrier BTS connects to a head end at ground level, and a rooftop

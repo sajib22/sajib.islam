@@ -1060,6 +1060,117 @@ abbr[data-def]:focus-visible::after {
 }
 
 .das-fx use { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── The CBU-to-EU relabel ──────────────────────────────────────────────────
+   Colours sampled straight out of das-image.webp: #919396 is the flat front
+   face of the box, #2D2B2C the label ink. Because the face carries no
+   gradient the patch has no seam to give it away. Replace this group if the
+   artwork itself is ever regenerated with the right label. */
+.das-relabel polygon { fill: #919396; }
+.das-relabel text {
+  fill: #2D2B2C;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* ── Hover descriptions over the artwork ────────────────────────────────────
+   One transparent box per node, positioned as a percentage of the artwork so
+   it tracks the image at every width. Decorative and aria-hidden on purpose:
+   the .das-key below the figure carries the same descriptions as real text,
+   which is what a screen reader and a keyboard get. Pointer devices only —
+   on a phone these would be ten-pixel targets under a tooltip wider than the
+   screen, and the key is the better answer there anyway. */
+.das-nodes { display: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .das-nodes { display: block; position: absolute; inset: 0; }
+
+  .das-node {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--w);
+    height: var(--h);
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: help;
+  }
+  .das-node:hover {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+  }
+
+  /* The card. Built from the two data- attributes so the text lives in the
+     HTML next to the coordinates it belongs to, and stays greppable. */
+  .das-node::after {
+    content: attr(data-name) " — " attr(data-tip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%);
+    width: 17rem;
+    padding: var(--s3) var(--s4);
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.22);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    text-align: left;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.14s ease;
+    pointer-events: none;
+    z-index: 4;
+  }
+  .das-node:hover::after { opacity: 1; visibility: visible; }
+  .das-node:hover { z-index: 5; }
+
+  /* Near an edge the card would hang off the artwork, so it flips instead. */
+  .das-node--below::after { bottom: auto; top: calc(100% + 10px); }
+  .das-node--left::after  { left: 0; transform: none; }
+  .das-node--right::after { left: auto; right: 0; transform: none; }
+}
+
+/* ── The acronym key ────────────────────────────────────────────────────────
+   Every label printed in the artwork, spelled out. This is also the accessible
+   and mobile route to the hover text above. */
+.das-key {
+  max-width: 42rem;
+  margin: var(--s5) auto 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s3);
+}
+.das-key__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s1);
+  padding-bottom: var(--s3);
+  border-bottom: 1px solid var(--rule);
+}
+.das-key__row:last-child { border-bottom: 0; padding-bottom: 0; }
+.das-key dt {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+.das-key dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--steel);
+  text-wrap: pretty;
+}
+@media (min-width: 40rem) {
+  .das-key__row { grid-template-columns: 14rem 1fr; gap: var(--s4); align-items: baseline; }
+}
 .dasf-base { opacity: 0.22; }
 .dasf {
   /* pathLength="1" on every path, so one dash unit is the whole route and
