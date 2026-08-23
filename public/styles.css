@@ -65,10 +65,9 @@
      it. Widened a little in the 64rem block, where there is room for it.
 
      It applies above AND below each section, so the gap between two sections
-     is twice this. It used to be 3rem with nothing underneath; 2.25 either
-     side makes that 4.5rem, which is more air than before without the page
-     turning into a scroll between headings. */
-  --sec: 2.25rem;
+     is twice this. 1.75 either side makes that 3.5rem, which separates two
+     sections without leaving a band of blank page between them. */
+  --sec: 1.75rem;
 
   --rail-w: 15rem;
   --measure: 68ch;
@@ -457,6 +456,15 @@ body {
    exclusion has to be written here rather than fixed over there. */
 .sheet > section:last-of-type:not(.card-section) { padding-bottom: 0; }
 .sheet > section + section { border-top: 1px solid var(--rule); }
+
+/* A section that ends in an .onward already has a hairline across it — the
+   one .onward draws above its own links. Letting the section boundary draw a
+   second one leaves two parallel rules with a band of blank page between
+   them. Where that happens the .onward's rule does the dividing, the boundary
+   stands down, and the trailing padding shrinks to match.
+   Browsers without :has() simply keep the older, roomier spacing. */
+.sheet > section:has(> .onward:last-child) { padding-bottom: var(--s4); }
+.sheet > section:has(> .onward:last-child) + section { border-top: 0; }
 
 h2 {
   margin: 0 0 var(--s5);
@@ -2339,27 +2347,50 @@ abbr[data-def]:focus-visible::after {
 /* ─── Next/previous page links at the foot of each page ─────────────────── */
 
 .onward {
-  margin-top: var(--s5);
+  margin-top: var(--s4);
   padding-top: var(--s4);
   border-top: 1px solid var(--rule);
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s3) var(--s5);
+  gap: var(--s3);
 }
+
+/* These are the only way onward from a page, so they are built to be seen:
+   a raised pill rather than twelve-pixel grey type. The surface fill is what
+   lifts them off the page in both themes — the border alone is too quiet in
+   dark mode, where --rule is nearly the background. */
 .onward a {
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   color: var(--accent);
   text-decoration: none;
+  padding: var(--s2) var(--s4);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--surface);
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
-.onward a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.onward a:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+}
+.onward a:active { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .onward a { transition: none; }
+  .onward a:hover { transform: none; }
+}
 
 /* ═══ Wide screens: the rail becomes a sticky title block ═══════════════════ */
 
 @media (min-width: 64rem) {
   /* A little more room, so a little more air between sections. */
-  :root { --sec: 2.5rem; }
+  :root { --sec: 2rem; }
 
   body {
     display: grid;
@@ -2536,6 +2567,14 @@ abbr[data-def]:focus-visible::after {
     margin: 0 !important;
   }
   .sheet > section { padding: var(--s4) 0 !important; border: 0 !important; }
+  /* On paper a pill is just a box around a dead link. Print them as text. */
+  .onward a {
+    padding: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    font-size: 9pt !important;
+  }
   .roles, .edu, .certs, .caps, .links, .skills { gap: 0 !important; }
 
   /* A role is the unit that must not be split across a page. */
