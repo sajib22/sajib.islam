@@ -70,6 +70,9 @@
   --sec: 1.75rem;
 
   --rail-w: 15rem;
+  /* The rail collapsed to icons only. Wide enough for a 1.1em icon inside
+     a padded, centred hit target, and no wider. */
+  --rail-mini: 4.5rem;
   --measure: 68ch;
 }
 
@@ -208,6 +211,15 @@ body {
 }
 .js-nav .nav-toggle:hover { color: var(--ink); border-color: var(--steel); }
 
+/* The word "Menu" does not fit a rail the width of an icon, and next to a
+   column of icons it is not needed — the bars already say what the button
+   does. It comes back with the labels. */
+.js-nav:not(.nav-open) .nav-toggle {
+  padding: var(--s2) var(--s3);
+  gap: 0;
+}
+.js-nav:not(.nav-open) .nav-toggle__label { display: none; }
+
 /* Three bars that fold into an X when the drawer is open. */
 .nav-toggle__bars,
 .nav-toggle__bars::before,
@@ -228,30 +240,66 @@ body {
 .js-nav .nav-toggle[aria-expanded="true"] .nav-toggle__bars::before { transform: translateY(5px) rotate(45deg); }
 .js-nav .nav-toggle[aria-expanded="true"] .nav-toggle__bars::after  { transform: translateY(-5px) rotate(-45deg); }
 
-/* The drawer itself. */
+/* The rail itself. It never leaves: collapsed it is a strip of icons, and
+   opening it widens the same strip to show the labels beside them. Width is
+   what animates, so the labels arrive next to the icons rather than the whole
+   column sliding in from off-screen. */
 .js-nav .rail {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  width: min(19rem, 84vw);
+  width: var(--rail-mini);
   z-index: 115;
   overflow-y: auto;
-  padding: var(--s8) var(--s5) var(--s5) var(--s5);
+  /* Required, not defensive: a label mid-transition is wider than the
+     collapsed rail, and overflow in the end direction is scrollable. */
+  overflow-x: hidden;
+  padding: var(--s8) var(--s3) var(--s5);
   border-right: 1px solid var(--rule);
   border-bottom: 0;
   background: var(--paper);
-  transform: translateX(-102%);
-  visibility: hidden;
-  transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0.28s;
+  transition: width 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
+              padding 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 /* Keyed off <html> rather than a class on the rail, so the inline head
-   script can restore an open drawer before the first paint. */
+   script can restore an open rail before the first paint. */
 .js-nav.nav-open .rail {
-  transform: none;
-  visibility: visible;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.18);
+  width: min(19rem, 84vw);
+  padding: var(--s8) var(--s5) var(--s5);
 }
+
+/* ── Collapsed: icons only ──────────────────────────────────────────────────
+   The label is a real element in the markup rather than a bare text node, so
+   it can be collapsed to nothing and brought back. max-width rather than
+   display, because display does not animate and the label would pop in
+   before the rail had finished widening. Every link keeps a title, which is
+   what names an icon while the labels are away. */
+.js-nav .nav-label {
+  display: inline-block;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.18s ease;
+}
+.js-nav.nav-open .nav-label { max-width: 12rem; opacity: 1; }
+
+/* Centred on the icon while collapsed, so the column reads as one row of
+   icons rather than a set of left-aligned links with their text missing. */
+.js-nav:not(.nav-open) .rail__nav a {
+  justify-content: center;
+  gap: 0;
+  padding-left: var(--s2);
+  padding-right: var(--s2);
+}
+
+/* The identity block has no short form, so it waits for the room to exist.
+   This one does pop — it is behind the widening edge, which is where a pop
+   is least visible. */
+.js-nav:not(.nav-open) .rail__name,
+.js-nav:not(.nav-open) .rail__disc,
+.js-nav:not(.nav-open) .rail__loc { display: none; }
 
 /* A dim only. Clicking it does not close the drawer — the button is the only
    control — so it must not swallow clicks, or a reader on a phone would be
@@ -291,11 +339,13 @@ body {
      is left. Translating it instead would slide the same full-width column
      sideways and push the document wider than the viewport, which shows up
      as horizontal scroll the moment the drawer opens. */
-  .js-nav body { transition: padding-left 0.28s cubic-bezier(0.22, 0.61, 0.36, 1); }
+  .js-nav body {
+    padding-left: var(--rail-mini);
+    transition: padding-left 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
   .js-nav.nav-open body { padding-left: min(19rem, 84vw); }
 
-  .js-nav .nav-toggle { transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), color 0.15s, border-color 0.15s; }
-  .js-nav.nav-open .nav-toggle { transform: translateX(min(19rem, 84vw)); }
+  .js-nav .nav-toggle { transition: color 0.15s, border-color 0.15s; }
   /* The drawer no longer covers anything, so the dimming would only get in
      the way of reading — and clicking the page should still close it. */
   .js-nav.nav-open .nav-backdrop { background: transparent; }
@@ -2650,7 +2700,16 @@ abbr[data-def]:focus-visible::after {
     box-shadow: none !important;
   }
   .rail__name { font-size: 20pt; letter-spacing: -0.02em; }
-  .rail__disc, .rail__loc { display: inline; font-size: 9pt; }
+  .rail__disc, .rail__loc { display: inline !important; font-size: 9pt; }
+  /* On paper there is no collapsed state: the rail is a header and every
+     label belongs in it. */
+  .rail__name { display: block !important; }
+  .nav-label {
+    display: inline !important;
+    max-width: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
   .rail__disc::after { content: " · "; }
 
   /* The two-column layout and the drawer's page offset both go. */
