@@ -1042,6 +1042,7 @@
 
     var nav = el("nav", "secrail");
     nav.setAttribute("aria-label", "On this page");
+    nav.appendChild(el("p", "secrail__h", "On this page"));
 
     var links = sections.map(function (sec) {
       var heading = sec.querySelector("h2");

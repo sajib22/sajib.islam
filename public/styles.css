@@ -507,10 +507,13 @@ body {
   to   { transform: none;        opacity: 1; }
 }
 .rail__nav .nav-icon {
-  width: 1.1em; height: 1.1em;
+  width: 1.4em; height: 1.4em;
   flex-shrink: 0;
   display: inline-block;
 }
+/* Collapsed, the icon is the whole link — there is no label carrying any of
+   the meaning — so it is given the room the label would have taken. */
+.js-nav:not(.nav-open) .rail__nav .nav-icon { width: 1.7em; height: 1.7em; }
 .rail__nav .nav-icon svg {
   width: 100%; height: 100%;
   stroke: currentColor;
@@ -935,25 +938,26 @@ abbr[data-def]:focus-visible::after {
 
 .secrail { display: none; }
 
-/* 88rem, not 84: the rail is fixed at half the viewport plus half the sheet
-   plus a gutter, so it needs 32 + 1.5 + 9.5rem of room on each side of the
-   centre line. Below about 86rem its right edge lands past the window and a
-   fixed element will put a horizontal scrollbar on the page just as readily
-   as one in the flow. */
-@media (min-width: 88rem) {
+/* 90rem, not 88: the rail is fixed at half the viewport plus half the sheet
+   plus a gutter, so it needs 32 + 1.5 + 11rem of room on each side of the
+   centre line — 1432px, which clears a 1440px window. Any narrower and its
+   right edge lands past the window, and a fixed element will put a horizontal
+   scrollbar on the page just as readily as one in the flow. */
+@media (min-width: 90rem) {
   .secrail {
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 2px;
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
     /* Half the viewport, out past the sheet's own half-width, plus a gutter.
        Ties the rail to the reading column rather than to the window edge. */
     left: calc(50% + 32rem + var(--s5));
-    width: 9.5rem;
-    max-height: 80vh;
+    width: 11rem;
+    max-height: 82vh;
     overflow-y: auto;
+    padding-left: var(--s2);
     z-index: 90;
   }
   /* The drawer pushes the sheet sideways, but a fixed element measures from
@@ -962,22 +966,44 @@ abbr[data-def]:focus-visible::after {
   .nav-open .secrail { display: none; }
 }
 
-.secrail a {
-  padding: var(--s1) var(--s3);
-  border-left: 2px solid var(--rule);
+/* The heading is what turns a stack of links into a contents list rather
+   than a second navigation competing with the one on the left. */
+.secrail__h {
+  margin: 0 0 var(--s2);
+  padding-left: var(--s3);
   font-family: var(--font-mono);
   font-size: 0.625rem;
-  letter-spacing: 0.04em;
-  line-height: 1.35;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.secrail a {
+  padding: var(--s2) var(--s3);
+  border-left: 2px solid var(--rule);
+  border-radius: 0 5px 5px 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
   color: var(--steel);
   text-decoration: none;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.15s, border-color 0.15s, background-color 0.15s;
 }
-.secrail a:hover { color: var(--ink); }
+.secrail a:hover {
+  color: var(--ink);
+  border-left-color: var(--steel);
+  background: var(--surface);
+}
+/* The section being read is stated three ways — weight, colour and a thicker
+   leading edge — because at this size one of them alone is easy to miss. */
 .secrail a[aria-current] {
   color: var(--accent);
+  font-weight: 600;
   border-left-color: var(--accent);
-  background: var(--surface);
+  border-left-width: 3px;
+  padding-left: calc(var(--s3) - 1px);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
 }
 
 /* ─── Prose ─────────────────────────────────────────────────────────────── */
@@ -1193,7 +1219,7 @@ abbr[data-def]:focus-visible::after {
 /* ── Hover descriptions over the artwork ────────────────────────────────────
    One transparent box per node, positioned as a percentage of the artwork so
    it tracks the image at every width. Decorative and aria-hidden on purpose:
-   the .das-key below the figure carries the same descriptions as real text,
+   the .das-legend below the figure carries the same descriptions as real text,
    which is what a screen reader and a keyboard get. Pointer devices only —
    on a phone these would be ten-pixel targets under a tooltip wider than the
    screen, and the key is the better answer there anyway. */
@@ -1251,40 +1277,84 @@ abbr[data-def]:focus-visible::after {
   .das-node--right::after { left: auto; right: 0; transform: none; }
 }
 
-/* ── The acronym key ────────────────────────────────────────────────────────
-   Every label printed in the artwork, spelled out. This is also the accessible
-   and mobile route to the hover text above. */
-.das-key {
+/* ── The legend ─────────────────────────────────────────────────────────────
+   The legend printed inside the artwork only names the two line types, and it
+   cannot grow — it is part of the raster. This one continues it directly
+   beneath the figure with every element the drawing contains, and it is also
+   the accessible and mobile route to the hover text above. */
+.das-legend {
   max-width: 42rem;
   margin: var(--s5) auto 0;
-  padding: 0;
-  display: grid;
-  gap: var(--s3);
+  padding: var(--s4) var(--s5) var(--s5);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--surface);
 }
-.das-key__row {
+.das-legend__h {
+  margin: 0 0 var(--s4);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+.das-legend__list { margin: 0; display: grid; gap: var(--s3); }
+.das-legend__row {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--s1);
+  grid-template-columns: 1.75rem 1fr;
+  gap: 0 var(--s3);
+  align-items: baseline;
   padding-bottom: var(--s3);
   border-bottom: 1px solid var(--rule);
 }
-.das-key__row:last-child { border-bottom: 0; padding-bottom: 0; }
-.das-key dt {
+.das-legend__row:last-child { border-bottom: 0; padding-bottom: 0; }
+.das-legend dt {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--accent);
   letter-spacing: 0.02em;
+  color: var(--accent);
 }
-.das-key dd {
-  margin: 0;
+.das-legend dd {
+  grid-column: 2;
+  margin: var(--s1) 0 0;
   font-size: 0.9375rem;
   line-height: 1.5;
   color: var(--steel);
   text-wrap: pretty;
 }
+
+/* The swatches repeat the drawing's own marks: the two cable colours as
+   lengths of line, equipment as the grey box it is drawn as, and an antenna
+   as the radiating dot. Same colours the overlay uses. */
+.das-legend__sw {
+  grid-row: 1;
+  align-self: center;
+  justify-self: center;
+  display: block;
+}
+.das-legend__sw--optic,
+.das-legend__sw--rf { width: 1.5rem; height: 3px; border-radius: 2px; }
+.das-legend__sw--optic { background: var(--das-optic); }
+.das-legend__sw--rf    { background: var(--das-rf); }
+.das-legend__sw--box {
+  width: 1rem;
+  height: 0.8rem;
+  border-radius: 2px;
+  background: var(--steel);
+  opacity: 0.55;
+}
+.das-legend__sw--ant {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--das-optic);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--das-optic) 28%, transparent);
+}
+
 @media (min-width: 40rem) {
-  .das-key__row { grid-template-columns: 14rem 1fr; gap: var(--s4); align-items: baseline; }
+  .das-legend__row { grid-template-columns: 1.75rem 13rem 1fr; align-items: baseline; }
+  .das-legend dd { grid-column: 3; margin-top: 0; }
 }
 .dasf-base { opacity: 0.22; }
 .dasf {
@@ -2476,41 +2546,110 @@ abbr[data-def]:focus-visible::after {
   border: 0;
 }
 
-/* ─── Delivery process ──────────────────────────────────────────────────────
-   HTML rather than SVG for the same reason as the chart: it has to reflow
-   from a row of steps into a stacked list on a phone. */
+/* ─── Delivery process, stage by stage ──────────────────────────────────────
+   Eleven stages down one spine. The light runs from the first to the last and
+   then clears, which is the point being made: each stage depends on the one
+   above it, and the package at the bottom is only as good as the survey at
+   the top.
 
-.flow {
+   Each stage lights its own connector rather than one pulse travelling past
+   eleven of them, because a single travelling element cannot know where the
+   stages are — it would drift out of step the moment a label wrapped to a
+   second line. Sequencing by animation-delay stays in step at every width. */
+
+.pflow {
+  --pf-beat: 0.34s;
+  --pf-cycle: 6s;
   margin: var(--s5) 0 0;
   padding: 0;
   list-style: none;
   display: grid;
+  gap: var(--s5);
+}
+
+.pflow__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
   gap: var(--s4);
-  /* Six steps. Explicit columns rather than auto-fit, so it breaks 3+3 or
-     2+2+2 instead of an accidental-looking 4+2. */
-  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
 }
-@media (min-width: 34rem) {
-  .flow { grid-template-columns: repeat(3, 1fr); }
+
+/* The spine between this stage and the next, and the accent that fills it.
+   Both run from under the badge to under the next one, through the gap. */
+.pflow__step::before,
+.pflow__step::after {
+  content: "";
+  position: absolute;
+  left: 1.125rem;
+  margin-left: -1px;
+  top: 2.5rem;
+  bottom: calc(var(--s5) * -1);
+  width: 2px;
 }
-.flow__step {
-  padding-top: var(--s3);
-  border-top: 2px solid var(--accent);
+.pflow__step::before { background: var(--rule); }
+.pflow__step::after {
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top center;
+  animation: pf-fill var(--pf-cycle) linear infinite;
+  animation-delay: calc(var(--i) * var(--pf-beat));
 }
-.flow__n {
-  display: block;
+.pflow__step:last-child::before,
+.pflow__step:last-child::after { display: none; }
+
+.pflow__n {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-size: 0.6875rem;
-  letter-spacing: 0.1em;
-  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--steel);
+  background: var(--surface);
+  border: 2px solid var(--rule);
+  animation: pf-lit var(--pf-cycle) linear infinite;
+  animation-delay: calc(var(--i) * var(--pf-beat));
 }
-.flow__t {
+
+.pflow__body { display: block; padding-top: 0.3rem; }
+.pflow__t {
   display: block;
-  margin-top: var(--s1);
-  font-size: 0.875rem;
-  line-height: 1.35;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
   text-wrap: pretty;
+}
+.pflow__d {
+  display: block;
+  margin-top: var(--s2);
+  max-width: 46ch;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--steel);
+  text-wrap: pretty;
+}
+
+@keyframes pf-fill {
+  0%          { transform: scaleY(0); opacity: 1; }
+  7%          { transform: scaleY(1); opacity: 1; }
+  88%         { transform: scaleY(1); opacity: 1; }
+  100%        { transform: scaleY(1); opacity: 0; }
+}
+@keyframes pf-lit {
+  0%          { color: var(--steel);  border-color: var(--rule);   background: var(--surface); }
+  7%, 88%     { color: var(--accent); border-color: var(--accent); background: var(--surface); }
+  100%        { color: var(--steel);  border-color: var(--rule);   background: var(--surface); }
+}
+
+/* The sequence is decoration; the numbers already carry the order. */
+@media (prefers-reduced-motion: reduce) {
+  .pflow__step::after { display: none; }
+  .pflow__n { animation: none; }
 }
 
 /* ─── Page intro (sits under the h1 on inner pages) ─────────────────────── */
