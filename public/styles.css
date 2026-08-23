@@ -173,6 +173,11 @@ body {
 .rail__name a { color: inherit; text-decoration: none; }
 .rail__name a:hover { color: var(--accent); }
 
+/* The monogram stands in for the full name only while the rail is collapsed.
+   Everywhere else — expanded, on a phone, on paper — the name itself is
+   there and the mark would just be a second copy of it. */
+.rail__mark { display: none; }
+
 .rail__disc, .rail__loc {
   margin: var(--s1) 0 0;
   font-size: 0.75rem;
@@ -294,12 +299,72 @@ body {
   padding-right: var(--s2);
 }
 
-/* The identity block has no short form, so it waits for the room to exist.
-   This one does pop — it is behind the widening edge, which is where a pop
-   is least visible. */
-.js-nav:not(.nav-open) .rail__name,
+/* The discipline and location lines have no short form, so they wait for the
+   room to exist. They do pop — it happens behind the widening edge, which is
+   where a pop is least visible. */
 .js-nav:not(.nav-open) .rail__disc,
 .js-nav:not(.nav-open) .rail__loc { display: none; }
+
+/* ── The monogram ───────────────────────────────────────────────────────────
+   The name does have a short form, so instead of leaving with the rest of the
+   identity block it becomes a mark sitting under the button. It is still the
+   link home that the full name is.
+
+   The name is taken out of the layout but not out of the accessibility tree:
+   the mark is aria-hidden, so were the name display:none the link would be
+   left with no accessible name at all. */
+.js-nav:not(.nav-open) .rail__name { margin-bottom: var(--s4); }
+.js-nav:not(.nav-open) .rail__full {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.js-nav:not(.nav-open) .rail__mark {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 auto;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  /* Tracked out, then the trailing space that adds after the second letter is
+     taken back, so the pair still sits centred in the tile. */
+  letter-spacing: 0.08em;
+  text-indent: 0.08em;
+  color: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.07);
+  transition: border-color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+}
+.js-nav:not(.nav-open) .rail__name a:hover .rail__mark {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  transform: translateY(-1px);
+}
+/* The mark closes the head of the rail the way the identity block closes it
+   when open: a hairline, then the list. */
+.js-nav:not(.nav-open) .rail__name::after {
+  content: "";
+  display: block;
+  width: 1.75rem;
+  height: 1px;
+  margin: var(--s4) auto 0;
+  background: var(--rule);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-nav:not(.nav-open) .rail__name a:hover .rail__mark { transform: none; }
+}
 
 /* A dim only. Clicking it does not close the drawer — the button is the only
    control — so it must not swallow clicks, or a reader on a phone would be
@@ -2704,6 +2769,18 @@ abbr[data-def]:focus-visible::after {
   /* On paper there is no collapsed state: the rail is a header and every
      label belongs in it. */
   .rail__name { display: block !important; }
+  /* No collapsed state on paper, so the name prints, not the monogram. */
+  .rail__mark { display: none !important; }
+  .rail__name::after { display: none !important; }
+  .rail__full {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    clip-path: none !important;
+  }
   .nav-label {
     display: inline !important;
     max-width: none !important;
