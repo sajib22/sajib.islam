@@ -1393,7 +1393,6 @@ abbr[data-def]:focus-visible::after {
   overflow: hidden;
 }
 .dasx__bar-fill { height: 100%; background: var(--accent); }
-}
 
 /* On the DAS page the figure is the point of the section rather than a
    thumbnail beside body copy, so it stacks full width at every size and the
@@ -1401,10 +1400,18 @@ abbr[data-def]:focus-visible::after {
 /* Written with the extra .diagram-row on the front deliberately: the 45%
    column rule for the narrow layout lives in a later media query and ties on
    specificity, so a two-class selector here would lose on source order. */
-.diagram-row.diagram-row--wide { flex-direction: column; }
+/* align-items is reset as well as the direction: the row layout sets
+   flex-start, which in a column means every child sizes to its content
+   instead of filling the width, and the stage would sit at whatever width
+   the artwork happens to imply rather than the width of the column. */
+.diagram-row.diagram-row--wide { flex-direction: column; align-items: stretch; }
 .diagram-row.diagram-row--wide .diagram { flex: 1 1 auto; max-width: 100%; margin: 0; }
-.diagram-row.diagram-row--wide .das-stage { max-width: 42rem; margin: 0 auto; }
-.diagram-row.diagram-row--wide .ibs-diagram { max-width: 42rem; }
+/* The animated stage fills the column: it is the point of the section, and
+   the wider it is the larger its captions and callouts render, since the
+   whole 1920-wide space is scaled by one factor. The plain artwork, which is
+   what shows with no script, keeps a cap — it has no chrome to keep legible
+   and looks stranded blown up. */
+.diagram-row.diagram-row--wide .dasx__still { max-width: 42rem; margin: 0 auto; }
 .diagram-row.diagram-row--wide .diagram__cap { text-align: center; }
 
 /* Reduced motion is handled in das-anim.js rather than here: it holds the
