@@ -329,56 +329,6 @@
 
         <figcaption class="diagram__cap">Distributed antenna system &mdash; a head end feeds remote units on every floor over fibre, with a donor antenna and BDA as the alternative signal source</figcaption>
 
-      <div class="das-legend">
-        <p class="das-legend__h">Legend</p>
-        <dl class="das-legend__list">
-          <div class="das-legend__row">
-            <span class="das-legend__sw das-legend__sw--optic" aria-hidden="true"></span>
-            <dt>Optic Line</dt>
-            <dd>Fibre between the head end and the remote units. Low loss over long runs.</dd>
-          </div>
-          <div class="das-legend__row">
-            <span class="das-legend__sw das-legend__sw--rf" aria-hidden="true"></span>
-            <dt>RF Line</dt>
-            <dd>Coaxial cable carrying RF. Short runs only &mdash; loss rises with distance and frequency.</dd>
-          </div>
-          <div class="das-legend__row">
-            <span class="das-legend__sw das-legend__sw--box" aria-hidden="true"></span>
-            <dt>BTS &mdash; Base Transceiver Station</dt>
-            <dd>Carrier radio equipment installed in the building. Gives the system its own capacity instead of sharing the macro cell.</dd>
-          </div>
-          <div class="das-legend__row">
-            <span class="das-legend__sw das-legend__sw--ant" aria-hidden="true"></span>
-            <dt>Donor Antenna</dt>
-            <dd>Rooftop antenna pointed at a nearby macro cell. It picks up the outdoor signal and feeds the BDA.</dd>
-          </div>
-          <div class="das-legend__row">
-            <span class="das-legend__sw das-legend__sw--box" aria-hidden="true"></span>
-            <dt>BDA &mdash; Bi-Directional Amplifier</dt>
-            <dd>Amplifies the donor signal on both uplink and downlink. Lower cost than a BTS, but it shares the donor cell&rsquo;s capacity.</dd>
-          </div>
-          <div class="das-legend__row">
-            <span class="das-legend__sw das-legend__sw--box" aria-hidden="true"></span>
-            <dt>HE &mdash; Head End</dt>
-            <dd>Combines the signal sources and converts RF to optical. Everything past this point runs on fibre.</dd>
-          </div>
-          <div class="das-legend__row">
-            <span class="das-legend__sw das-legend__sw--box" aria-hidden="true"></span>
-            <dt>RU &mdash; Remote Unit</dt>
-            <dd>Converts the optical signal back to RF on its floor and feeds the DAS antennas over coax.</dd>
-          </div>
-          <div class="das-legend__row">
-            <span class="das-legend__sw das-legend__sw--box" aria-hidden="true"></span>
-            <dt>EU &mdash; Expansion Unit</dt>
-            <dd>Extends the head end&rsquo;s fibre to a neighbouring building and feeds that building&rsquo;s remote units.</dd>
-          </div>
-          <div class="das-legend__row">
-            <span class="das-legend__sw das-legend__sw--ant" aria-hidden="true"></span>
-            <dt>DAS Antenna</dt>
-            <dd>Indoor antenna mounted in the ceiling. Low power, and many of them, so the signal level stays even across the floor.</dd>
-          </div>
-        </dl>
-      </div>
 
         <p class="diagram__alt">Diagram of a Distributed Antenna System serving three buildings.
         In the main building a carrier BTS connects to a head end at ground level, and a rooftop

@@ -1218,11 +1218,11 @@ abbr[data-def]:focus-visible::after {
 
 /* ── Hover descriptions over the artwork ────────────────────────────────────
    One transparent box per node, positioned as a percentage of the artwork so
-   it tracks the image at every width. Decorative and aria-hidden on purpose:
-   the .das-legend below the figure carries the same descriptions as real text,
-   which is what a screen reader and a keyboard get. Pointer devices only —
-   on a phone these would be ten-pixel targets under a tooltip wider than the
-   screen, and the key is the better answer there anyway. */
+   it tracks the image at every width. Decorative and aria-hidden on purpose,
+   with .diagram__alt carrying the description a screen reader gets. Pointer
+   devices only — on a phone these would be ten-pixel targets under a tooltip
+   wider than the screen, and the written description is the better answer
+   there anyway. */
 .das-nodes { display: none; }
 
 @media (hover: hover) and (pointer: fine) {
@@ -1277,85 +1277,6 @@ abbr[data-def]:focus-visible::after {
   .das-node--right::after { left: auto; right: 0; transform: none; }
 }
 
-/* ── The legend ─────────────────────────────────────────────────────────────
-   The legend printed inside the artwork only names the two line types, and it
-   cannot grow — it is part of the raster. This one continues it directly
-   beneath the figure with every element the drawing contains, and it is also
-   the accessible and mobile route to the hover text above. */
-.das-legend {
-  max-width: 42rem;
-  margin: var(--s5) auto 0;
-  padding: var(--s4) var(--s5) var(--s5);
-  border: 1px solid var(--rule);
-  border-radius: 6px;
-  background: var(--surface);
-}
-.das-legend__h {
-  margin: 0 0 var(--s4);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--steel);
-}
-.das-legend__list { margin: 0; display: grid; gap: var(--s3); }
-.das-legend__row {
-  display: grid;
-  grid-template-columns: 1.75rem 1fr;
-  gap: 0 var(--s3);
-  align-items: baseline;
-  padding-bottom: var(--s3);
-  border-bottom: 1px solid var(--rule);
-}
-.das-legend__row:last-child { border-bottom: 0; padding-bottom: 0; }
-.das-legend dt {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-}
-.das-legend dd {
-  grid-column: 2;
-  margin: var(--s1) 0 0;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--steel);
-  text-wrap: pretty;
-}
-
-/* The swatches repeat the drawing's own marks: the two cable colours as
-   lengths of line, equipment as the grey box it is drawn as, and an antenna
-   as the radiating dot. Same colours the overlay uses. */
-.das-legend__sw {
-  grid-row: 1;
-  align-self: center;
-  justify-self: center;
-  display: block;
-}
-.das-legend__sw--optic,
-.das-legend__sw--rf { width: 1.5rem; height: 3px; border-radius: 2px; }
-.das-legend__sw--optic { background: var(--das-optic); }
-.das-legend__sw--rf    { background: var(--das-rf); }
-.das-legend__sw--box {
-  width: 1rem;
-  height: 0.8rem;
-  border-radius: 2px;
-  background: var(--steel);
-  opacity: 0.55;
-}
-.das-legend__sw--ant {
-  width: 0.7rem;
-  height: 0.7rem;
-  border-radius: 50%;
-  background: var(--das-optic);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--das-optic) 28%, transparent);
-}
-
-@media (min-width: 40rem) {
-  .das-legend__row { grid-template-columns: 1.75rem 13rem 1fr; align-items: baseline; }
-  .das-legend dd { grid-column: 3; margin-top: 0; }
-}
 .dasf-base { opacity: 0.22; }
 .dasf {
   /* pathLength="1" on every path, so one dash unit is the whole route and
