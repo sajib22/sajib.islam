@@ -2555,11 +2555,22 @@ abbr[data-def]:focus-visible::after {
    Each stage lights its own connector rather than one pulse travelling past
    eleven of them, because a single travelling element cannot know where the
    stages are — it would drift out of step the moment a label wrapped to a
-   second line. Sequencing by animation-delay stays in step at every width. */
+   second line. Sequencing by animation-delay stays in step at every width.
+
+   --pf-beat is how long the light takes to travel from one stage to the next,
+   and it is the only number to change to re-pace the whole thing. Every
+   keyframe below is written as a percentage of --pf-cycle, so the two have to
+   move together: one beat is 0.9s of a 14s cycle, which is the 6.43% the
+   connector takes to fill. Eleven beats is 9.9s to run the length of it, and
+   the rest of the cycle is the pause before the light drains away.
+
+   A stage's own timeline starts at i × beat, which is the moment the stage
+   above it finishes filling — so the arrival flash needs no offset of its
+   own. It is at 0% because that is when the light gets there. */
 
 .pflow {
-  --pf-beat: 0.34s;
-  --pf-cycle: 6s;
+  --pf-beat: 0.9s;
+  --pf-cycle: 14s;
   margin: var(--s5) 0 0;
   padding: 0;
   list-style: none;
@@ -2634,22 +2645,65 @@ abbr[data-def]:focus-visible::after {
   text-wrap: pretty;
 }
 
+/* One beat — 6.43% of the cycle — to travel from this stage to the next. */
 @keyframes pf-fill {
   0%          { transform: scaleY(0); opacity: 1; }
-  7%          { transform: scaleY(1); opacity: 1; }
-  88%         { transform: scaleY(1); opacity: 1; }
+  6.43%       { transform: scaleY(1); opacity: 1; }
+  93%         { transform: scaleY(1); opacity: 1; }
   100%        { transform: scaleY(1); opacity: 0; }
 }
+
+/* Arrival, then done. The ring is thrown off in the first third of a second
+   and is gone by the end of the first beat, so only the stage the light is
+   actually on is flaring; the ones behind it stay lit but quiet. Written as
+   an outward ring rather than a fade so it reads as something arriving. */
 @keyframes pf-lit {
-  0%          { color: var(--steel);  border-color: var(--rule);   background: var(--surface); }
-  7%, 88%     { color: var(--accent); border-color: var(--accent); background: var(--surface); }
-  100%        { color: var(--steel);  border-color: var(--rule);   background: var(--surface); }
+  0% {
+    color: var(--steel); border-color: var(--rule);
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  2.5% {
+    color: var(--accent); border-color: var(--accent);
+    transform: scale(1.16);
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  7% {
+    color: var(--accent); border-color: var(--accent);
+    transform: scale(1);
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+  93% {
+    color: var(--accent); border-color: var(--accent);
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+  100% {
+    color: var(--steel); border-color: var(--rule);
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+
+/* The stage the light is on names itself, then hands the emphasis on. The
+   badge stays lit to show how far the run has got; only the title flashes,
+   so at any moment exactly one stage is being pointed at. */
+.pflow__t {
+  animation: pf-name var(--pf-cycle) linear infinite;
+  animation-delay: calc(var(--i) * var(--pf-beat));
+}
+@keyframes pf-name {
+  0%              { color: var(--ink); }
+  2.5%, 6.43%     { color: var(--accent); }
+  11%, 100%       { color: var(--ink); }
 }
 
 /* The sequence is decoration; the numbers already carry the order. */
 @media (prefers-reduced-motion: reduce) {
   .pflow__step::after { display: none; }
-  .pflow__n { animation: none; }
+  .pflow__n,
+  .pflow__t { animation: none; }
 }
 
 /* ─── Page intro (sits under the h1 on inner pages) ─────────────────────── */
