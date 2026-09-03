@@ -664,14 +664,12 @@ h1 {
 
 .stat {
   position: relative;
-  overflow: hidden;
-  padding: var(--s4) var(--s3);
-  background: var(--surface);
-  border: 1px solid var(--rule);
   border-radius: 4px;
   text-align: center;
+  cursor: pointer;
+  perspective: 900px;
   transition: transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1),
-              box-shadow 0.22s ease, border-color 0.22s ease;
+              box-shadow 0.22s ease;
   /* Rises into place on load, one after another. The strip sits above the
      fold, so this plays on arrival rather than waiting for a scroll. */
   animation: stat-in 520ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
@@ -688,10 +686,44 @@ h1 {
   to   { opacity: 1; transform: none; }
 }
 
-/* A wash of accent that sweeps up from the floor of the card on hover. Kept
-   under the text with z-index, and behind a very low alpha — this is meant to
-   warm the card, not colour it in. */
-.stat::before {
+/* Click to turn the card over. The two faces are stacked in one grid cell, so
+   the card is always as tall as its taller side and neither face is clipped
+   when it rotates. Only the inner wrapper rotates; the hover lift and shadow
+   stay on the card itself, so a hover and a flip never fight over transform.
+   Under prefers-reduced-motion the global transition override turns this into
+   an instant swap, which still reads correctly. */
+.stat__inner {
+  position: relative;
+  height: 100%;
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.34, 1.1, 0.5, 1);
+}
+.stat.is-flipped .stat__inner { transform: rotateY(180deg); }
+
+.stat__face {
+  grid-area: 1 / 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s4) var(--s3);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.stat__face--back { transform: rotateY(180deg); }
+.stat__face > * { position: relative; z-index: 1; }
+
+/* A wash of accent that sweeps up from the floor of the front face on hover.
+   Kept under the text and at a very low alpha — it warms the card, not colours
+   it in. */
+.stat__face--front::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -700,14 +732,18 @@ h1 {
   opacity: 0;
   transition: opacity 0.22s ease;
 }
-.stat > * { position: relative; z-index: 1; }
 
 .stat:hover {
   transform: translateY(-5px);
-  border-color: var(--accent);
-  box-shadow: inset 3px 0 0 0 var(--accent), 0 10px 26px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
 }
-.stat:hover::before { opacity: 0.07; }
+.stat:hover .stat__face {
+  border-color: var(--accent);
+  box-shadow: inset 3px 0 0 0 var(--accent);
+}
+.stat:hover .stat__face--front::before { opacity: 0.07; }
+.stat:focus-visible { outline: none; }
+.stat:focus-visible .stat__face { border-color: var(--accent); box-shadow: inset 3px 0 0 0 var(--accent); }
 
 .stat__n {
   display: block;
@@ -753,8 +789,18 @@ h1 {
    It has to sit below .stat__n rather than up with the other five-column
    rules: same specificity, so source order decides. */
 @media (min-width: 68rem) {
-  .stat { padding: var(--s4) var(--s2); }
+  .stat__face { padding: var(--s4) var(--s2); }
   .stat__n { font-size: 1.5rem; }
+}
+
+/* Back-of-card copy: one short line explaining what the figure counts. Sized
+   to fit the narrow five-across card without forcing the whole row taller. */
+.stat__desc {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--ink);
+  text-wrap: pretty;
 }
 
 /* The entrance is arrival, not information — a reader who asked for no motion

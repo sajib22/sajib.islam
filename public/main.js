@@ -1325,4 +1325,29 @@
     }
   })();
 
+  /* ─── Flip the headline cards on click ───────────────────────────────────
+     Each stat is a button that turns over to show a one-line description of
+     what the figure counts. Keyboard users get the same via Enter/Space; the
+     turn itself is pure CSS, so this only toggles state and mirrors it into
+     aria-pressed for assistive tech. */
+
+  (function statFlip() {
+    var cards = document.querySelectorAll(".stats .stat");
+    if (!cards.length) return;
+
+    Array.prototype.forEach.call(cards, function (card) {
+      function toggle() {
+        var flipped = card.classList.toggle("is-flipped");
+        card.setAttribute("aria-pressed", flipped ? "true" : "false");
+      }
+      card.addEventListener("click", toggle);
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();            // stop Space from scrolling the page
+          toggle();
+        }
+      });
+    });
+  })();
+
 })();
