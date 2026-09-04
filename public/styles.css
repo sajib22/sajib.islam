@@ -71,6 +71,9 @@
   --sec: 2.25rem;
 
   --rail-w: 15rem;
+  /* Width of the slim rail that stays on screen when the drawer is shut —
+     wide enough for a nav icon and the monogram, and nothing more. */
+  --rail-mini: 4.5rem;
   --measure: 68ch;
 }
 
@@ -300,6 +303,80 @@ body {
   /* The drawer no longer covers anything, so the dimming would only get in
      the way of reading — and clicking the page should still close it. */
   .js-nav.nav-open .nav-backdrop { background: transparent; }
+}
+
+/* ── The shut drawer leaves a slim rail behind ──────────────────────────────
+   From 48rem up there is width to spare, so closing the menu collapses the
+   rail to a gutter instead of sliding it off screen: the SI monogram and the
+   nav icons stay visible and one click away, and opening it widens that same
+   element back into the full title block with the name and the labels.
+
+   Below 48rem nothing changes — the rail still leaves entirely, because a
+   phone has no width to give up to a permanent gutter without squeezing the
+   charts into a horizontal scroll.
+
+   Scoped to screen on purpose: the print stylesheet rebuilds the rail as a CV
+   header, and a width query still matches against the page box on paper.
+
+   Labels are folded away with font-size rather than display:none so the words
+   stay in the accessibility tree. The icons are decorative (aria-hidden), so
+   a rail of bare glyphs would otherwise read as a list of empty links. */
+@media screen and (min-width: 48rem) {
+  .js-nav .rail {
+    transform: none;
+    visibility: visible;
+    width: var(--rail-mini);
+    padding-left: var(--s2);
+    padding-right: var(--s2);
+    text-align: center;
+    transition: width 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
+                padding 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .js-nav body { padding-left: var(--rail-mini); }
+
+  .js-nav.nav-open .rail {
+    width: min(19rem, 84vw);
+    padding-left: var(--s5);
+    padding-right: var(--s5);
+    text-align: left;
+  }
+
+  /* Collapsed: the monogram stands in for the full name, which stays in the
+     markup so the link is still announced as "Sajib Islam". */
+  .js-nav:not(.nav-open) .rail__name a { font-size: 0; }
+  .js-nav:not(.nav-open) .rail__name a::before {
+    content: "SI";
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+  }
+  .js-nav:not(.nav-open) .rail__disc,
+  .js-nav:not(.nav-open) .rail__loc { display: none; }
+
+  /* Collapsed: icons only, centred in the gutter. The link has to become a
+     block-level flex box to have a width to centre within, and the gap has to
+     go or it would offset the icon against the zero-width label beside it. */
+  .js-nav:not(.nav-open) .rail__nav a {
+    font-size: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* The current-page bar sits a little outside the link in the wide rail,
+     which in a 4.5rem gutter would push against the edge. */
+  .js-nav:not(.nav-open) .rail__nav a[aria-current]::after { left: 0; }
+  .js-nav:not(.nav-open) .rail__nav .nav-icon {
+    font-size: 1rem;
+    width: 1.35em;
+    height: 1.35em;
+  }
+
+  /* The pill has no room for its word beside a 4.5rem rail. */
+  .js-nav:not(.nav-open) .nav-toggle__label { display: none; }
+  .js-nav:not(.nav-open) .nav-toggle { padding: var(--s2); }
 }
 
 /* With the rail out of the flow the sheet gets the full width, and needs a
