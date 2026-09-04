@@ -812,7 +812,48 @@
        is deliberately no dismiss on the backdrop, on Escape, or on following
        a link — it stays open until the X is pressed. */
     button.addEventListener("click", function () {
+      hideTip();
       setOpen(button.getAttribute("aria-expanded") !== "true", true);
+    });
+
+    /* ── Collapsed rail: the icons name themselves ────────────────────────
+       Shut, the rail is a strip of unlabelled glyphs, so the first click on
+       one opens the drawer to show what they are rather than navigating
+       somewhere the reader only guessed at. Open, they are ordinary links
+       again and this stands aside. */
+
+    function collapsed() {
+      var root = document.documentElement;
+      return root.classList.contains("js-nav") &&
+             !root.classList.contains("nav-open");
+    }
+
+    var tip = el("div", "nav-tip");
+    tip.hidden = true;
+    document.body.appendChild(tip);
+
+    function hideTip() { tip.hidden = true; }
+
+    function showTip(link) {
+      if (!collapsed()) return;               // labels are already on screen
+      tip.textContent = link.textContent.trim();
+      tip.hidden = false;
+      var r = link.getBoundingClientRect();
+      tip.style.top = (r.top + r.height / 2) + "px";
+      tip.style.left = (r.right + 10) + "px";
+    }
+
+    Array.prototype.forEach.call(rail.querySelectorAll(".rail__nav a"), function (link) {
+      link.addEventListener("mouseenter", function () { showTip(link); });
+      link.addEventListener("focus", function () { showTip(link); });
+      link.addEventListener("mouseleave", hideTip);
+      link.addEventListener("blur", hideTip);
+      link.addEventListener("click", function (e) {
+        if (!collapsed()) return;             // open: follow the link as usual
+        e.preventDefault();
+        hideTip();
+        setOpen(true, true);
+      });
     });
 
     /* Every navigation is a full page load, so without remembering the state
