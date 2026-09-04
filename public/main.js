@@ -1265,4 +1265,89 @@
     paint();
   })();
 
+  /* ─── Count-up on the headline figures ───────────────────────────────────
+     The five hero numbers roll from 0 to their authored value the first time
+     the row scrolls into view. The suffix ("+") and any non-digit text are
+     preserved verbatim, so editing content stays a matter of typing the final
+     figure — nothing here needs touching. Readers who ask for reduced motion
+     see the final numbers immediately, exactly as written. */
+
+  (function statCounters() {
+    var nums = document.querySelectorAll(".stats .stat__n");
+    if (!nums.length) return;
+
+    var reduce = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;                    // leave the figures exactly as authored
+
+    /* Parse each figure into a target and a suffix, then zero the visible
+       value so it never flashes the final number before the roll begins. The
+       number is a full-width block with tabular-nums, so the digit count can
+       grow without shifting anything around it. */
+    var items = [];
+    Array.prototype.forEach.call(nums, function (node) {
+      var m = node.textContent.trim().match(/^(\d[\d,]*)(.*)$/);
+      if (!m) return;                      // not a number we can count — leave it
+      var target = parseInt(m[1].replace(/,/g, ""), 10);
+      if (!isFinite(target)) return;
+      items.push({ node: node, target: target, suffix: m[2] });
+      node.textContent = "0" + m[2];
+    });
+    if (!items.length) return;
+
+    var DURATION = 1200;
+
+    function roll(item) {
+      var start = null;
+      function step(now) {
+        if (start === null) start = now;
+        var p = Math.min((now - start) / DURATION, 1);
+        var eased = 1 - Math.pow(1 - p, 3);          // easeOutCubic — fast, then settles
+        item.node.textContent = Math.round(item.target * eased) + item.suffix;
+        if (p < 1) requestAnimationFrame(step);
+        else item.node.textContent = item.target + item.suffix;
+      }
+      requestAnimationFrame(step);
+    }
+
+    function play() { items.forEach(roll); }
+
+    var anchor = items[0].node.closest(".stats") || items[0].node;
+    if (typeof IntersectionObserver === "function") {
+      var seen = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { play(); obs.disconnect(); }
+        });
+      }, { threshold: 0.4 });
+      seen.observe(anchor);
+    } else {
+      play();
+    }
+  })();
+
+  /* ─── Flip the headline cards on click ───────────────────────────────────
+     Each stat is a button that turns over to show a one-line description of
+     what the figure counts. Keyboard users get the same via Enter/Space; the
+     turn itself is pure CSS, so this only toggles state and mirrors it into
+     aria-pressed for assistive tech. */
+
+  (function statFlip() {
+    var cards = document.querySelectorAll(".stats .stat");
+    if (!cards.length) return;
+
+    Array.prototype.forEach.call(cards, function (card) {
+      function toggle() {
+        var flipped = card.classList.toggle("is-flipped");
+        card.setAttribute("aria-pressed", flipped ? "true" : "false");
+      }
+      card.addEventListener("click", toggle);
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();            // stop Space from scrolling the page
+          toggle();
+        }
+      });
+    });
+  })();
+
 })();
