@@ -370,14 +370,36 @@ body {
   .js-nav:not(.nav-open) .rail__nav a[aria-current]::after { left: 0; }
   .js-nav:not(.nav-open) .rail__nav .nav-icon {
     font-size: 1rem;
-    width: 1.35em;
-    height: 1.35em;
+    width: 1.65em;
+    height: 1.65em;
   }
 
   /* The pill has no room for its word beside a 4.5rem rail. */
   .js-nav:not(.nav-open) .nav-toggle__label { display: none; }
   .js-nav:not(.nav-open) .nav-toggle { padding: var(--s2); }
 }
+
+/* ── Name of a collapsed icon, on hover ─────────────────────────────────────
+   Drawn on <body> and positioned by main.js rather than as a pseudo-element
+   inside the link: the rail scrolls its own overflow, so anything painted
+   inside it is clipped at the 4.5rem edge. Only ever shown while the rail is
+   collapsed — once the drawer is open every label is already on screen. */
+.nav-tip {
+  position: fixed;
+  z-index: 130;
+  transform: translateY(-50%);
+  padding: var(--s1) var(--s2);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+}
+.nav-tip[hidden] { display: none; }
 
 /* With the rail out of the flow the sheet gets the full width, and needs a
    little headroom so the first line clears the fixed menu button. */
@@ -2563,6 +2585,9 @@ abbr[data-def]:focus-visible::after {
 
 .onward {
   margin-top: var(--s5);
+  /* The paragraph's default bottom margin lands on top of the section padding
+     below it and doubles the gap. The section owns that space, not this line. */
+  margin-bottom: 0;
   padding-top: var(--s4);
   border-top: 1px solid var(--rule);
   display: flex;
@@ -2571,12 +2596,18 @@ abbr[data-def]:focus-visible::after {
 }
 .onward a {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--accent);
   text-decoration: none;
 }
 .onward a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* These links close a section, so the section's usual bottom padding lands on
+   top of the gap the next one already opens with and leaves them stranded in
+   the middle of a lot of nothing. Pulled in only where one is present. */
+.sheet > section:has(> .onward) { padding-bottom: var(--s4); }
 
 /* ═══ Wide screens: the rail becomes a sticky title block ═══════════════════ */
 
